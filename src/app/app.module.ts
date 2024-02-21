@@ -22,6 +22,7 @@ import { Home2Component } from './components/home2/home2.component';
 import { Home3Component } from './components/home3/home3.component';
 import { CoursesComponent } from './components/courses/courses.component';
 import { CourseDetailsComponent } from './components/course-details/course-details.component';
+import { HeaderComponent } from './components/header/header.component';
 
 
 @NgModule({
@@ -44,7 +45,8 @@ import { CourseDetailsComponent } from './components/course-details/course-detai
     Home2Component,
     Home3Component,
     CoursesComponent,
-    CourseDetailsComponent
+    CourseDetailsComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
