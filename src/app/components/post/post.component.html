@@ -1,0 +1,77 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-9">
+      <div class="post">
+       
+        <div class="post-content">
+          <div class="post-header">
+            <span class="subreddit-text"><a class="post-url" href=""> Article </a></span>
+            <span> . Posted at
+              <span> {{post.createdAt}} </span>
+              by              
+              <a class="username" href="">aziz</a>
+            </span>
+          </div>
+          <hr />
+          <a routerLink="post.url" class="post-title">{{post.titre}}</a>
+          <div class="post-body">
+            <p class="post-text" [innerHTML]="post.context"></p>
+          </div>
+          <div class="post-comment">
+            <form [formGroup]="createReplyForm" (ngSubmit)="createReplyAndAffectToPost()">
+              <div class="form-group">
+                <textarea class="form-control" placeholder="Your Thoughts?" [formControlName]="'context'"></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary">Comment</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="replies-section">
+        <h3>Replies</h3>
+        <hr />
+        <!-- Iterate through each reply and display them -->
+      <!-- Iterate through each reply and display them -->
+<div class="comment" *ngFor="let reply of post.replies">
+  <div *ngIf="reply.visibility == true" class="reply">
+    <div class="user-info">
+      <!-- Display the user's image if imageUrl is available -->
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9GiotOpyx-bcovaCjEhxV8akRl2t8rV4L_C2zHeWX&s" alt="User Photo" width="30" height="30">
+      <!-- Display the user's ID with a link -->
+      <a routerLink="/user/{{ reply.idUser }}">user name</a>
+    </div>
+    <div class="post-buttons">
+      <!-- Update Button -->
+      <button mat-icon-button color="primary" aria-label="Update" (click)="startEditingReply(reply)">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-icon-button color="warn" aria-label="Delete" (click)="openDeleteReplyConfirmationDialog(reply.idReply)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+    <div class="reply-content">
+      <!-- Display the context of the reply -->
+      <ng-container *ngIf="editedReply !== reply; else editMode">
+        <p>{{ reply.context }}</p>
+      </ng-container>
+      <ng-template #editMode>
+        <textarea class="form-control" [(ngModel)]="editedReplyContent"></textarea>
+        <button class="btn btn-primary" (click)="updateReply(reply.idReply)">Save</button>
+        <button class="btn btn-secondary" (click)="cancelEditingReply()">Cancel</button>
+      </ng-template>
+      <div class="reply-actions">
+        <button (click)="incrementRecommondation()" class="btn btn-sm btn-secondary">Upvote</button>
+        <span>{{ reply.recommondations }}</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+      </div>
+    </div>
+    <div class="col-md-3">
+      <!-- Sidebar content here -->
+    </div>
+  </div>
+</div>

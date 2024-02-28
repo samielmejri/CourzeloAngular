@@ -1,0 +1,32 @@
+<!-- Display Posts-->
+<div class="row post" style="margin-left: -100px; margin-right: 50px;">
+    <!-- Section to Display Post Information-->
+    <div *ngFor="let post of posts" class="media single-event-inner" style="width: 800px;">
+      <div class="media-left date">
+        <span>user</span>
+        img
+      </div>
+      <div class="media-body details">
+        <ul class="blog-meta">
+          <li><i class="fa fa-clock-o"></i> posted by userr at {{post.createdAt}} </li>
+        </ul>
+        <div class="d-flex justify-content-between align-items-center">
+          <h5><a [routerLink]="'/post/' + post.idPost">{{ post.titre }}</a></h5>
+          <div class="post-buttons">
+            <!-- Update Button -->
+            <button [routerLink]="'/updatePost/' + post.idPost"  mat-icon-button color="primary" aria-label="Update">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button  mat-icon-button color="warn" aria-label="Delete" (click)="openDeleteConfirmationDialog(post.idPost)">
+              <mat-icon>delete</mat-icon>
+            </button>
+  
+          </div>
+        </div>
+        <div>
+          <p class="post-text" [innerHTML]="post.context"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  
