@@ -4,6 +4,7 @@ import { CreatePostPayload } from './components/create-post/create-post.payload'
 import { Observable } from 'rxjs';
 import { ArticleModel } from './components/create-article/create-article.payload';
 import { createReplyPayload } from './components/post/reply.payload';
+import { createRe_replyPayload } from './components/post/re_reply.payload';
 
 @Injectable({
   providedIn: 'root'
@@ -26,6 +27,18 @@ export class ForumService {
    
    createReply(replyPlayload : createReplyPayload) {
     return this.HttpClient.post(this.API_URL+'/reply/saveReply', replyPlayload)
+   }
+   getRe_replies() {
+    return this.HttpClient.get(this.API_URL+'/re_reply/getAll')
+   }
+   updateRe_reply (id :string,re_replyPlayload : createRe_replyPayload) {
+    return this.HttpClient.put(`${this.API_URL}/re_reply/update/${id}`, re_replyPlayload)
+   }
+   deleteRe_reply(id :string) {
+    return this.HttpClient.delete(`${this.API_URL}/re_reply/delete/${id}`)
+   }
+   createRe_reply(re_replyPlayload : createRe_replyPayload) {
+    return this.HttpClient.post(this.API_URL+'/re_reply/saveRe_reply', re_replyPlayload)
    }
 
    createPost(postPayload: CreatePostPayload): Observable<any> {

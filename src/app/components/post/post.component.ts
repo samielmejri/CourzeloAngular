@@ -7,6 +7,7 @@ import { throwError } from 'rxjs';
 import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { FormsModule } from '@angular/forms';
+import { createRe_replyPayload } from './re_reply.payload';
 
 @Component({
   selector: 'app-post',
@@ -16,19 +17,31 @@ import { FormsModule } from '@angular/forms';
 })
 export class PostComponent implements OnInit {
   createReplyForm: FormGroup;
+  createRe_replyForm: FormGroup;
   replyPayload: createReplyPayload;
+  re_replyPayload: createRe_replyPayload;
   context = new FormControl('');
   recommondations = new FormControl(0);
   visibility = new FormControl(true);
   postId: string ='';
+  toReplyId: string ='';
   post: any; 
   article : any;
-  editedReply: any; // Variable to track the edited reply
-  editedReplyContent: string = ''; // Variable to store the edited content
+  editedReply: any; 
+  editedReplyContent: string = '';
   editedReplyId: string  = '';
+  editedRe_reply: any; 
+  editedRe_replyContent: string = '';
+  editedRe_replyId: string  = '';
+  replyClicked: boolean = false;
 
   constructor(private dialog: MatDialog,private router: Router,private route: ActivatedRoute, private forumService: ForumService) {
     this.createReplyForm = new FormGroup( {
+      context: new FormControl('', Validators.required),
+      recommondations: new FormControl(0, Validators.required),
+      visibility: new FormControl(true, Validators.required),
+    })
+    this.createRe_replyForm = new FormGroup({
       context: new FormControl('', Validators.required),
       recommondations: new FormControl(0, Validators.required),
       visibility: new FormControl(true, Validators.required),
@@ -41,10 +54,16 @@ export class PostComponent implements OnInit {
       postId : '',
 
     }
+    this.re_replyPayload = {
+      idRe_reply: '',
+      context : '',
+      recommondations : 0,
+      visibility : true,
+      replyId : '',
+    }
   }
   
   ngOnInit() {
-console.log('reply is ', this.editedReply)
     this.route.params.subscribe(params => {
       this.postId = params['id'];
 
@@ -87,14 +106,21 @@ this.createReplyForm = new FormGroup({
     this.editedReply = reply;
     this.editedReplyContent = reply.context;
     this.editedReplyId = reply.idReply;
-
   }
+  startEditingRe_reply(re_reply: any) {
+    this.editedRe_reply = re_reply;
+    this.editedRe_replyContent = re_reply.context;
+    this.editedRe_replyId = re_reply.idReply;
+  }
+  onClickReply(replyId: string) {
+this.replyClicked =! this.replyClicked;
+this.toReplyId = replyId;
+}
   cancelEditingReply() {
     this.editedReply = null;
     this.editedReplyContent = '';
   }
   updateReply(id: string){
-    console.log('Update reply',id)
     if (!this.replyPayload) {
       console.error('Form or payload not properly initialized.');
       return;
@@ -116,7 +142,56 @@ location.reload();
       }
     );
   }
+  updateRe_reply(id: string){
+    if (!this.replyPayload) {
+      console.error('Form or payload not properly initialized.');
+      return;
+    }
+   
+    const contextControl = this.editedRe_replyContent;
+    if (contextControl) {
+      this.re_replyPayload.context = contextControl || '';
+    }
 
+
+    this.forumService.updateRe_reply(id, this.re_replyPayload).subscribe(
+      data => {
+location.reload();
+      },
+      error => {
+        throwError(error);
+        console.error('Error updating re_reply:', error);
+      }
+    );
+  }
+  
+  createRe_replyAndAffectToReply() {
+    if (!this.createRe_replyForm || !this.re_replyPayload) {
+      console.error('Form or payload not properly initialized.');
+      return;
+    }
+   
+    const contextControl = this.createRe_replyForm.get('context');
+    if (contextControl) {
+      this.re_replyPayload.context = contextControl.value || ''; 
+    }
+   
+    this.re_replyPayload.recommondations = 0;
+    this.re_replyPayload.visibility = true;
+    this.re_replyPayload.replyId = this.toReplyId;
+    this.re_replyPayload.idRe_reply = this.generateReplyId();
+ 
+     this.forumService.createRe_reply(this.re_replyPayload).subscribe(
+      data => {
+      location.reload();
+      },
+      error => {
+        throwError(error);
+        console.error('Error creating re_reply:', error);
+      }
+    );
+
+  }
 
   createReplyAndAffectToPost() {
     if (!this.createReplyForm || !this.replyPayload) {
@@ -144,6 +219,32 @@ location.reload();
       }
     );
 
+  }
+  deleteRe_reply(id: string) {
+    this.forumService.deleteRe_reply(id).subscribe(
+      data => {
+        location.reload();
+      },
+      error => {
+        throwError(error);
+        console.error('Error deleting re_reply:', error);
+      }
+    )
+  }
+  openDeleteRe_replyConfirmationDialog(re_replyId: string): void {
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '300px', // Set the width as per your design
+      data: {
+        title: 'Confirm Deletion',
+        message: 'Are you sure you want to delete this reply?',
+      },
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.deleteRe_reply(re_replyId);
+      }
+    });
   }
   deleteReply(id: string) {
     this.forumService.deleteReply(id).subscribe(

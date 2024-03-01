@@ -17,61 +17,115 @@
           <div class="post-body">
             <p class="post-text" [innerHTML]="post.context"></p>
           </div>
-          <div class="post-comment">
-            <form [formGroup]="createReplyForm" (ngSubmit)="createReplyAndAffectToPost()">
-              <div class="form-group">
-                <textarea class="form-control" placeholder="Your Thoughts?" [formControlName]="'context'"></textarea>
-              </div>
-              <button type="submit" class="btn btn-primary">Comment</button>
-            </form>
-          </div>
+          <form [formGroup]="createReplyForm" (ngSubmit)="createReplyAndAffectToPost()" class="blog-comment-form" style="margin-top: 100px;">
+            <div class="mb-3">
+                <h3 class="mb-0">Leave a Reply</h3>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="single-input-inner style-bg-border">
+                        <textarea [formControlName]="'context'" placeholder="Your Thoughts?"></textarea>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <button  type="submit" class="btn btn-base">Post Comment</button>
+                </div>
+            </div>
+        </form> 
+       
         </div>
       </div>
-
-      <div class="replies-section">
-        <h3>Replies</h3>
-        <hr />
-        <!-- Iterate through each reply and display them -->
-      <!-- Iterate through each reply and display them -->
-<div class="comment" *ngFor="let reply of post.replies">
-  <div *ngIf="reply.visibility == true" class="reply">
-    <div class="user-info">
-      <!-- Display the user's image if imageUrl is available -->
-      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9GiotOpyx-bcovaCjEhxV8akRl2t8rV4L_C2zHeWX&s" alt="User Photo" width="30" height="30">
-      <!-- Display the user's ID with a link -->
-      <a routerLink="/user/{{ reply.idUser }}">user name</a>
-    </div>
-    <div class="post-buttons">
-      <!-- Update Button -->
-      <button mat-icon-button color="primary" aria-label="Update" (click)="startEditingReply(reply)">
-        <mat-icon>edit</mat-icon>
-      </button>
-      <button mat-icon-button color="warn" aria-label="Delete" (click)="openDeleteReplyConfirmationDialog(reply.idReply)">
-        <mat-icon>delete</mat-icon>
-      </button>
-    </div>
-    <div class="reply-content">
-      <!-- Display the context of the reply -->
-      <ng-container *ngIf="editedReply !== reply; else editMode">
-        <p>{{ reply.context }}</p>
-      </ng-container>
-      <ng-template #editMode>
-        <textarea class="form-control" [(ngModel)]="editedReplyContent"></textarea>
-        <button class="btn btn-primary" (click)="updateReply(reply.idReply)">Save</button>
-        <button class="btn btn-secondary" (click)="cancelEditingReply()">Cancel</button>
-      </ng-template>
-      <div class="reply-actions">
-        <button (click)="incrementRecommondation()" class="btn btn-sm btn-secondary">Upvote</button>
-        <span>{{ reply.recommondations }}</span>
+      <div class="blog-comment">
+        <div class="section-title style-small">
+            <h3>Replies</h3>
+        </div>
+        <div class="media" *ngFor="let reply of post.replies">
+          <div *ngIf="reply.visibility == true">
+            <a href="#">
+                <img src="assets/img/team/1.png" alt="comment">
+            </a>
+            <div class="media-body" >
+              <h5>
+                <a href="#">Aaron Holmes</a>
+                <span class="date">{{reply.updatedAt}}</span>
+                <div class="post-buttons">
+                  <button mat-icon-button color="primary" aria-label="Update" (click)="startEditingReply(reply)">
+                    <mat-icon>edit</mat-icon>
+                  </button>
+                  <button mat-icon-button color="warn" aria-label="Delete" (click)="openDeleteReplyConfirmationDialog(reply.idReply)">
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </div>
+              </h5>
+                <ng-container *ngIf="editedReply !== reply; else editMode">
+                  <p class="context">{{ reply.context }}</p>
+                </ng-container>
+                <ng-template #editMode>
+                  <textarea class="form-control" [(ngModel)]="editedReplyContent"></textarea>
+                  <button class="btn btn-primary" (click)="updateReply(reply.idReply)">Save</button>
+                  <button class="btn btn-secondary" (click)="cancelEditingReply()">Cancel</button>
+                </ng-template>
+                <div class="reply-actions">
+                  <button (click)="incrementRecommondation()" class="btn btn-sm btn-secondary">Upvote</button>
+                  <span>{{ reply.recommondations }}</span>
+                </div>
+                <button  (click)="onClickReply(reply.idReply)" class="cta">
+                  <span class="hover-underline-animation"> REPLY</span>
+                </button>
+                
+            </div>
+            <!--  to change replyform to rereplyform-->
+            <form *ngIf="replyClicked" [formGroup]="createRe_replyForm" (ngSubmit)="createRe_replyAndAffectToReply()" class="blog-comment-form" style="margin-top: 10px;">
+              <div class="mb-3">
+                  <h3 class="mb-0">Leave a Reply</h3>
+              </div>
+              <div class="row">
+                  <div class="col-12">
+                      <div class="single-input-inner style-bg-border">
+                          <textarea [formControlName]="'context'" placeholder="Your Thoughts?"></textarea>
+                      </div>
+                  </div>
+                  <div class="col-12">
+                      <button  type="submit" class="btn btn-base">Post Comment</button>
+                  </div>
+              </div>
+          </form> 
+          <div class="media nesting" style="margin-top: 30px;" *ngIf="reply.re_replies !== null">
+            <div *ngFor="let re_reply of reply.re_replies" class="nested-reply">
+              <a href="#">
+                <img src="assets/img/team/2.png" alt="comment">
+              </a>
+              <div class="media-body">
+                <h5>
+                  <a href="#">Aaron Holmes</a>
+                  <span class="date">{{re_reply.updatedAt}}</span>
+                </h5>
+                <ng-container *ngIf="editedRe_reply !== re_reply; else editMode">
+                  <p class="context">{{ re_reply.context }}</p>
+                </ng-container>
+                <ng-template #editMode>
+                  <textarea class="form-control" [(ngModel)]="editedRe_replyContent"></textarea>
+                  <button class="btn btn-primary" (click)="updateRe_reply(re_reply.idRe_reply)">Save</button>
+                  <button class="btn btn-secondary" (click)="cancelEditingReply()">Cancel</button>
+                </ng-template>                <div class="post-buttons">
+                  <button mat-icon-button color="primary" aria-label="Update" (click)="startEditingRe_reply(re_reply)">
+                    <mat-icon>edit</mat-icon>
+                  </button>
+                  <button mat-icon-button color="warn" aria-label="Delete" (click)="openDeleteRe_replyConfirmationDialog(re_reply.idRe_reply)">
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+        </div>
       </div>
-    </div>
-  </div>
-</div>
-
-      </div>
+        </div>
+    </div> 
+    
     </div>
     <div class="col-md-3">
       <!-- Sidebar content here -->
     </div>
   </div>
-</div>
