@@ -1,32 +1,51 @@
 <!-- Display Posts-->
-<div class="row post" style="margin-left: -100px; margin-right: 50px;">
-    <!-- Section to Display Post Information-->
-    <div *ngFor="let post of posts" class="media single-event-inner" style="width: 800px;">
-      <div class="media-left date">
-        <span>user</span>
-        img
+<div class="row post" style="margin-left: -20px; margin-right: 50px;">
+  <!-- Section to Display Post Information-->
+  <div *ngFor="let post of posts" class="media single-event-inner" style="width: 800px;">
+    <div class="media-left date">
+      <span>user</span>
+      img
+    </div>
+    <div class="media-body details">
+      <ul class="blog-meta">
+        <li><i class="fa fa-clock-o"></i> posted by userr at {{post.createdAt}} </li>
+      </ul>
+      <div class="d-flex justify-content-between align-items-center">
+        <h5><a [routerLink]="'/post/' + post.idPost">{{ post.titre }}</a></h5>
+        
+        <div class="post-buttons">
+          <!-- Vote Up Button -->
+          <button mat-icon-button color="primary" aria-label="Vote Up" (click)="voteUp(post.idPost, 'static')">
+            <mat-icon>thumb_up</mat-icon>
+          </button>
+
+          <!-- Vote Down Button -->
+          <button mat-icon-button color="warn" aria-label="Vote Down" (click)="voteDown(post.idPost, 'static')">
+            <mat-icon>thumb_down</mat-icon>
+          </button>
+
+          <!-- Follow/Unfollow Button -->
+          <button mat-icon-button [color]="isPostFollowed(post.idPost) ? 'warn' : 'primary'" aria-label="Follow/Unfollow" (click)="toggleFollow(post.idPost)">
+            <mat-icon>{{ isPostFollowed(post.idPost) ? 'thumb_down' : 'thumb_up' }}</mat-icon>
+          </button>
+
+          <!-- Update Button -->
+          <button [routerLink]="'/updatePost/' + post.idPost" mat-icon-button color="primary" aria-label="Update">
+            <mat-icon>edit</mat-icon>
+          </button>
+
+          <!-- Delete Button -->
+          <button mat-icon-button color="warn" aria-label="Delete" (click)="openDeleteConfirmationDialog(post.idPost)">
+            <mat-icon>delete</mat-icon>
+          </button>
+          <span class="followers-count">{{ followCount.get(post.idPost) || 0 }} Followers</span>
+          <span class="followers-count">{{ votesCount.get(post.idPost) || 0 }} Votes</span>
+
+        </div>
       </div>
-      <div class="media-body details">
-        <ul class="blog-meta">
-          <li><i class="fa fa-clock-o"></i> posted by userr at {{post.createdAt}} </li>
-        </ul>
-        <div class="d-flex justify-content-between align-items-center">
-          <h5><a [routerLink]="'/post/' + post.idPost">{{ post.titre }}</a></h5>
-          <div class="post-buttons">
-            <!-- Update Button -->
-            <button [routerLink]="'/updatePost/' + post.idPost"  mat-icon-button color="primary" aria-label="Update">
-              <mat-icon>edit</mat-icon>
-            </button>
-            <button  mat-icon-button color="warn" aria-label="Delete" (click)="openDeleteConfirmationDialog(post.idPost)">
-              <mat-icon>delete</mat-icon>
-            </button>
-  
-          </div>
-        </div>
-        <div>
-          <p class="post-text" [innerHTML]="post.context"></p>
-        </div>
+      <div>
+        <p class="post-text" [innerHTML]="post.context"></p>
       </div>
     </div>
   </div>
-  
+</div>

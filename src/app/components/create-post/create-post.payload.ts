@@ -1,8 +1,8 @@
 export class CreatePostPayload {
     titre: string = '';
-    article: string = '';
- //   url?: string = '';
+    articleId: string = '';
     context: string = '';
     createdAt : string = '';
     updatedAt : string = '';
+    followedBy: string[] = [];
   }

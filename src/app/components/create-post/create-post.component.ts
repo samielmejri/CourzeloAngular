@@ -18,7 +18,7 @@ export class CreatePostComponent implements OnInit {
   constructor(private router: Router, private forumService: ForumService) {
     this.createPostForm = new FormGroup({
       titre: new FormControl('', Validators.required),
-      article: new FormControl('', Validators.required),
+      articleId: new FormControl('', Validators.required),
       context: new FormControl('', Validators.required),
       createdAt: new FormControl(new Date().toISOString()), // Default to current date in the desired format
       updatedAt: new FormControl(new Date().toISOString()),
@@ -26,10 +26,11 @@ export class CreatePostComponent implements OnInit {
 
     this.postPayload = {
       titre: '',
-      article: '',
+      articleId: '',
       context: '',
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
+      followedBy: ['static'],
     };
   }
 
@@ -50,9 +51,9 @@ export class CreatePostComponent implements OnInit {
       this.postPayload.titre = titreControl.value || '';
     }
 
-    const articleControl = this.createPostForm.get('article');
+    const articleControl = this.createPostForm.get('articleId');
     if (articleControl) {
-      this.postPayload.article = articleControl.value || '';
+      this.postPayload.articleId = articleControl.value || '';
     }
 
     const contextControl = this.createPostForm.get('context');

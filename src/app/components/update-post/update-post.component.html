@@ -15,9 +15,9 @@
 
                             <input type="text" class="form-control" style="margin-top: 5px" placeholder="URL">
 
-                            <select class="form-control" style="margin-top: 10px" [formControlName]="'article'">
+                            <select class="form-control" style="margin-top: 10px" [formControlName]="'articleId'">
                                 <option value="">no article</option>
-                                <option *ngFor="let article of articles">{{article.titre}}</option>
+                                <option *ngFor="let article of articles" [value]="article.idArticle">{{article.titre}}</option>
                             </select>
 
                             <editor [formControlName]="'context'" apiKey="qdqz07wmg9hxpggce1gvgwm74xsljkxlsj8p51oc1u3frbx2"

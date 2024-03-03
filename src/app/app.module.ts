@@ -40,6 +40,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
 import { UpdatePostComponent } from './components/update-post/update-post.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ArticleComponent } from './components/article/article.component';
+import { LeaderboardComponent } from './components/leaderboard/leaderboard.component';
 
 @NgModule({
   declarations: [
@@ -73,6 +75,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     CreateArticleComponent,
     ConfirmationDialogComponent,
     UpdatePostComponent,
+    ArticleComponent,
+    LeaderboardComponent,
   ],
   imports: [
     HttpClientModule,

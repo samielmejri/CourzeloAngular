@@ -15,6 +15,7 @@ export class CreateArticleComponent implements OnInit {
   articleModel: ArticleModel;
   title = new FormControl('');
   description = new FormControl('');
+  followedBy = new FormControl('');
 
   constructor(private router: Router, private forumService: ForumService) {
     this.createArticleForm = new FormGroup({
@@ -24,7 +25,8 @@ export class CreateArticleComponent implements OnInit {
     this.articleModel = {
       titre: '',
       category: '',
-      score:0
+      score:0,
+      followedBy: ['static']
     }
   }
 
@@ -34,7 +36,7 @@ export class CreateArticleComponent implements OnInit {
       category: new FormControl('', Validators.required),
     });
   
-    this.articleModel = { titre: '', category: '' }; 
+    this.articleModel = { titre: '', category: '', followedBy:['static'] }; 
   }
 
   discard() {

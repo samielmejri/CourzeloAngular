@@ -25,7 +25,7 @@ export class UpdatePostComponent implements OnInit {
   ) {
     this.updatePostForm = this.formBuilder.group({
       titre: new FormControl('', Validators.required),
-      article: new FormControl('', Validators.required),
+      articleId: new FormControl('', Validators.required),
       context: new FormControl('', Validators.required),
       createdAt: new FormControl(new Date().toISOString()), // Default to current date in the desired format
       updatedAt: new FormControl(new Date().toISOString()),
@@ -33,10 +33,11 @@ export class UpdatePostComponent implements OnInit {
 
     this.postPayload = {
       titre: '',
-      article: '',
+      articleId: '',
       context: '',
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
+      followedBy: []
     };
   }
 
@@ -47,7 +48,7 @@ export class UpdatePostComponent implements OnInit {
         // Update the form with the retrieved post details
         this.updatePostForm.patchValue({
           titre: post.titre,
-          article: post.article,
+          articleId: post.articleId,
           context: post.context,
           createdAt:post.createdAt, // Assuming post.createdAt is a string
           updatedAt: new Date(post.updatedAt), // Assuming post.updatedAt is a string
@@ -71,9 +72,9 @@ export class UpdatePostComponent implements OnInit {
       this.postPayload.titre = titreControl.value || '';
     }
   
-    const articleControl = this.updatePostForm.get('article');
+    const articleControl = this.updatePostForm.get('articleId');
     if (articleControl) {
-      this.postPayload.article = articleControl.value || '';
+      this.postPayload.articleId = articleControl.value || '';
     }
   
     const contextControl = this.updatePostForm.get('context');

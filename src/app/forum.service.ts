@@ -14,12 +14,45 @@ export class ForumService {
   readonly API_URL = 'http://localhost:9090'
    
   constructor(private HttpClient: HttpClient ) {
-
    }
-   
+   getPostFollowList(idUser: string) {
+    return this.HttpClient.get(`${this.API_URL}/post/followed/${idUser}`)
+   }
+   getArticleFollowList(idUser: string) {
+    return this.HttpClient.get(`${this.API_URL}/article/followed/${idUser}`)
+   }
+
+   followPost(idPost : string, idUser : string): Observable<any>{
+    return this.HttpClient.post(`${this.API_URL}/post/followPost/${idPost}/${idUser}`, {})
+   }
+   followArticle(idArticle : string, idUser : string): Observable<any>{
+    return this.HttpClient.post(`${this.API_URL}/post/followArticle/${idArticle}/${idUser}`, {})
+  }
+  unfollowArticle(idArticle : string, idUser : string): Observable<any>{
+    return this.HttpClient.post(`${this.API_URL}/post/infollowArticle/${idArticle}/${idUser}`, {})
+  }
+  unfollowPost(idPost : string, idUser : string): Observable<any>{
+    return this.HttpClient.post(`${this.API_URL}/post/unfollowPost/${idPost}/${idUser}`, {})
+  }
+ voteUpPost(idPost: string, idUser: string): Observable<any> {
+   return this.HttpClient.post(`${this.API_URL}/post/voteUp/${idPost}/${idUser}`, {})
+ }
+ voteDownPost(idPost: string, idUser: string): Observable<any> {
+  return this.HttpClient.post(`${this.API_URL}/post/voteDown/${idPost}/${idUser}`, {})
+}
+voteUpArticle(idArticle: string, idUser: string): Observable<any> {
+  return this.HttpClient.post(`${this.API_URL}/article/voteUp/${idArticle}/${idUser}`, {})
+}
+voteDownArticle(idArticle: string, idUser: string): Observable<any> {
+  return this.HttpClient.post(`${this.API_URL}/article/voteDown/${idArticle}/${idUser}`, {})
+}
+   getPostsByArticleId(id: string) {
+    return this.HttpClient.get(`${this.API_URL}/post/by/${id}`)
+   }
    getReplies() {
     return this.HttpClient.get(this.API_URL+'/reply/getAll')
    }
+
    updateReply (id :string,replyPlayload : createReplyPayload) {
     return this.HttpClient.put(`${this.API_URL}/reply/update/${id}`, replyPlayload)
 

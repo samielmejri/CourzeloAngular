@@ -12,6 +12,7 @@ import { ViewPostComponent } from './components/view-post/view-post.component';
 import { CreatePostComponent } from './components/create-post/create-post.component';
 import { CreateArticleComponent } from './components/create-article/create-article.component';
 import { UpdatePostComponent } from './components/update-post/update-post.component';
+import { ArticleComponent } from './components/article/article.component';
 const routes: Routes = [
   {path:'', component: HomeComponent},
   {path:'signin', component: SigninComponent},
@@ -21,6 +22,8 @@ const routes: Routes = [
   {path:'courses', component: CoursesComponent},
   {path:'courseDetails', component: CourseDetailsComponent},
   {path:'forum', component: ForumComponent},
+  {path:'forum/:id', component: ForumComponent},
+  {path:'article', component: ArticleComponent},
   { path: 'post/:id', component: ViewPostComponent },
   { path: 'newPost', component: CreatePostComponent },
   { path: 'newArticle', component: CreateArticleComponent },

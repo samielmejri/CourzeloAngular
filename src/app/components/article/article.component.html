@@ -1,4 +1,5 @@
 
+
 <!-- search popup start-->
 <div class="td-search-popup" id="td-search-popup">
     <form action="https://solverwp.com/demo/html/edumint/index.html" class="search-form">
@@ -120,99 +121,30 @@
     </div>
 </div>
 <!-- breadcrumb end -->
+<div class="top-communities-container">
+    <p class="top-communities">Top Articles In Courzelo</p>
+    <a href="/newArticle" class="plusButton">
+        <svg class="plusIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30">
+          <g mask="url(#mask0_21_345)">
+            <path d="M13.75 23.75V16.25H6.25V13.75H13.75V6.25H16.25V13.75H23.75V16.25H16.25V23.75H13.75Z"></path>
+          </g>
+        </svg>
+    </a></div>
+      <table class="community-table">
+    <tbody>
+        <ng-container *ngFor="let article of articles; let i = index">
+            <tr *ngIf="i % 4 === 0">
+                <!-- Start a new row for every fourth article -->
+            </tr>
+            <td ><a href="/forum/{{ article.idArticle }}"
+                style=" font-weight: bold;" href="#">{{article.titre}}</a>
+                <button mat-icon-button [color]="isArticleFollowed(article.idArticle) ? 'warn' : 'primary'" aria-label="Follow/Unfollow" (click)="toggleFollow(article.idArticle)">
+                    <mat-icon>{{ isArticleFollowed(article.idArticle) ? 'thumb_down' : 'thumb_up' }}</mat-icon>
+                  </button>
+            <p>{{article.category}}</p>
+            </td>
+        </ng-container>
+    </tbody>
+</table>
 
-<!-- blog area start -->
-<div class="forum-area pd-top-120 pd-bottom-120">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8">
-
-                <div class="forumName" *ngIf="forumName !== ''">
-                   Posts under {{forumName}} :
-                </div>
-                <!-- Forum Threads -->
-              <app-forum-thread [posts]="paginatedPosts" [followCount]="followersCountMap" [votesCount]="votesCountMap"></app-forum-thread>
-              
-
-               
-
-                <!-- Pagination -->
-                <nav class="td-page-navigation">
-                    <ul class="pagination">
-                      <li class="pagination-arrow">
-                        <a (click)="changePage('prev')" [class.disabled]="currentPage === 1">
-                          <i class="fa fa-angle-double-left"></i>
-                        </a>
-                      </li>
-                      <li *ngFor="let page of totalPagesArray" [class.active]="page === currentPage">
-                        <a (click)="changePage(page)">{{ page }}</a>
-                      </li>
-                      <li class="pagination-arrow">
-                        <a (click)="changePage('next')" [class.disabled]="currentPage === totalPages">
-                          <i class="fa fa-angle-double-right"></i>
-                        </a>
-                      </li>
-                    </ul>
-                  </nav>
-                  
-            </div>
-
-            <!-- Forum Sidebar -->
-            <div class="col-lg-4 col-12">
-                <div class="td-sidebar">
-                    
-                    <!-- Forum Search -->
-                    <div class="widget widget_search">
-                        <form class="search-form">
-                            <div class="form-group">
-                                <input type="text" placeholder="Search">
-                            </div>
-                            <button class="submit-btn" type="submit"><i class="fa fa-search"></i></button>
-                        </form>
-                    </div>
-
-                    <app-side-bar></app-side-bar>
-                    <app-leaderboard [leaderboardPosts]="leaderboardPosts"></app-leaderboard>
-
-
-                    <h4 class="widget-title">
-                        <a href="/article">
-                        View Articles
-                    </a></h4>
-                    <div *ngFor="let article of articles" class="widget widget_catagory">
-                        <ul class="catagory-items">
-                            <li><a href="/forum/{{ article.idArticle }}">{{ article.titre }} <i class="fa fa-caret-right"></i></a></li>
-                        </ul>
-                    </div>
-                    
-
-                    <h4 class="widget-title">Recent Threads</h4>
-                    <div *ngFor="let sortedpost of sortedPosts" class="widget widget-recent-thread">
-                        <ul >
-                            <li >
-                                <a [routerLink]="'/post/' + sortedpost.idPost">
-                                <h5 class="title">{{sortedpost.titre}}</h5>
-                                <div class="post-info"><i class="fa fa-calendar"></i><span>{{sortedpost.updatedAt}}</span></div>
-                            </a>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <!-- Forum Tags -->
-                    <div class="widget widget_tags mb-0">
-                        <h4 class="widget-title">Tags</h4>
-                        <div class="tagcloud">
-                            <a href="#">Programming</a>
-                            <a href="#">Web Development</a>
-                            <a href="#">Discussion</a>
-                            <a href="#">Career</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- blog area end -->
-
+    

@@ -3,4 +3,5 @@ export class ArticleModel {
     titre?: string = '';
     category?: string='';
     score? : number =0;
+    followedBy?: string[] = [];
 }
