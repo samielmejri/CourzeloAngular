@@ -32,7 +32,7 @@ import { CreateQuizComponent } from './components/create-quiz/create-quiz.compon
 import { CreateQuestionComponent } from './components/create-question/create-question.component';
 import { QuestionListComponent } from './components/question-list/question-list.component';
 import { QuizafficheComponent } from './components/quizaffiche/quizaffiche.component';
-import { QuestionafficheComponent } from './questionaffiche/questionaffiche.component';
+import { QuestionafficheComponent } from './components/questionaffiche/questionaffiche.component';
 
 
 @NgModule({

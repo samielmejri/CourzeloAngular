@@ -50,4 +50,13 @@ updateQuiz (_id :string,quizPlay : QuizPlay) {
  getQuestionsForQuiz(_id: string): Observable<QuestionPlay[]> {
   return this.HttpClient.get<QuestionPlay[]>(`${this.API_URL}/quiz/${_id}/questions`);
 }
+updateQuestion (_id :string,questionPlay : QuestionPlay) {
+  return this.HttpClient.put(`${this.API_URL}/question/update/${_id}`, questionPlay)
+
+
+ }
+deleteQuestion(_id: string){
+  return this.HttpClient.delete(`${this.API_URL}/question/delete/${_id}`);
+}
+
 }
