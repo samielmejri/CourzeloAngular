@@ -81,9 +81,8 @@ export class QuizListComponent implements OnInit {
       updatedQuiz => {
         console.log('Quiz updated:', updatedQuiz);
         Swal.fire("quiz updated succesfully");
-        refreshPage() {
-        window.location.reload();
-      }
+        
+      
 
       },
       error => {
@@ -106,6 +105,10 @@ export class QuizListComponent implements OnInit {
         console.error('Error deleting quiz:', error);
       }
     );
+
+  }
+  refreshPage() {
+    window.location.reload();
   }
 }
 
