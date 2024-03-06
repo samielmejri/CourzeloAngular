@@ -1,0 +1,47 @@
+<div class="container mt-4" >
+    <h2>Niveau Registation</h2>
+    <div class="card">
+           
+<form>
+   
+
+    
+      <div class="form-group">
+        <input type="text" [(ngModel)]="nom_niveau" [ngModelOptions]="{standalone: true}" class="form-control" id="nom_niveau" name="text" placeholder="Enter Niveau">
+      </div>
+
+      <button type="submit" class="btn btn-primary mt-4" (click)="save()" >Submit</button>
+  </form>
+</div>
+</div>
+
+
+<div>
+ 
+    <div class="container mt-4" >
+ 
+        <h2>Niveau Table</h2>
+    <table class="table">
+        <thead>     
+        <tr>
+
+            <th scope="col">Niveau</th>
+            <th scope="col">Option</th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let NiveauItem of NiveauArray">
+           
+            <td>{{NiveauItem.nom_niveau}}</td>
+            
+            <td>
+                <button type="button" class="btn btn-success" (click)="setUpdate(NiveauItem)">Edit</button>
+                <button type="button" class="btn btn-danger" (click)="setDelete(NiveauItem)">Delete</button>
+            </td>
+          </tr>
+          
+        </tbody>
+      </table>
+ 
+ 
+    </div>
