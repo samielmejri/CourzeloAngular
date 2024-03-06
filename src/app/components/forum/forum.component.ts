@@ -58,13 +58,8 @@ export class ForumComponent implements OnInit {
           this.posts = data;
           this.posts.sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime());
           this.sortedPosts = this.posts.slice(0, 3);
-          this.posts.sort((a, b) => {
-            const ratingsCountA = a.ratings ? a.ratings.length : 0;
-            const ratingsCountB = b.ratings ? b.ratings.length : 0;
-  
-            return ratingsCountB - ratingsCountA;
-          });
-          this.leaderboardPosts = [...this.posts.slice(0, 3)];
+          this.leaderBoard(data)
+
           return this.forumService.getArticleById(id);
         }),
         tap((data: any) => {

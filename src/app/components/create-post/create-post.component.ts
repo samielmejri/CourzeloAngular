@@ -69,9 +69,6 @@ export class CreatePostComponent implements OnInit {
           
           error => {
             console.log(error);
-            if (error.error === null) {
-              this.toastr.error("Error 555: Invalid content", "Error");
-            }
             throwError(error);
             console.error('Error creating post:', error);
           }
