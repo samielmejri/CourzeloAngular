@@ -13,6 +13,7 @@ import { CreatePostComponent } from './components/create-post/create-post.compon
 import { CreateArticleComponent } from './components/create-article/create-article.component';
 import { UpdatePostComponent } from './components/update-post/update-post.component';
 import { ArticleComponent } from './components/article/article.component';
+import { UpdateArticleComponent } from './components/update-article/update-article.component';
 const routes: Routes = [
   {path:'', component: HomeComponent},
   {path:'signin', component: SigninComponent},
@@ -28,6 +29,7 @@ const routes: Routes = [
   { path: 'newPost', component: CreatePostComponent },
   { path: 'newArticle', component: CreateArticleComponent },
   { path: 'updatePost/:postId', component: UpdatePostComponent },
+  { path: 'updateArticle/:articleId', component: UpdateArticleComponent },
 
 
 

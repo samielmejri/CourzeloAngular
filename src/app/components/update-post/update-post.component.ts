@@ -4,6 +4,7 @@ import { ForumService } from 'src/app/forum.service';
 import { CreatePostPayload } from '../create-post/create-post.payload';
 import { throwError } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-update-post',
@@ -21,11 +22,12 @@ export class UpdatePostComponent implements OnInit {
     private router: Router,
     private forumService: ForumService,
     private formBuilder: FormBuilder,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private toastr: ToastrService
   ) {
     this.updatePostForm = this.formBuilder.group({
       titre: new FormControl('', Validators.required),
-      articleId: new FormControl('', Validators.required),
+      articleId: new FormControl('',),
       context: new FormControl('', Validators.required),
       createdAt: new FormControl(new Date().toISOString()), // Default to current date in the desired format
       updatedAt: new FormControl(new Date().toISOString()),
@@ -66,7 +68,7 @@ export class UpdatePostComponent implements OnInit {
       console.error('Form or payload not properly initialized.');
       return;
     }
-  
+    if (this.updatePostForm.valid) {
     const titreControl = this.updatePostForm.get('titre');
     if (titreControl) {
       this.postPayload.titre = titreControl.value || '';
@@ -86,13 +88,20 @@ export class UpdatePostComponent implements OnInit {
 
     this.forumService.updatePost(this.postId, this.postPayload).subscribe(
       data => {
+        if (data === null) {
+          this.toastr.error("Bad words and context are not acceptable in Courzelo's forum", "Bad Context!");
+        } else {
+        this.toastr.success("Post successfully updated!", "Success");
         this.router.navigateByUrl('/forum');
-      },
+      }},
       error => {
         throwError(error);
         console.error('Error updating post:', error);
       }
-    );
+    );} else {
+      this.toastr.error('Please provide all the necessary details for your post!', 'Error');
+
+    }
   }
 
   editorConfig = {

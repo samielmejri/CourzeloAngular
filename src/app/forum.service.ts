@@ -15,6 +15,10 @@ export class ForumService {
    
   constructor(private HttpClient: HttpClient ) {
    }
+   updateArticle(id :string,articlePayload : ArticleModel){
+    return this.HttpClient.put(`${this.API_URL}/article/update/${id}`, articlePayload)
+
+   }
    getPostFollowList(idUser: string) {
     return this.HttpClient.get(`${this.API_URL}/post/followed/${idUser}`)
    }

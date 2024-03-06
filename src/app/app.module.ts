@@ -42,6 +42,8 @@ import { UpdatePostComponent } from './components/update-post/update-post.compon
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ArticleComponent } from './components/article/article.component';
 import { LeaderboardComponent } from './components/leaderboard/leaderboard.component';
+import { ToastrModule } from 'ngx-toastr';
+import { UpdateArticleComponent } from './components/update-article/update-article.component';
 
 @NgModule({
   declarations: [
@@ -77,8 +79,10 @@ import { LeaderboardComponent } from './components/leaderboard/leaderboard.compo
     UpdatePostComponent,
     ArticleComponent,
     LeaderboardComponent,
+    UpdateArticleComponent,
   ],
   imports: [
+    ToastrModule.forRoot(),
     HttpClientModule,
     BrowserModule,
     AppRoutingModule,

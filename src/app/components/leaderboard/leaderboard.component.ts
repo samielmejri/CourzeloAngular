@@ -12,7 +12,7 @@ export class LeaderboardComponent implements OnInit {
 constructor(private forumService: ForumService){}
 
 ngOnInit(){
-  
+  console.log(this.leaderboardPosts)
 }
 
 }

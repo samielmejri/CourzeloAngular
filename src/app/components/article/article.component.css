@@ -8,7 +8,7 @@ main {
 .community-table {
     width: 1000px;
     border-collapse: collapse;
-    margin-left: 250px;
+    margin-left: 150px;
     margin-top: 50px;
     margin-bottom: 50px;
 }
@@ -113,3 +113,35 @@ main {
     justify-content: center;
     margin-bottom: 20px; /* Adjust as needed */
 }
+/* Add this CSS code to your component style file (e.g., create-post.component.css) */
+
+/* Add this CSS code to your component style file (e.g., create-post.component.css) */
+
+.vote-buttons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-right: 300px;
+}
+
+.mat-icon-button {
+  margin-bottom: 5px; /* Adjust the margin as needed */
+}
+
+.article-content {
+  display: flex;
+  align-items: center;
+  margin-left: 10px; 
+  margin-right: -20px;
+  
+}
+
+.article-content a {
+  font-weight: bold;
+  margin-right: 10px; /* Adjust the margin as needed */
+}
+
+.article-content p {
+  margin: 0; /* Remove default margin for paragraphs */
+}
+

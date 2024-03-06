@@ -4,6 +4,7 @@ import { ArticleModel } from './create-article.payload';
 import { Router } from '@angular/router';
 import { ForumService } from 'src/app/forum.service';
 import { throwError } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-create-article',
@@ -13,11 +14,9 @@ import { throwError } from 'rxjs';
 export class CreateArticleComponent implements OnInit {
   createArticleForm: FormGroup;
   articleModel: ArticleModel;
-  title = new FormControl('');
-  description = new FormControl('');
-  followedBy = new FormControl('');
 
-  constructor(private router: Router, private forumService: ForumService) {
+
+  constructor(private router: Router, private forumService: ForumService, private toastr: ToastrService) {
     this.createArticleForm = new FormGroup({
       titre: new FormControl('', Validators.required),
       category: new FormControl('', Validators.required)
@@ -48,7 +47,8 @@ export class CreateArticleComponent implements OnInit {
       console.error('Form or payload not properly initialized.');
       return;
     }
-  
+    if (this.createArticleForm.valid) {
+
     const titreControl = this.createArticleForm.get('titre');
     if (titreControl) {
       this.articleModel.titre = titreControl.value || ''; // Set to an empty string if value is undefined or null
@@ -60,10 +60,14 @@ export class CreateArticleComponent implements OnInit {
     }
   
     this.forumService.createArticle(this.articleModel).subscribe(data => {
+      this.toastr.success("Article successfully created!", "Success");
       this.router.navigateByUrl('/forum');
     }, error => {
       throwError(error);
     })
-  }
+  } else {
+    this.toastr.error('Please provide all the necessary details for your article!', 'Error');
+
+  }}
 
 }

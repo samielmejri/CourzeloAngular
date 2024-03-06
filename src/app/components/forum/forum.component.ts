@@ -2,6 +2,8 @@ import { ChangeDetectorRef, Component } from '@angular/core';
 import { ForumService } from 'src/app/forum.service';
 import { OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { switchMap, tap } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-forum',
   templateUrl: './forum.component.html',
@@ -47,47 +49,52 @@ export class ForumComponent implements OnInit {
   constructor(private forumService: ForumService, private route: ActivatedRoute, private cdr: ChangeDetectorRef) {}
 
   ngOnInit() {
-    
     console.log('on init .....');
     const id = this.route.snapshot.paramMap.get('id');
-    
+  
     if (id) {
-      // If ID is provided, get posts with the specified articleId
-      this.forumService.getPostsByArticleId(id).subscribe((data: any) => {
-        this.posts = data;
-        this.posts.sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime());
-        this.sortedPosts = this.posts.slice(0, 3);   
-        this.forumService.getArticleById(id).subscribe((data :any) => {
+      this.forumService.getPostsByArticleId(id).pipe(
+        switchMap((data: any) => {
+          this.posts = data;
+          this.posts.sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime());
+          this.sortedPosts = this.posts.slice(0, 3);
+          this.posts.sort((a, b) => {
+            const ratingsCountA = a.ratings ? a.ratings.length : 0;
+            const ratingsCountB = b.ratings ? b.ratings.length : 0;
+  
+            return ratingsCountB - ratingsCountA;
+          });
+          this.leaderboardPosts = [...this.posts.slice(0, 3)];
+          return this.forumService.getArticleById(id);
+        }),
+        tap((data: any) => {
           this.forumName = data.titre;
-        }) 
-      });
+        })
+      ).subscribe();
     } else {
-    this.forumService.getPosts().subscribe((data :any) => {
-      this.posts = data;
-      this.posts.sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime());
-      this.sortedPosts = this.posts.slice(0, 3);   
-      this.countFollowersForPosts(this.posts);
-      this.countVotesForPosts(this.posts);
-      this.cdr.detectChanges();
-      this.posts.sort((a, b) => {
-        // Assuming ratings is an array of strings
-        const ratingsCountA = a.ratings ? a.ratings.length : 0;
-        const ratingsCountB = b.ratings ? b.ratings.length : 0;
-    
-        // Sort in descending order (higher count first)
-        return ratingsCountB - ratingsCountA;
-      });
-    
-      // Assign sorted posts to leaderboardPosts array
-      this.leaderboardPosts = [...this.posts.slice(0,3)];
-    }) 
+      this.forumService.getPosts().pipe(
+        tap((data: any) => {
+          this.leaderBoard(data)
+          this.posts = data;
+          this.posts.sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime());
+          this.sortedPosts = this.posts.slice(0, 3);
+          this.countFollowersForPosts(this.posts);
+          this.countVotesForPosts(this.posts);
+          this.cdr.detectChanges();
+         
+        })
+      ).subscribe();
+    }
+  
    
   }
-    this.forumService.getArticles().subscribe((data :any) => {
-      this.articles = data;
-    }) 
-
-    
+  leaderBoard(posts: any[]){
+    posts.sort((a, b) => {
+      const ratingsCountA = a.ratings ? a.ratings.length : 0;
+      const ratingsCountB = b.ratings ? b.ratings.length : 0;
+      return ratingsCountB - ratingsCountA;
+    });
+    this.leaderboardPosts = posts.slice(0, 3);
   }
   countFollowers(post: any): number {
     const postFollowers = post.followedBy.length;

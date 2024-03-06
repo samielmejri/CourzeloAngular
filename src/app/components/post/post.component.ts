@@ -8,6 +8,7 @@ import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation
 import { MatDialog } from '@angular/material/dialog';
 import { FormsModule } from '@angular/forms';
 import { createRe_replyPayload } from './re_reply.payload';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-post',
@@ -35,7 +36,8 @@ export class PostComponent implements OnInit {
   editedRe_replyId: string  = '';
   replyClicked: boolean = false;
 
-  constructor(private dialog: MatDialog,private router: Router,private route: ActivatedRoute, private forumService: ForumService) {
+  constructor(private toastr: ToastrService,
+    private dialog: MatDialog,private router: Router,private route: ActivatedRoute, private forumService: ForumService) {
     this.createReplyForm = new FormGroup( {
       context: new FormControl('', Validators.required),
       recommondations: new FormControl(0, Validators.required),
@@ -62,26 +64,47 @@ export class PostComponent implements OnInit {
       replyId : '',
     }
   }
-  
+
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.postId = params['id'];
 
-      // Use the ID to fetch the specific post
       this.forumService.getPostById(this.postId).subscribe((data: any) => {
         this.post = data;
-      });
-      /*this.forumService.getArticleById(this.post.articleId).subscribe((data: any) => {
-        this.article = data;
-      })*/
-    });
+      })
+
+      this.forumService.getArticleById(this.post.articleId).subscribe((dataA: any) => {
+        this.article = dataA;
+        console.log(this.article)
+      })
+
+    })
 
 this.createReplyForm = new FormGroup({
   context : new FormControl('', Validators.required),
   recommondations : new FormControl(0, Validators.required),
   visibility : new FormControl('', Validators.required)
-
 })
+  }
+  calculateTimeDifference(createdAt: string): string {
+    const postDate = new Date(createdAt);
+    const now = new Date();
+  
+    const timeDifferenceInMilliseconds = now.getTime() - postDate.getTime();
+    const secondsAgo = Math.floor(timeDifferenceInMilliseconds / 1000);
+    const minutesAgo = Math.floor(secondsAgo / 60);
+    const hoursAgo = Math.floor(minutesAgo / 60);
+    const daysAgo = Math.floor(hoursAgo / 24);
+  
+    if (daysAgo > 0) {
+      return `${daysAgo} ${daysAgo === 1 ? 'day' : 'days'} ago`;
+    } else if (hoursAgo > 0) {
+      return `${hoursAgo} ${hoursAgo === 1 ? 'hour' : 'hours'} ago`;
+    } else if (minutesAgo > 0) {
+      return `${minutesAgo} ${minutesAgo === 1 ? 'minute' : 'minutes'} ago`;
+    } else {
+      return `${secondsAgo} ${secondsAgo === 1 ? 'second' : 'seconds'} ago`;
+    }
   }
   generateReplyId(): string {
     // Combine post ID and a random string/number to generate a unique reply ID
@@ -134,10 +157,15 @@ this.toReplyId = replyId;
 
     this.forumService.updateReply(id, this.replyPayload).subscribe(
       data => {
+        if (data === null) {
+          this.toastr.error("Bad words and context are not acceptable in Courzelo's forum", "Bad Context!");
+        } else {
 location.reload();
-      },
+       } },
       error => {
         throwError(error);
+        this.toastr.error("Bad words and context are not acceptable in Courzelo's forum", "Bad Context!");
+
         console.error('Error updating post:', error);
       }
     );
@@ -156,10 +184,14 @@ location.reload();
 
     this.forumService.updateRe_reply(id, this.re_replyPayload).subscribe(
       data => {
+        if (data === null) {
+          this.toastr.error("Bad words and context are not acceptable in Courzelo's forum", "Bad Context!");
+        } else {
 location.reload();
-      },
+       } },
       error => {
         throwError(error);
+        this.toastr.error("Bad words and context are not acceptable in Courzelo's forum", "Bad Context!");
         console.error('Error updating re_reply:', error);
       }
     );
@@ -183,10 +215,14 @@ location.reload();
  
      this.forumService.createRe_reply(this.re_replyPayload).subscribe(
       data => {
+        if (data === null) {
+          this.toastr.error("Bad words and context are not acceptable in Courzelo's forum", "Bad Context!");
+        } else {
       location.reload();
-      },
+        }  },
       error => {
         throwError(error);
+        this.toastr.error("Bad words and context are not acceptable in Courzelo's forum", "Bad Context!");
         console.error('Error creating re_reply:', error);
       }
     );
@@ -211,7 +247,11 @@ location.reload();
  
      this.forumService.createReply(this.replyPayload).subscribe(
       data => {
+        if (data === null) {
+          this.toastr.error("Bad words and context are not acceptable in Courzelo's forum", "Bad Context!");
+        } else {
       location.reload();
+        }
       },
       error => {
         throwError(error);

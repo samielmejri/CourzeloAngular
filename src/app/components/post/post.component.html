@@ -6,8 +6,8 @@
         <div class="post-content">
           <div class="post-header">
             <span class="subreddit-text"><a class="post-url" href=""> Article </a></span>
-            <span> . Posted at
-              <span> {{post.createdAt}} </span>
+            <span> . Posted 
+              <span> {{ calculateTimeDifference(post.createdAt) }} </span>
               by              
               <a class="username" href="">aziz</a>
             </span>

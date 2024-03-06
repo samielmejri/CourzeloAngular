@@ -4,6 +4,7 @@ import { ForumService } from 'src/app/forum.service';
 import { CreatePostPayload } from './create-post.payload';
 import { throwError } from 'rxjs';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-create-post',
@@ -15,10 +16,10 @@ export class CreatePostComponent implements OnInit {
   createPostForm: FormGroup;
   postPayload: CreatePostPayload;
 
-  constructor(private router: Router, private forumService: ForumService) {
+  constructor(private router: Router, private forumService: ForumService, private toastr: ToastrService) {
     this.createPostForm = new FormGroup({
       titre: new FormControl('', Validators.required),
-      articleId: new FormControl('', Validators.required),
+      articleId: new FormControl(''),
       context: new FormControl('', Validators.required),
       createdAt: new FormControl(new Date().toISOString()), // Default to current date in the desired format
       updatedAt: new FormControl(new Date().toISOString()),
@@ -45,38 +46,48 @@ export class CreatePostComponent implements OnInit {
       console.error('Form or payload not properly initialized.');
       return;
     }
-
-    const titreControl = this.createPostForm.get('titre');
-    if (titreControl) {
-      this.postPayload.titre = titreControl.value || '';
-    }
-
-    const articleControl = this.createPostForm.get('articleId');
-    if (articleControl) {
-      this.postPayload.articleId = articleControl.value || '';
-    }
-
-    const contextControl = this.createPostForm.get('context');
-    if (contextControl) {
-      this.postPayload.context = contextControl.value || '';
-    }
-
-    this.forumService.createPost(this.postPayload).subscribe(
-      data => {
-        this.router.navigateByUrl('/forum');
-      },
-      error => {
-        throwError(error);
-        console.error('Error creating post:', error);
+  
+    if (this.createPostForm.valid) {
+      const titreControl = this.createPostForm.get('titre');
+      const articleControl = this.createPostForm.get('articleId');
+      const contextControl = this.createPostForm.get('context');
+  
+      if (titreControl && articleControl && contextControl) {
+        this.postPayload.titre = titreControl.value || '';
+        this.postPayload.articleId = articleControl.value || '';
+        this.postPayload.context = contextControl.value || '';
+  
+        this.forumService.createPost(this.postPayload).subscribe(
+          data => {
+            if (data === null) {
+              this.toastr.error("Bad words and context are not acceptable in Courzelo's forum", "Bad Context!");
+            } else {
+              this.toastr.success("Post successfully created!", "Success");
+              this.router.navigateByUrl('/forum');
+            }
+          },
+          
+          error => {
+            console.log(error);
+            if (error.error === null) {
+              this.toastr.error("Error 555: Invalid content", "Error");
+            }
+            throwError(error);
+            console.error('Error creating post:', error);
+          }
+        );
       }
-    );
+    } else {
+      this.toastr.error('Please provide all the necessary details for your post!', 'Error');
+    }
   }
+  
 
   editorConfig = {
     height: 200,
-    menubar: false,
-    plugins: 'anchor autolink charmap codesample emoticons  link lists image media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode  advtemplate ai mentions tableofcontents footnotes mergetags autocorrect typography inlinecss',
-    toolbar: 'image|code |undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat |aidialog aishortcuts',
+    menubar: true,
+    plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage advtemplate ai mentions tableofcontents footnotes mergetags autocorrect typography inlinecss',
+    toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
     ai_request: (request : any, respondWith : any) => {
       const openAiOptions = {
         method: 'POST',
