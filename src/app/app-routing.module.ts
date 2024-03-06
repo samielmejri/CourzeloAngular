@@ -13,6 +13,7 @@ import { CreateQuestionComponent } from './components/create-question/create-que
 import { QuestionListComponent } from './components/question-list/question-list.component'; // Import here
 import { QuizafficheComponent } from './components/quizaffiche/quizaffiche.component';
 import { QuestionafficheComponent } from './components/questionaffiche/questionaffiche.component';
+import { SideBarComponent } from './components/side-bar/side-bar.component';
 
 const routes: Routes = [
   {path:'', component: HomeComponent},
@@ -28,6 +29,7 @@ const routes: Routes = [
   { path: 'questionlist', component: QuestionListComponent },
   { path: 'quizaffiche', component: QuizafficheComponent },
   { path: 'questionaffiche', component: QuestionafficheComponent },
+  { path: 'sidebar', component: SideBarComponent },
 
 ];
 

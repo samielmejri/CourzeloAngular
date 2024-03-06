@@ -33,6 +33,7 @@ import { CreateQuestionComponent } from './components/create-question/create-que
 import { QuestionListComponent } from './components/question-list/question-list.component';
 import { QuizafficheComponent } from './components/quizaffiche/quizaffiche.component';
 import { QuestionafficheComponent } from './components/questionaffiche/questionaffiche.component';
+import { SideBarComponent } from './components/side-bar/side-bar.component';
 
 
 @NgModule({
@@ -63,6 +64,7 @@ import { QuestionafficheComponent } from './components/questionaffiche/questiona
     QuestionListComponent,
     QuizafficheComponent,
     QuestionafficheComponent,
+    SideBarComponent,
   ],
   imports: [
     HttpClientModule,

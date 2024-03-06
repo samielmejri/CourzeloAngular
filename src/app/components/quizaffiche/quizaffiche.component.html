@@ -1,3 +1,5 @@
+<app-header></app-header>
+<div class="app-header" style="margin-top: 100px; margin-left: -200px; margin-bottom: 100px;">
 <div class="container">
     <!-- Display list of quizzes -->
     <div *ngFor="let quiz of quizzes" class="quiz-item">
@@ -23,3 +25,4 @@
     </div>
     <div *ngIf="quizzes.length === 0" class="no-quizzes">No quizzes available.</div>
   </div>
+</div>
