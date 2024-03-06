@@ -1,0 +1,64 @@
+<app-header></app-header>
+
+<div class="forum-area" style="margin-top: 50px; margin-left: -200px; margin-bottom: 100px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <hr />
+                <div class="create-post-container">
+                    <form class="post-form" [formGroup]="createQuestionForm" (ngSubmit)="createQuestion()">
+                        <div class="form-group">
+                            <div class="create-post-heading">Create Question</div>
+                            <hr />
+                            <input type="text" [formControlName]="'questionText'" class="form-control" style="margin-top: 5px"
+                                   placeholder="Question Text">
+                            
+                            <div formArrayName="options" class="form-group">
+                                <div *ngFor="let option of options.controls; let i=index" class="option-group">
+                                    <input [formControlName]="i" type="text" class="form-control" style="margin-top: 5px"
+                                           placeholder="Option {{i + 1}}">
+                                </div>
+                                <button type="button" (click)="addOption()" class="btn btn-default">Add Option</button>
+                            </div>
+
+                            <input type="number" [formControlName]="'score'" class="form-control" style="margin-top: 5px"
+                                   placeholder="Score">
+
+                            <input type="number" [formControlName]="'correctOption'" class="form-control" style="margin-top: 5px"
+                                   placeholder="Correct Option Index">
+
+                            <textarea [formControlName]="'explication'" class="form-control" style="margin-top: 5px"
+                                      placeholder="Explanation"></textarea>
+
+                            <input type="number" [formControlName]="'notequstion'" class="form-control" style="margin-top: 5px"
+                                   placeholder="Note">
+
+                            <input type="number" [formControlName]="'dureequestion'" class="form-control" style="margin-top: 5px"
+                                   placeholder="Duration (in minutes)">
+
+                            <span>
+                                <div style="margin-top: 5px" class="float-right">
+                                    <button type="button" class="btn btn-secondary">Discard</button>
+                                    <button type="submit" class="btn btn-primary">Create Question</button>
+                                </div>
+                            </span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="sidebar" style="margin-left: 20px;margin-top: 40px;">
+                    <hr />
+                    <ul>
+                        <li>Remember the human</li>
+                        <hr />
+                        <li>Behave like you would in real life</li>
+                        <hr />
+                        <li>Don't spam</li>
+                        <hr />
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

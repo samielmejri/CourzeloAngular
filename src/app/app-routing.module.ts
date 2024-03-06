@@ -14,6 +14,14 @@ import { CreateArticleComponent } from './components/create-article/create-artic
 import { UpdatePostComponent } from './components/update-post/update-post.component';
 import { ArticleComponent } from './components/article/article.component';
 import { UpdateArticleComponent } from './components/update-article/update-article.component';
+import { QuizListComponent } from './components/quiz-list/quiz-list.component';
+import { CreateQuizComponent } from './components/create-quiz/create-quiz.component';
+import { CreateQuestionComponent } from './components/create-question/create-question.component'; // Import here
+import { QuestionListComponent } from './components/question-list/question-list.component'; // Import here
+import { QuizafficheComponent } from './components/quizaffiche/quizaffiche.component';
+import { QuestionafficheComponent } from './components/questionaffiche/questionaffiche.component';
+import { SideBarComponent } from './components/side-bar/side-bar.component';
+
 const routes: Routes = [
   {path:'', component: HomeComponent},
   {path:'signin', component: SigninComponent},
@@ -32,6 +40,13 @@ const routes: Routes = [
   { path: 'updateArticle/:articleId', component: UpdateArticleComponent },
 
 
+  { path: 'quizl', component: QuizListComponent },
+  { path: 'newQuiz', component: CreateQuizComponent },
+  { path: 'newQuestion', component: CreateQuestionComponent },
+  { path: 'questionlist', component: QuestionListComponent },
+  { path: 'quizaffiche', component: QuizafficheComponent },
+  { path: 'questionaffiche', component: QuestionafficheComponent },
+  { path: 'sidebar', component: SideBarComponent },
 
 ];
 
