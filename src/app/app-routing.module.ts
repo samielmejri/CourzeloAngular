@@ -38,8 +38,6 @@ const routes: Routes = [
   { path: 'newArticle', component: CreateArticleComponent },
   { path: 'updatePost/:postId', component: UpdatePostComponent },
   { path: 'updateArticle/:articleId', component: UpdateArticleComponent },
-
-
   { path: 'quizl', component: QuizListComponent },
   { path: 'newQuiz', component: CreateQuizComponent },
   { path: 'newQuestion', component: CreateQuestionComponent },
