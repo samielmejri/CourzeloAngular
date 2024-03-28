@@ -1,10 +1,8 @@
 <div class="navbar-area">
-
     <nav class="navbar navbar-area-1 navbar-area navbar-expand-lg">
         <div class="container nav-container">
             <div class="responsive-mobile-menu">
-                <button class="menu toggle-btn d-block d-lg-none" data-target="#edumint_main_menu" 
-                aria-expanded="false" aria-label="Toggle navigation">
+                <button class="menu toggle-btn d-block d-lg-none" data-target="#edumint_main_menu" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="icon-left"></span>
                     <span class="icon-right"></span>
                 </button>
@@ -13,7 +11,7 @@
                 <a href="index.html"><img src="assets/img/logo.png" alt="img"></a>
             </div>
             <div class="nav-right-part nav-right-part-mobile">
-                <a routerLink="/signin" class="signin-btn" href="signin.html">Sign In</a>
+                <a routerLink="/login" class="signin-btn" href="signin.html">Sign In</a>
                 <a routerLink="/signup" class="btn btn-base" href="signup.html">Sign Up</a>
                 <a class="search-bar" href="#"><i class="fa fa-search"></i></a>
             </div>
@@ -58,8 +56,16 @@
                 </ul>
             </div>
             <div class="nav-right-part nav-right-part-desktop">
-                <a routerLink="/signin" class="signin-btn" href="signin.html">Sign In</a>
-                <a routerLink="/signup" class="btn btn-base" href="signup.html">Sign Up</a>
+                <!-- If user is authenticated -->
+                <ng-container *ngIf="isLoggedIn(); else loginSignupButtons">
+                    <span>Welcome, {{ userFullName }}</span>
+                    <a class="btn btn-base" routerLink="/logout">Logout</a>
+                </ng-container>
+                <!-- If user is not authenticated -->
+                <ng-template #loginSignupButtons>
+                    <a routerLink="/login" class="signin-btn" href="signin.html">Sign In</a>
+                    <a routerLink="/signup" class="btn btn-base" href="signup.html">Sign Up</a>
+                </ng-template>
                 <a class="search-bar" href="#"><i class="fa fa-search"></i></a>
             </div>
         </div>

@@ -1,8 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
-import { MatDialogModule } from '@angular/material/dialog';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { RouterModule } from '@angular/router';
@@ -18,42 +15,27 @@ import { TestimonailComponent } from './components/testimonail/testimonail.compo
 import { TeamComponent } from './components/team/team.component';
 import { BlogComponent } from './components/blog/blog.component';
 import { ContactComponent } from './components/contact/contact.component';
-import { SigninComponent } from './components/signin/signin.component';
-import { SignupComponent } from './components/signup/signup.component';
+import { LoginComponent } from './components/auth/login/login.component';
+import { RegisterComponent } from './components/auth/register/register.component';
 import { Home2Component } from './components/home2/home2.component';
 import { Home3Component } from './components/home3/home3.component';
 import { CoursesComponent } from './components/courses/courses.component';
 import { CourseDetailsComponent } from './components/course-details/course-details.component';
-import { ForumComponent } from './components/forum/forum.component';
-import { ForumThreadComponent } from './components/forum-thread/forum-thread.component';
-import { VoteButtonComponent } from './components/vote-button/vote-button.component';
-import { ViewPostComponent } from './components/view-post/view-post.component';
-import { PostComponent } from './components/post/post.component';
-import { CreatePostComponent } from './components/create-post/create-post.component';
-import { EditorModule} from '@tinymce/tinymce-angular';
-import { ForumHeaderComponent } from './components/forum-header/forum-header.component';
-import { PostSidebarComponent } from './components/post-sidebar/post-sidebar.component';
-import { CreateArticleComponent } from './components/create-article/create-article.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
-import { UpdatePostComponent } from './components/update-post/update-post.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { ArticleComponent } from './components/article/article.component';
-import { LeaderboardComponent } from './components/leaderboard/leaderboard.component';
-import { ToastrModule } from 'ngx-toastr';
-import { UpdateArticleComponent } from './components/update-article/update-article.component';
 import { HeaderComponent } from './components/header/header.component';
-import { FormsModule } from '@angular/forms'; // Import FormsModule
-import { HttpClientModule } from '@angular/common/http';
-import { ReactiveFormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
-import { QuizListComponent } from './components/quiz-list/quiz-list.component';
-import { CreateQuizComponent } from './components/create-quiz/create-quiz.component'; // Import ReactiveFormsModule
-import { CreateQuestionComponent } from './components/create-question/create-question.component';
-import { QuestionListComponent } from './components/question-list/question-list.component';
-import { QuizafficheComponent } from './components/quizaffiche/quizaffiche.component';
-import { QuestionafficheComponent } from './components/questionaffiche/questionaffiche.component';
-import { SideBarComponent } from './components/side-bar/side-bar.component';
+import { ForgotPasswordComponent } from './components/auth/forgot-password/forgot-password.component';
+import { LogoutComponent } from './components/auth/logout/logout.component';
+import { RecoverPasswordComponent } from './components/auth/recover-password/recover-password.component';
+import { VerifyComponent } from './components/auth/verify/verify.component';
+import { DevicesListComponent } from './components/user/devices-list/devices-list.component';
+import { ProfileComponent } from './components/user/profile/profile.component';
+import { UserProfileComponent } from './components/user/user-profile/user-profile.component';
+//import { DeleteAccountRequestComponent } from './components/model/user/delete-account-request/delete-account-request.component';
+//import {SidebarComponent} from './components/shared/sidebar/sidebar.component';
+//import { UserTableComponent } from './components/user/user-table/user-table.component';
+import {Interceptor} from "./service/user/auth/Interceptor";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {RouterOutlet} from "@angular/router";
+import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from "@angular/common/http";
 
 
 @NgModule({
@@ -69,58 +51,37 @@ import { SideBarComponent } from './components/side-bar/side-bar.component';
     WorkComponent,
     TestimonailComponent,
     TeamComponent,
+    BlogComponent,
     ContactComponent,
-    SigninComponent,
-    SignupComponent,
     Home2Component,
     Home3Component,
     CoursesComponent,
     CourseDetailsComponent,
-    ForumComponent,
-    ForumThreadComponent,
-    VoteButtonComponent,
-    ViewPostComponent,
-    PostComponent,
-    SideBarComponent,
-    CreatePostComponent,
-    ForumHeaderComponent,
-    PostSidebarComponent,
-    CreateArticleComponent,
-    ConfirmationDialogComponent,
-    UpdatePostComponent,
-    ArticleComponent,
-    LeaderboardComponent,
-    UpdateArticleComponent,
+    RegisterComponent,
+    LoginComponent,
+    LogoutComponent,
+    ProfileComponent,
+    VerifyComponent,
+    UserProfileComponent,
+    DevicesListComponent,
+    ForgotPasswordComponent,
+    RecoverPasswordComponent,
+    HeaderComponent
   ],
- 
   imports: [
-    ToastrModule.forRoot(),
-    HeaderComponent,
-    QuizListComponent,
-    CreateQuizComponent,
-    CreateQuestionComponent,
-    QuestionListComponent,
-    QuizafficheComponent,
-    QuestionafficheComponent,
-    SideBarComponent,
-    HttpClientModule,
     BrowserModule,
     AppRoutingModule,
-    RouterModule,
-    EditorModule,
-    ReactiveFormsModule,
-    BrowserAnimationsModule,
-    MatIconModule,
-    MatButtonModule,
-    MatDialogModule,
-    NgbModule,
+    HttpClientModule,
     FormsModule,
-    CommonModule,
-
-  
+    ReactiveFormsModule,
+    RouterOutlet
   ],
-  providers: [
-  ],
+  providers: [HttpClient, {
+    provide: HTTP_INTERCEPTORS,
+    useClass: Interceptor,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

@@ -1,0 +1,165 @@
+    <!-- navbar start -->
+    <div class="navbar-area">
+        <nav class="navbar navbar-area-1 navbar-area navbar-expand-lg">
+            <div class="container nav-container">
+                <div class="responsive-mobile-menu">
+                    <button class="menu toggle-btn d-block d-lg-none" data-target="#edumint_main_menu" 
+                    aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="icon-left"></span>
+                        <span class="icon-right"></span>
+                    </button>
+                </div>
+                <div class="logo">
+                    <a href="index.html"><img src="assets/img/logo.png" alt="img"></a>
+                </div>
+                <div class="nav-right-part nav-right-part-mobile">
+                    <a routerLink="/login" class="signin-btn" href="signin.html">Sign In</a>
+                    <a routerLink="/signup" class="btn btn-base" href="signup.html">Sign Up</a>
+                    <a class="search-bar" href="#"><i class="fa fa-search"></i></a>
+                </div>
+                <div class="collapse navbar-collapse" id="edumint_main_menu">
+                    <ul class="navbar-nav menu-open">
+                        <li class="menu-item-has-children current-menu-item">
+                            <a href="#">Home</a>
+                            <ul class="sub-menu">
+                                <li><a routerLink=""  href="index-1.html">Home 01</a></li>
+                                <li><a routerLink="/home2" href="index-2.html">Home 02</a></li>
+                                <li><a routerLink="/home3" href="index-3.html">Home 03</a></li>
+                            </ul>
+                        </li>
+                        <li class="menu-item-has-children">
+                            <a href="#">Course</a>
+                            <ul class="sub-menu">
+                                <li><a routerLink="/courses" href="course.html">Course</a></li>
+                                <li><a routerLink="/courseDetails" href="course-details.html">Course Details</a></li>
+                            </ul>
+                        </li>
+                        <li class="menu-item-has-children">
+                            <a href="#">Pages</a>
+                            <ul class="sub-menu">
+                                <li><a href="about.html">About Us</a></li>
+                                <li><a href="event.html">Event</a></li>
+                                <li><a href="event-details.html">Event Details</a></li>
+                                <li><a href="team.html">Instructor</a></li>
+                                <li><a href="team-details.html">Instructor Details</a></li>
+                                <li><a href="pricing.html">Pricing</a></li>
+                                <li><a href="gallery.html">Gallery</a></li>
+                                <li><a href="signin.html">Sign In</a></li>
+                                <li><a href="signup.html">Sign Up</a></li>
+                            </ul>
+                        </li>
+                        <li class="menu-item-has-children">
+                            <a href="#">Blog</a>
+                            <ul class="sub-menu">
+                                <li><a href="blog.html">Blog</a></li>
+                                <li><a href="blog-grid.html">Blog Grid</a></li>
+                                <li><a href="blog-details.html">Blog Details</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="nav-right-part nav-right-part-desktop">
+                    <a routerLink="/login" class="signin-btn" href="signin.html">Sign In</a>
+                    <a routerLink="/signup" class="btn btn-base" href="signup.html">Sign Up</a>
+                    <a class="search-bar" href="#"><i class="fa fa-search"></i></a>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <!-- navbar end -->
+    
+    <!-- breadcrumb start -->
+    <div class="breadcrumb-area bg-overlay" style="background-image:url('assets/img/bg/3.png')">
+        <div class="container">
+            <div class="breadcrumb-inner">
+                <div class="section-title mb-0 text-center">
+                    <h2 class="page-title welcome-title">Welcome to Our Learning Community</h2>
+                    <ul class="page-list">
+                        <li><a href="index.html">Home</a></li>
+                        <li>Sign Up</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- breadcrumb end --> 
+
+<!-- signup-page-Start --> 
+<div class="signup-page-area pd-top-120 pd-bottom-120" style="background-image: url('assets/img/background2.jpg')">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-xl-6 col-lg-7">
+                <form (ngSubmit)="registerUser()" [formGroup]="registerForm" class="signup-inner">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="single-input-inner style-bg-border">
+                                <input type="email" placeholder="Email" formControlName="email">
+                            </div>
+                            <div *ngIf="registerForm.controls['email'].touched && registerForm.controls['email']?.invalid" class="text-danger">
+                                Please enter a valid email.
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="single-input-inner style-bg-border">
+                                <input type="text" placeholder="Name" formControlName="name">
+                            </div>
+                            <div *ngIf="registerForm.controls['name'].touched && registerForm.controls['name']?.invalid" class="text-danger">
+                                Name must be between 3 and 20 characters.
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="single-input-inner style-bg-border">
+                                <input type="text" placeholder="Last Name" formControlName="lastname">
+                            </div>
+                            <div *ngIf="registerForm.controls['lastname'].touched && registerForm.controls['lastname']?.invalid" class="text-danger">
+                                Last name must be between 3 and 20 characters.
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="single-input-inner style-bg-border">
+                                <input type="password" placeholder="Password" formControlName="password">
+                            </div>
+                            <div *ngIf="registerForm.controls['password'].touched && registerForm.controls['password']?.invalid" class="text-danger">
+                                Password must be between 8 and 50 characters.
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="single-input-inner style-bg-border">
+                                <input type="password" placeholder="Retype Password" formControlName="confirmPassword">
+                            </div>
+                            <div *ngIf="registerForm.controls['confirmPassword'].errors?.['confirmedValidator']" class="text-danger">
+                                Passwords must match.
+                            </div>
+                                                    </div>
+                        <div class="col-12">
+                        </div>
+                        <div class="col-12 mb-4">
+                            <button class="btn btn-base w-100" type="submit">Create Account</button>
+                        </div>
+                        <div class="col-12">
+                            <span>Already have an account ? </span>
+                            <a routerLink="/login" href="signin.html"><strong>Log in</strong></a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- signup-page-end -->
+
+
+
+
+    <!-- back to top area start -->
+    <div class="back-to-top">
+        <span class="back-top"><i class="fa fa-angle-up"></i></span>
+    </div>
+    <!-- back to top area end -->
+
+
+    <!-- all plugins here -->
+    <script data-cfasync="false" src="../../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="assets/js/vendor.js"></script>
+    <!-- main js  -->
+    <script src="assets/js/main.js"></script>
