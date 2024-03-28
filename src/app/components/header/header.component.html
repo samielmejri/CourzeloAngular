@@ -53,13 +53,42 @@
                         </ul>
                     </li>
                     <li><a href="contact.html">Contact Us</a></li>
+
+
+                    
                 </ul>
             </div>
             <div class="nav-right-part nav-right-part-desktop">
                 <!-- If user is authenticated -->
                 <ng-container *ngIf="isLoggedIn(); else loginSignupButtons">
-                    <span>Welcome, {{ userFullName }}</span>
-                    <a class="btn btn-base" routerLink="/logout">Logout</a>
+
+
+                    <div class="collapse navbar-collapse" id="edumint_main_menu">
+                        <ul class="navbar-nav menu-open">
+                            <li class="menu-item-has-children current-menu-item">
+                                <a href="#" class="menu-link">Account</a>
+                                <ul class="sub-menu">
+                                    <li class="greeting-item">
+                                        <span>Welcome, {{ userFullName }}</span>
+                                    </li>
+                                    <li>
+                                        <a routerLink="/profile" href="profile.html" class="sub-menu-link">Profile</a>
+                                    </li>
+                                    <li>
+                                        <a class="button" class="sub-menu-link" routerLink="/logout">Logout</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    
+                    
+                    
+
+
+
+                    
                 </ng-container>
                 <!-- If user is not authenticated -->
                 <ng-template #loginSignupButtons>

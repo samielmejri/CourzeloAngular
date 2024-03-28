@@ -4460,3 +4460,50 @@ ul {
 .single-input-inner input[type="password"]:focus {
     transform: scale(1.1); /* Increase the size by 10% */
 }
+
+.menu-link {
+  color: #333; /* Color for the main menu link */
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.sub-menu {
+  display: none; /* Hide sub-menu by default */
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.menu-item-has-children:hover .sub-menu {
+  display: block; /* Display sub-menu on parent hover */
+}
+
+.greeting-item {
+  padding: 10px;
+  border-bottom: 1px solid #ccc; /* Border between items */
+  background-color: #007bff; /* Default background color for greeting item (a shade of blue) */
+  pointer-events: none; /* Disables pointer events on the greeting item */
+  cursor: default; /* Sets the cursor to default for the greeting item */
+}
+
+.greeting-item span {
+  color: #ffffff; /* Text color for the greeting item */
+}
+
+.sub-menu-link {
+  display: block;
+  padding: 10px;
+  color: #555; /* Color for sub-menu links */
+  text-decoration: none;
+}
+
+.sub-menu-link:hover {
+  background-color: rgb(255, 213, 0); /* Background color on hover */
+}
+
+
+
+
+
+
+
