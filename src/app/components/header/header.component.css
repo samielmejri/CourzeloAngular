@@ -1,0 +1,7 @@
+.menu-item-has-children:hover .sub-menu {
+    display: block;
+}
+.sub-menu {
+    display: none;
+}
+

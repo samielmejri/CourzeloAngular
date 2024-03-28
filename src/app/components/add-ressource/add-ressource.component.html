@@ -1,0 +1,86 @@
+<app-header></app-header>
+<!-- breadcrumb start -->
+<div class="breadcrumb-area bg-overlay" style="background-image:url('assets/img/bg/3.png')">
+    <div class="container">
+        <div class="breadcrumb-inner">
+            <div class="section-title mb-0 text-center">
+                <h2 class="page-title">Courses</h2>
+                <ul class="page-list">
+                    <li><a routerLink="" href="index.html">Home</a></li>
+                    <li>Courses</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-xl-9 col-lg-8 col-md-12">
+    <div class="card settings-inner-blk p-0">
+        <div class="widget-set sell-course-head comman-space">
+            <!-- ... Remaining HTML content ... -->
+            <div class="widget-content multistep-form">
+                <div class="widget-content multistep-form">
+                    <form class="field-card">
+                        <div class="add-course-info">
+                            <div class="add-course-inner-header">
+                                <h4>Courses Media</h4>
+                            </div>
+                            <div class="add-course-form">
+                                <form action="#">
+
+                                    <div class="input-block">
+                                        <label class="add-course-label">cour image</label>
+                                        <div class="relative-form">
+
+                                            <div *ngIf="selectedFile">
+                                                <span>{{selectedFile.name}}</span>
+                                            </div>
+                                            <label class="relative-file-upload">
+                                                Upload File <input type="file"
+                                                    (change)="onFileSelected($event)">
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                </form>
+                            </div>
+                            <div class="widget-btn">
+                                <a (click)="onUploadCourse()" class="btn btn-info-light next_btn">Upload</a>
+                            </div>                            
+                        </div>
+                    </form>
+                    
+                </div>
+            </div>
+        </div>
+        <div class="widget-content multistep-form">
+            <fieldset id="first">
+                <div class="add-course-info">
+                    <div class="add-course-inner-header">
+                        <h4>Basic Information</h4>
+                    </div>
+                    <div class="add-course-form">
+                        <form #f="ngForm" (ngSubmit)="save(f)">
+                            <div class="input-block">
+                                <label class="add-course-label">Ressource Title</label>
+                                <input type="text" class="form-control" placeholder="Ressource Title" required ngModel #l="ngModel" [(ngModel)]="ressource.nomRessource" name="aa">
+                                <div class="alert alert-danger" *ngIf="l.invalid">
+                                    the title ressource is a required field !
+                                
+                                </div>
+
+                            </div>
+                            
+                           
+                            
+                            <button [disabled]="f.invalid" class="btn btn-success-dark" type="submit" (click)="affecterRessourceAcour()">Ajouter</button>
+                        </form>
+                    </div>
+                    <div class="widget-btn">
+                        <a class="btn btn-black">Back</a>
+                        <a class="btn btn-info-light next_btn">Modifier Ressource</a>
+                    </div>
+                </div>
+            </fieldset>
+    </div>
+    

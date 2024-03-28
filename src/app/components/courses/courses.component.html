@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Wizard</title>
+</head>
+
+<body>
+    <app-header></app-header>
+ <!-- breadcrumb start -->
+ <div class="breadcrumb-area bg-overlay" style="background-image:url('assets/img/bg/3.png')">
+    <div class="container">
+        <div class="breadcrumb-inner">
+            <div class="section-title mb-0 text-center">
+                <h2 class="page-title">Courses</h2>
+                <ul class="page-list">
+                    <li><a routerLink="" href="index.html">Home</a></li>
+                    <li>Courses</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- breadcrumb end -->
+    <div class="container">
+        <!-- First Part: Basic Information -->
+        <section id="basic-info-section" class="course-section">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-md-12">
+                        <div class="add-course-header">
+                            <h2>Add New Course</h2>
+                            <div class="add-course-btns">
+                                <ul class="nav">
+                                    <li>
+                                        <a href="dashboard-instructor.html" class="btn btn-black">Back to Course</a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0);" class="btn btn-success-dark">Save</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <!-- Course Wizard -->
+                            <div class="widget-set">
+                                <div class="widget-setcount">
+                                    <ul id="progressbar">
+                                        <li class="progress-active">
+                                            <p><span></span> Basic Information</p>
+                                        </li>
+                                        <li>
+                                            <p><span></span> Courses Media</p>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="widget-content multistep-form">
+                                    <fieldset id="first">
+                                        <div class="add-course-info">
+                                            <div class="add-course-inner-header">
+                                                <h4>Basic Information</h4>
+                                            </div>
+                                            <div class="add-course-form">
+                                                <form #f="ngForm" (ngSubmit)="save(f)">
+                                                    <div class="input-block">
+                                                        <input name="nomCours" type="text" class="form-control" placeholder="Course Title" required pattern="[A-Za-z ]*" ngModel #l="ngModel" [(ngModel)]="course.nomCours">
+                                                        <div class="alert alert-danger" *ngIf="l.invalid && (l.dirty || l.touched)">
+                                                            <div *ngIf="l.errors && l.errors['required']">The Title is a required field!</div>
+                                                            <div *ngIf="l.errors && l.errors['pattern']">Please enter only letters for the Title!</div>
+                                                        </div>
+                                                    </div>
+                                                    
+                                            
+                                                    <div class="input-block">
+                                                        <input name="nomProfesseur" type="text" class="form-control" placeholder="Name professor" required pattern="[A-Za-z ]*" ngModel #a="ngModel" [(ngModel)]="course.nomProfesseur">
+                                                        <div class="alert alert-danger" *ngIf="a.invalid && (a.dirty || a.touched)">
+                                                            <div *ngIf="a.errors && a.errors['required']">The Name Professor is a required field!</div>
+                                                            <div *ngIf="a.errors && a.errors['pattern']">Please enter only letters for the Name Professor!</div>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div class="input-block">
+                                                        <input name="descriptionCours" type="text" class="form-control" placeholder="Course Description" required pattern="[A-Za-z ]*" ngModel #d="ngModel" [(ngModel)]="course.descriptionCours">
+                                                        <div class="alert alert-danger" *ngIf="d.invalid && (d.dirty || d.touched)">
+                                                            <div *ngIf="d.errors && d.errors['required']">The Description is a required field!</div>
+                                                            <div *ngIf="d.errors && d.errors['pattern']">Please enter only letters for the Description!</div>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div class="input-block">
+                                                        <input name="date" type="date" class="form-control" required ngModel #b="ngModel" [(ngModel)]="course.dateInscription">
+                                                        <div class="alert alert-danger" *ngIf="b.invalid && (b.errors && b.errors['required']) && (b.dirty || b.touched)">
+                                                            <div *ngIf="b.errors && b.errors['required']">The Date is a required field!</div>
+                                                        </div>
+                                                    </div>
+                                                    
+                                            
+                                                    <div class="input-block">
+                                                        <input name="prix" type="number" class="form-control" placeholder="Price" required ngModel #p="ngModel" [(ngModel)]="course.prix" [min]="0">
+                                                        <div class="alert alert-danger" *ngIf="p.invalid && (p.dirty || p.touched)">
+                                                            <div *ngIf="p.errors">
+                                                                <div *ngIf="p.errors['required']">The Price is a required field!</div>
+                                                                <div *ngIf="p.errors['min']">Price cannot be negative!</div>
+                                                                <div *ngIf="!p.errors['required'] && !p.errors['min'] && p.errors['pattern']">Please enter only integers for the Price!</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <button [disabled]="f.invalid" class="btn btn-success-dark" type="submit" (click)="ajouter()">Save</button>
+                                                </form>
+                                            </div>
+                                            <div class="widget-btn">
+                                                <a class="btn btn-black">Back</a>
+                                                <button id="basic-info-continue-btn" (click)="continueToNextSection()">Continue</button>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                            </div>
+                            <!-- /Course Wizard -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Second Part: Courses Media -->
+        <section id="courses-media-section" class="course-section" style="display: none;">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="add-course-info">
+                                <div class="add-course-inner-header">
+                                    <h4>Courses Media</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const continueButton = document.getElementById('basic-info-continue-btn');
+            continueButton.addEventListener('click', function () {
+                const basicInfoSection = document.getElementById('basic-info-section');
+                const coursesMediaSection = document.getElementById('courses-media-section');
+                if (basicInfoSection && coursesMediaSection) {
+                    basicInfoSection.style.display = 'none';
+                    coursesMediaSection.style.display = 'block';
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
