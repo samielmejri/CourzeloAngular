@@ -19,10 +19,10 @@ export class CourseService {
 
     return this.http.post<course>(`${this.apiUrl}/addCours/${idMatiere}`, cours, { headers: headers });
   }
-  /* getCourse(){
-     return this.http.get(this.url+"/getCours");
+  getCourse(){
+     return this.http.get(this.apiUrl+"/getCours");
    }
-  postCourse(course: course) {
+ /* postCourse(course: course) {
     return this.http.post(this.url + '/addCours', course, { headers: this.generateCorsHeaders() });
   }
    deleteCourse(id:string){
@@ -48,12 +48,13 @@ export class CourseService {
     return this.http.get(`${this.url}/getRessourcesByCourId/${id}`);
 
     
-  }
-  getPhoto(photo: string): string{
-    const photoUrl = `${this.url}/download/${photo}`;
-
-    return `${this.url}/download/${photo}`;
   }*/
+  getPhoto(photo: string): string{
+    const photoUrl = `${this.apiUrl}/download/${photo}`;
+
+    return `${this.apiUrl}/download/${photo}`;
+  }
+
   affecterRessourceAcour(id:string , ressource:Ressource){
     return this.http.post(`${this.apiUrl}/affecterRessourcesACour/${id}`,ressource);
   }
@@ -65,8 +66,8 @@ export class CourseService {
 
     return this.http.post(uploadUrl, formData);
   }
- /* findCoursByDateGreaterThan(){
-    return this.http.get(`${this.url}/findCoursByDateGreaterThan`);
+  findCoursByDateGreaterThan(){
+    return this.http.get(`${this.apiUrl}/findCoursByDateGreaterThan`);
 
   }
  /* filterByNiveau(niveau:string){

@@ -62,7 +62,7 @@
                     <div class="add-course-form">
                         <form #f="ngForm" (ngSubmit)="save(f)">
                             <div class="input-block">
-                                <label class="add-course-label">Ressource Title</label>
+                             
                                 <input type="text" class="form-control" placeholder="Ressource Title" required ngModel #l="ngModel" [(ngModel)]="ressource.nomRessource" name="aa">
                                 <div class="alert alert-danger" *ngIf="l.invalid">
                                     the title ressource is a required field !

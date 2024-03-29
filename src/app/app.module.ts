@@ -25,6 +25,7 @@ import { CoursesComponent } from './components/courses/courses.component';
 import { CourseDetailsComponent } from './components/course-details/course-details.component';
 import { HeaderComponent } from './components/header/header.component';
 import { AddRessourceComponent } from './components/add-ressource/add-ressource.component';
+import { ListCoursComponent } from './components/list-cours/list-cours.component';
 
 
 @NgModule({
@@ -49,7 +50,8 @@ import { AddRessourceComponent } from './components/add-ressource/add-ressource.
     CoursesComponent,
     CourseDetailsComponent,
     HeaderComponent,
-    AddRessourceComponent
+    AddRessourceComponent,
+    ListCoursComponent
     
   ],
   imports: [
