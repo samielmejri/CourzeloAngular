@@ -4501,8 +4501,17 @@ ul {
   background-color: rgb(255, 213, 0); /* Background color on hover */
 }
 
+.signin-btn {
+  color: blue; /* Set the text color to blue */
+  margin-top: 8px; /* Adjust the top margin to push the text down */
+  /* Add any other custom styling for the sign-in button */
+  transition: all 0.3s ease; /* Smooth transition for all properties */
+}
 
-
+.signin-btn:hover {
+  transform: translateY(2px); /* Move the button slightly down on hover */
+  color: #0c4d93; /* Change text color on hover */
+}
 
 
 
