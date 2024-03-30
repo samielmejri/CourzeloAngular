@@ -31,6 +31,8 @@ const routes: Routes = [
   {path:'logout', component: LogoutComponent},
   {path:'forgot-password', component: ForgotPasswordComponent},
   {path:'recover-password', component: RecoverPasswordComponent},
+  { path: 'profile', component: ProfileComponent }, // Profile page route
+
   {
     path: 'settings',
     component: PanelComponent,

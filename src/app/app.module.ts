@@ -30,12 +30,13 @@ import { DevicesListComponent } from './components/user/devices-list/devices-lis
 import { ProfileComponent } from './components/user/profile/profile.component';
 import { UserProfileComponent } from './components/user/user-profile/user-profile.component';
 //import { DeleteAccountRequestComponent } from './components/model/user/delete-account-request/delete-account-request.component';
-//import {SidebarComponent} from './components/shared/sidebar/sidebar.component';
-//import { UserTableComponent } from './components/user/user-table/user-table.component';
+import {SidebarComponent} from './components/shared/sidebar/sidebar.component';
+import { UsersTableComponent } from './components/user/users-table/users-table.component';
 import {Interceptor} from "./service/user/auth/Interceptor";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {RouterOutlet} from "@angular/router";
 import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from "@angular/common/http";
+import {PanelComponent} from './components/shared/panel/panel.component';
 
 
 @NgModule({
@@ -66,7 +67,10 @@ import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from "@angular/common/h
     DevicesListComponent,
     ForgotPasswordComponent,
     RecoverPasswordComponent,
-    HeaderComponent
+    HeaderComponent,
+    PanelComponent,
+    SidebarComponent,
+    UsersTableComponent
   ],
   imports: [
     BrowserModule,
