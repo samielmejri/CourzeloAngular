@@ -81,29 +81,30 @@ export class ProfileComponent {
   resetErrorAlert() {
     this.messageError = "";
   }
+  nameChangeSuccess: string = '';
+
 
   changeName() {
     if (this.nameForm.valid) {
-      this.nameRequest = Object.assign(this.nameRequest, this.nameForm.value);
-      console.log(this.nameRequest);
-      this.updateService.changeName(this.nameRequest)
-        .subscribe(data => {
-            console.log(data)
-            this.messageSuccess = data.msg!;
-            this.user = this.token.getUser();
-            this.user.name = this.nameForm.value.name!;
-            this.user.lastname = this.nameForm.value.lastName!;
-            this.token.saveUser(this.user);
-            this.messageError = "";
-          },
-          error => {
-            console.log("update name error :", error)
-            this.messageSuccess = "";
-            this.messageError = error.error.msg;
-          });
+        this.nameRequest = Object.assign(this.nameRequest, this.nameForm.value);
+        console.log(this.nameRequest);
+        this.updateService.changeName(this.nameRequest)
+            .subscribe(data => {
+                    console.log(data)
+                    this.nameChangeSuccess = "Name changed successfully";
+                    this.messageError = "";
+                },
+                error => {
+                    console.log("update name error :", error)
+                    this.nameChangeSuccess = '';
+                    this.messageError = error.error.msg;
+                });
     }
-  }
+}
 
+resetNameChangeSuccess() {
+    this.nameChangeSuccess = '';
+}
   changePhoto() {
     if (this.selectedFile) {
       const formData: FormData = new FormData();

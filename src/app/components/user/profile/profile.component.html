@@ -1,24 +1,42 @@
 <!-- Content Wrapper. Contains page content -->
 <!-- Content Header (Page header) -->
-<section class="content-header">
+<section class="content-header" >
     <div class="container-fluid">
         <div class="col-sm-6">
             <!-- Notification area -->
-            <div *ngIf="messageSuccess" class="alert alert-success alert-dismissible">
-                <button (click)="resetSuccessAlert()" class="close" type="button">×</button>
+            <div *ngIf="messageSuccess" class="alert alert-success alert-dismissible" role="alert">
+                <div class="success-message">
+                <button (click)="resetSuccessAlert()" class="close" type="button" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
                 {{ messageSuccess }}
             </div>
+            </div>
+
+<!-- Name change success message -->
+<div *ngIf="nameChangeSuccess" class="alert alert-success alert-dismissible" role="alert">
+    <div class="success-message">
+        <button (click)="resetNameChangeSuccess()" class="close" type="button" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        {{ nameChangeSuccess }}
+    </div>
+</div>
+
+
             <div *ngIf="messageError" class="alert alert-danger alert-dismissible">
                 <button (click)="resetErrorAlert()" class="close" type="button">×</button>
                 {{ messageError }}
             </div>
         </div><!-- /.col -->
-        <div class="row mb-2">
-            <div class="col-sm-6">
-                <h1>Profile</h1>
+        <div class="row mb-2" style="margin-top: 100px; margin-left: auto; margin-right: auto; width: fit-content;">
+            <div class="b-animate-2 title">
+                <h1 class="b-animate-2 title">Profile</h1>
             </div>
-            <div class="col-sm-6">
-                <ol class="breadcrumb float-sm-right">
+        </div>
+        <div class="row mb-2" style="margin-left: auto; margin-right: auto; width: fit-content;">
+            <div class="col-sm-12 text-center">
+                <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="#">Home</a></li>
                     <li class="breadcrumb-item active">User Profile</li>
                 </ol>
@@ -28,16 +46,13 @@
 </section>
 
 <!-- Main content -->
-<section class="content">
+<section class="content" style="height: 65vh;margin-left: 250px;">
+    <div class="profile-content-container">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-3">
-                <!-- Profile Image -->
-                <app-user-profile></app-user-profile>
-            </div>
-            <div class="col-md-9">
+            <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header p-2">
+                    <div class="card-header p-2" class="profile-form">
                         <ul class="nav nav-pills">
                             <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#name">Name</a></li>
                             <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#photo">Profile photo</a></li>
@@ -46,16 +61,17 @@
                             <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#delete">Delete account</a></li>
                         </ul>
                     </div><!-- /.card-header -->
-                    <div class="card-body">
+                    <div class="card-body" class="profile-form2">
                         <div class="tab-content">
-                            <div class="active tab-pane" id="name">
-                                <div *ngIf="nameForm.get('name')?.touched && nameForm.get('name')?.errors?.['required']"
-                                class="text-danger">Name is required
-                           </div>
-                           <div *ngIf="nameForm.get('lastName')?.touched && nameForm.get('lastName')?.errors?.['required']"
-                                class="text-danger">Lastname is required
-                           </div>
-                           
+                            <div class="tab-pane active" id="name">
+                                <form (ngSubmit)="changeName()" [formGroup]="nameForm" class="form-horizontal">
+                                    <div *ngIf="nameForm.get('name')?.touched && nameForm.get('name')?.errors?.['required']"
+                                         class="text-danger">Name is required
+                                    </div>
+                                    <div *ngIf="nameForm.get('lastName')?.touched && nameForm.get('lastName')?.errors?.['required']"
+                                         class="text-danger">Lastname is required
+                                    </div>
+                            
                                     <div class="form-group row">
                                         <label class="col-sm-2 col-form-label" for="inputName">Name</label>
                                         <div class="col-sm-10">
@@ -73,21 +89,20 @@
                                             <button class="btn btn-primary" type="submit">Submit</button>
                                         </div>
                                     </div>
-                                    <!-- Remove the extra closing </form> tag here -->
-                                <!-- /.post -->
+                                </form>
                             </div>
+                            
                             <div class="tab-pane" id="photo">
-                                <form (ngSubmit)="changePhoto()" [formGroup]="photoForm" class="form-horizontal"
-                                      enctype="multipart/form-data">
-                                      <div *ngIf="photoForm.get('photo')?.touched && photoForm.get('photo')?.errors?.['required']"
-                                      class="text-danger">Please upload a photo
-                                 </div>
-                                                                     <div class="form-group row">
+                                <form (ngSubmit)="changePhoto()" [formGroup]="photoForm" class="form-horizontal" enctype="multipart/form-data">
+                                    <div *ngIf="photoForm.get('photo')?.touched && photoForm.get('photo')?.errors?.['required']"
+                                         class="text-danger">Please upload a photo
+                                    </div>
+                                    <div class="form-group row">
                                         <label for="exampleInputFile">File input</label>
                                         <div class="input-group">
                                             <div class="custom-file">
-                                                <input (change)="onFileSelected($event)" class="custom-file-input"
-                                                       formControlName="photo" id="exampleInputFile" type="file">
+                                                <input (change)="onFileSelected($event)" class="custom-file-input" formControlName="photo"
+                                                       id="exampleInputFile" type="file">
                                                 <label class="custom-file-label" for="exampleInputFile">{{ selectedFile?.name || 'Choose file' }}</label>
                                             </div>
                                             <div class="input-group-append">
@@ -96,8 +111,8 @@
                                         </div>
                                     </div>
                                 </form>
-                                <!-- /.post -->
                             </div>
+                            
                             <!-- /.tab-pane -->
                             <div class="tab-pane" id="email">
                                 <form (ngSubmit)="sendVerificationCode()" *ngIf="showEmailForm" [formGroup]="emailForm"
@@ -207,4 +222,5 @@
                         </div>
                         <!-- /.row -->
                       </div><!-- /.container-fluid -->
+                    </div>
                     </section>
