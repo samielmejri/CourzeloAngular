@@ -96,28 +96,35 @@
                             <form [formGroup]="loginForm" (ngSubmit)="login()">
                                 <!-- Login Form -->
                                 <div class="single-input-inner style-bg-border">
-                                    <input type="email" placeholder="Email" formControlName="email">
+                                    <input type="email" placeholder="Email" formControlName="email"  *ngIf="!verification">
                                 </div>
                                 <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched" class="text-danger">
                                     Please enter a valid email.
                                 </div>
                                 <div class="single-input-inner style-bg-border">
-                                    <input type="password" placeholder="Password" formControlName="password">
+                                    <input type="password" placeholder="Password" formControlName="password"  *ngIf="!verification">
                                 </div>
                                 <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" class="text-danger">
                                     Please enter a password.
                                 </div>
-                                <div class="icheck-primary">
-                                    <input formControlName="rememberMe" id="remember" type="checkbox">
+                                <div class="icheck-primary"  *ngIf="!verification">
+                                    <input formControlName="rememberMe" id="remember" type="checkbox"  *ngIf="!verification">
                                     <label for="remember"> Remember me</label>
                                 </div>
-                                <div class="col-12 mb-4">
+                                <div class="col-12 mb-4"  *ngIf="!verification">
                                     <button type="submit" class="btn btn-base w-100">Log In</button>
+                                </div>
+                                <div class="col-12" *ngIf="!verification">
+                                    <span class="signin-message">Vous n'avez pas de compte ? </span>
+                                    <a routerLink="/signup" href="signup.html"><strong>Inscrivez-vous !</strong></a>
                                 </div>
                             </form>
                              <!-- Error message display -->
                              <div *ngIf="message && !verification" class="text-danger">
                                 {{ message }}
+                            </div>
+                            <div *ngIf="emailNotFoundError" class="text-danger">
+                                {{ emailNotFoundError }}
                             </div>
                         </div>
                         <div class="col-12" *ngIf="verification">

@@ -30,8 +30,16 @@ export class AuthenticationService {
   }
 
   login(loginRequest: LoginRequest): Observable<any> {
-    return this.http.post<any>(`${this.baseUrl}/signing`, loginRequest);
-  }
+    return this.http.post<any>(`${this.baseUrl}/signing`, loginRequest)
+        .pipe(
+            catchError(error => {
+                if (error.status === 404 && error.error.message === 'Email not found') {
+                    return throwError('Email not found');
+                }
+                return throwError(error);
+            })
+        );
+}
 
   verifyAccount(code: string) {
     return this.http.get<JsonResponse>(`${this.baseUrl}/verify?code=${code}`);

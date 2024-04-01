@@ -12,6 +12,7 @@ import { TokenStorageService } from "../../../service/user/auth/token-storage.se
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
+  emailNotFoundError: string = '';
   verification: boolean = false;
   code: number = 0;
   loginResponse: LoginResponse = {};
@@ -39,39 +40,41 @@ export class LoginComponent {
 
   login() {
     if (this.loginForm.valid) {
-      this.loginRequest.email = this.loginForm.controls['email'].value!.toLowerCase();
-      this.loginRequest.password = this.loginForm.controls['password'].value!;
-      if (this.loginForm.controls['rememberMe'].value == null) {
-        this.loginRequest.rememberMe = false;
-      } else {
-        this.loginRequest.rememberMe = true;
-      }
-      this.authService.login(this.loginRequest).subscribe(
-        response => {
-          if (response.deviceIsNew !== undefined) {
-            console.log("device not confirmed")
-            if (response.deviceIsNew) {
-              console.log(this.loginRequest.rememberMe)
-              this.verification = true;
-              this.message = '';
-            }
-          } else {
-            console.log(this.loginRequest.rememberMe)
-            this.message = '';
-            this.loginResponse = response;
-            this.token.saveUser(response);
-            this.router.navigate(['']);
-          }
-        },
-        error => {
-          if (error.status === 403) {
-            this.message = error.error.message;
-          } else {
-            this.message = error.error.msg;
-          }
-        });
+        this.loginRequest.email = this.loginForm.controls['email'].value!.toLowerCase();
+        this.loginRequest.password = this.loginForm.controls['password'].value!;
+        if (this.loginForm.controls['rememberMe'].value == null) {
+            this.loginRequest.rememberMe = false;
+        } else {
+            this.loginRequest.rememberMe = true;
+        }
+        this.authService.login(this.loginRequest).subscribe(
+            response => {
+                if (response.deviceIsNew !== undefined) {
+                    console.log("device not confirmed")
+                    if (response.deviceIsNew) {
+                        console.log(this.loginRequest.rememberMe)
+                        this.verification = true;
+                        this.message = '';
+                    }
+                } else {
+                    console.log(this.loginRequest.rememberMe)
+                    this.message = '';
+                    this.loginResponse = response;
+                    this.token.saveUser(response);
+                    this.router.navigate(['']);
+                }
+            },
+            error => {
+                if (error.status === 403) {
+                    this.message = error.error.message;
+                } else if (error.status === 404) {
+                    this.emailNotFoundError = 'Email not found. Please check your email and try again.';
+                } else {
+                    this.message = error.error.msg;
+                }
+            });
     }
-  }
+}
 
   submitVerificationCode() {
     if (this.verificationForm.valid) {

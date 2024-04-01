@@ -4621,3 +4621,6 @@ ul {
   padding: 20px; /* Adjust padding as needed */
   border-radius: 5px; /* Add rounded corners if desired */
 }
+.signin-message {
+  color: white; /* Couleur blanche */
+}
