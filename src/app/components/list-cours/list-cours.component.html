@@ -93,6 +93,7 @@
                     <div class="row">
                         <div class="col-md-6" *ngFor="let cours of course">
                               <div class="single-course-inner">
+
                                 <div class="thumb">
                                     <img [src]="getphoto(cours.photo)" alt="img">
                                 </div>
@@ -118,6 +119,21 @@
                                             </div>
                                         </div>
                                     </div>
+                                       <!-- Ajouter les boutons pour les actions -->
+                                       <div class="course-actions">
+                                        <button class="btn btn-primary" [routerLink]="['/add-ressource', cours.id_cours]">Ajouter Ressource</button>
+                                        <div class="action-icons">
+                                            <a class="icon-link" [routerLink]="['/modifier-cours', cours.id_cours]">
+                                                <i class="fas fa-pen"></i> <!-- Stylo -->
+                                            </a>
+                                            <a class="icon-link" (click)="delete(cours.id_cours)">                                                <i class="fas fa-trash-alt"></i> 
+                                           </a> 
+                                        </div>
+                                      
+                                       </div>
+                                       <div class="all-btn all-category d-flex align-items-center">
+                                        <a [routerLink]="'/payment/'+ cours.prix" class="btn btn-primary">BUY NOW</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -139,9 +155,11 @@
                         <div class="widget widget_search_course">    
                             <h4 class="widget-title">Search</h4>                               
                             <form class="search-form single-input-inner">
-                                <input type="text" placeholder="Search here">
-                                <button class="btn btn-base w-100 mt-3" type="submit"><i class="fa fa-search"></i> SEARCH</button>
+                                <input type="text" [(ngModel)]="search" name="search" placeholder="Search here">
+                                <button class="btn btn-base w-100 mt-3" type="button" (click)="rechercheParDescriptionCoursEtNomProfesseur()"><i class="fa fa-search"></i> SEARCH</button>
                             </form>
+                            
+                            
                         </div> 
                         <div class="widget widget_catagory">
                             <h4 class="widget-title">Catagory</h4>                                 

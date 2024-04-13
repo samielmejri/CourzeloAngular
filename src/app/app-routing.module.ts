@@ -9,6 +9,9 @@ import { CoursesComponent } from './components/courses/courses.component';
 import { CourseDetailsComponent } from './components/course-details/course-details.component';
 import { AddRessourceComponent } from './components/add-ressource/add-ressource.component';
 import { ListCoursComponent } from './components/list-cours/list-cours.component';
+import { ModifierCoursComponent } from './components/modifier-cours/modifier-cours.component';
+import { DeleteCoursComponent } from './components/delete-cours/delete-cours.component';
+import { PaymentComponent } from './components/payment/payment.component';
 
 const routes: Routes = [
   {path:'', component: HomeComponent},
@@ -18,8 +21,12 @@ const routes: Routes = [
   {path:'home3', component: Home3Component},
   {path:'courses', component: CoursesComponent},
   {path:'courseDetails', component: CourseDetailsComponent},
-  {path:"add-ressource/:id" ,component:AddRessourceComponent},
-  {path:"list-cours", component: ListCoursComponent}
+  {path:"add-ressource/:id" ,component:AddRessourceComponent },
+  {path:"list-cours", component: ListCoursComponent},
+  {path:"modifier-cours/:id",component:ModifierCoursComponent},
+  { path: 'delete-course/:id', component: DeleteCoursComponent },
+  {path: "payment/:prix", component: PaymentComponent}
+
 ];
 
 @NgModule({

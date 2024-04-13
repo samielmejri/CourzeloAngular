@@ -26,6 +26,9 @@ import { CourseDetailsComponent } from './components/course-details/course-detai
 import { HeaderComponent } from './components/header/header.component';
 import { AddRessourceComponent } from './components/add-ressource/add-ressource.component';
 import { ListCoursComponent } from './components/list-cours/list-cours.component';
+import { ModifierCoursComponent } from './components/modifier-cours/modifier-cours.component';
+import { DeleteCoursComponent } from './components/delete-cours/delete-cours.component';
+import { PaymentComponent } from './components/payment/payment.component';
 
 
 @NgModule({
@@ -51,7 +54,10 @@ import { ListCoursComponent } from './components/list-cours/list-cours.component
     CourseDetailsComponent,
     HeaderComponent,
     AddRessourceComponent,
-    ListCoursComponent
+    ListCoursComponent,
+    ModifierCoursComponent,
+    DeleteCoursComponent,
+    PaymentComponent
     
   ],
   imports: [
@@ -59,7 +65,7 @@ import { ListCoursComponent } from './components/list-cours/list-cours.component
     AppRoutingModule,
     RouterModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

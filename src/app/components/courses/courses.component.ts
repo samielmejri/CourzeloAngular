@@ -20,20 +20,11 @@ export class CoursesComponent implements OnInit {
 
   ngOnInit() {}
 
- /* save(f: NgForm) {
-    console.log(this.httpOptions);
-  }*/
+
   save(f: NgForm) {
-    if (f.valid) { // Check if the form is valid
-      this.ajouter(); // Call the add method only if the form is valid
-    } else {
-      console.error("Form is invalid. Cannot add course.");
-    }
+  
   }
   
-  
-  
-
  ajouter() {
     const idMatiere = "ID_DE_LA_MATIERE";
     this.courseService.addCours(this.course, idMatiere).subscribe(

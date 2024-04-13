@@ -9,54 +9,53 @@ import { Ressource } from '../model/Ressource';
 export class CourseService {
   private apiUrl = 'http://localhost:8089/cours';
 
- /* course!:course
-  url='http://localhost:8089/cours'*/
-   constructor(private http :HttpClient) { }
-   addCours(cours: course, idMatiere: string): Observable<course> {
+  constructor(private http: HttpClient) { }
+
+  addCours(cours: course, idMatiere: string): Observable<course> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json'
     });
 
     return this.http.post<course>(`${this.apiUrl}/addCours/${idMatiere}`, cours, { headers: headers });
   }
-  getCourse(){
-     return this.http.get(this.apiUrl+"/getCours");
-   }
- /* postCourse(course: course) {
-    return this.http.post(this.url + '/addCours', course, { headers: this.generateCorsHeaders() });
+
+  getCourse(): Observable<course[]> {
+    return this.http.get<course[]>(`${this.apiUrl}/getCours`);
   }
-   deleteCourse(id:string){
-    return this.http.delete(`${this.url}/delete/${id}`);
+  /*   deleteCourse(id:string){
+      return this.http.delete(`${this.apiUrl}/delete/${id}`);
+    }*/
+  deleteCourse(id: string): Observable<void> {
+    const url = `${this.apiUrl}/delete/${id}`;
+    return this.http.delete<void>(url);
   }
-  modifierCourse(id:string , course:course){
-    return this.http.put(`${this.url}/updateCours/${id}`,course);
+  modifierCourse(id: string, course: course) {
+    return this.http.put(`${this.apiUrl}/updateCours/${id}`, course);
   }
-  getCourseTrier(){
-    return this.http.get(this.url+"/findAllByOrderByDateDesc");
-  }*/
+  getCourseTrier() {
+    return this.http.get(this.apiUrl + "/findAllByOrderByDateDesc");
+  }
   uploadPhoto(id: string, file: File): Observable<any> {
     const formData = new FormData();
     formData.append('file', file);
     return this.http.post(`${this.apiUrl}/upload/${id}`, formData);
-}
-
-  
- /* getCourById(id:string ){
-    return this.http.get(`${this.url}/get/${id}`);
   }
-  getRessourceByCourId(id:string){
-    return this.http.get(`${this.url}/getRessourcesByCourId/${id}`);
 
-    
-  }*/
-  getPhoto(photo: string): string{
+
+  getCoursById(id: string) {
+    return this.http.get(`${this.apiUrl}/get/${id}`);
+  }
+  /*  getRessourceByCourId(id:string){
+      return this.http.get(`${this.url}/getRessourcesByCourId/${id}`);
+    }*/
+  getPhoto(photo: string): string {
     const photoUrl = `${this.apiUrl}/download/${photo}`;
 
     return `${this.apiUrl}/download/${photo}`;
   }
 
-  affecterRessourceAcour(id:string , ressource:Ressource){
-    return this.http.post(`${this.apiUrl}/affecterRessourcesACour/${id}`,ressource);
+  affecterRessourceAcour(id: string, ressource: Ressource) {
+    return this.http.post(`${this.apiUrl}/affecterRessourcesACour/${id}`, ressource);
   }
   uploadPhotoRessource(id: string, file: File): Observable<any> {
     const uploadUrl = `${this.apiUrl}/uploadRessource/${id}`;
@@ -66,27 +65,26 @@ export class CourseService {
 
     return this.http.post(uploadUrl, formData);
   }
-  findCoursByDateGreaterThan(){
-    return this.http.get(`${this.apiUrl}/findCoursByDateGreaterThan`);
+  sendHtmlEmail(email: string, amount: any) {
+    return this.http.post(`${this.apiUrl}/sendHtmlEmail/${email}/${amount}`, {});
+  }
+
+  /* findCoursByDateGreaterThan(){
+     return this.http.get(`${this.apiUrl}/findCoursByDateGreaterThan`);
+ 
+   }*/
+
+  /* PdfGenerator(amount:any){
+     return this.http.post(`${this.url}/PdfGenerator/${amount}`,{});
+ 
+   }*/
+  rechercheParDescriptionCoursEtNomProfesseur(search: String) {
+    return this.http.get(`${this.apiUrl}/findByDescriptionCoursOrNomProfesseur/${search}`);
 
   }
- /* filterByNiveau(niveau:string){
-    return this.http.get(`${this.url}/filterByNiveau/${niveau}`);
-  }
-  sendHtmlEmail(email:string , amount:any){
-    return this.http.post(`${this.url}/sendHtmlEmail/${email}/${amount}`,{});
-  }
-  PdfGenerator(amount:any){
-    return this.http.post(`${this.url}/PdfGenerator/${amount}`,{});
 
-  }
-  rechercheMultiCritere(search: String){
-    return this.http.get(`${this.url}/findByNomCourOrDescription/${search}`);
-
-  }*/
-
-   // Méthode pour générer les en-têtes CORS
-   private generateCorsHeaders(): HttpHeaders {
+  // Méthode pour générer les en-têtes CORS
+  private generateCorsHeaders(): HttpHeaders {
     const headers = new HttpHeaders({
       'Access-Control-Allow-Origin': 'http://localhost:4200', // Ajoutez votre origin autorisé ici
       'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS', // Méthodes autorisées
@@ -96,5 +94,26 @@ export class CourseService {
     });
     return headers;
   }
-  
+
+
+
+  deleteRessource(id: string) {
+    return this.http.delete(`${this.apiUrl}/supprimerRessource/${id}`, { withCredentials: true });
+  }
+
+  modifierRessource(id: string, ressource: Ressource) {
+    return this.http.put(`${this.apiUrl}/modifierRessource/${id}`, ressource, { withCredentials: true });
+  }
+
+  uploadRessource(id: string, file: File): Observable<any> {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    // Créer une nouvelle instance HttpHeaders et définir le type de contenu
+    const headers = new HttpHeaders().set('Content-Type', 'multipart/form-data');
+
+    return this.http.post(`${this.apiUrl}/uploadRessource/${id}`, formData, { headers, withCredentials: true, reportProgress: true, observe: 'events' });
+  }
+
+
 }

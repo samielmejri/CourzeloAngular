@@ -32,16 +32,6 @@
                     <div class="col-md-12">
                         <div class="add-course-header">
                             <h2>Add New Course</h2>
-                            <div class="add-course-btns">
-                                <ul class="nav">
-                                    <li>
-                                        <a href="dashboard-instructor.html" class="btn btn-black">Back to Course</a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0);" class="btn btn-success-dark">Save</a>
-                                    </li>
-                                </ul>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -115,10 +105,7 @@
                                                     <button [disabled]="f.invalid" class="btn btn-success-dark" type="submit" (click)="ajouter()">Save</button>
                                                 </form>
                                             </div>
-                                            <div class="widget-btn">
-                                                <a class="btn btn-black">Back</a>
-                                                <button id="basic-info-continue-btn" (click)="continueToNextSection()">Continue</button>
-                                            </div>
+                                           
                                         </div>
                                     </fieldset>
                                 </div>
@@ -131,23 +118,8 @@
         </section>
 
 
-        <!-- Second Part: Courses Media -->
-        <section id="courses-media-section" class="course-section" style="display: none;">
-            <div class="container">
-                <div class="row align-items-center">
-                    <div class="col-md-12">
-                        <div class="card">
-                            <div class="add-course-info">
-                                <div class="add-course-inner-header">
-                                    <h4>Courses Media</h4>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </div>
+      
+</div>
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {

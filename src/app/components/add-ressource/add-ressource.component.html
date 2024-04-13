@@ -29,15 +29,14 @@
                                 <form action="#">
 
                                     <div class="input-block">
-                                        <label class="add-course-label">cour image</label>
+                                        <label class="add-course-label">Cours Image</label>
                                         <div class="relative-form">
 
                                             <div *ngIf="selectedFile">
                                                 <span>{{selectedFile.name}}</span>
                                             </div>
                                             <label class="relative-file-upload">
-                                                Upload File <input type="file"
-                                                    (change)="onFileSelected($event)">
+                                                Upload File <input type="file" (change)="onFileSelected($event)">
                                             </label>
                                         </div>
                                     </div>
@@ -46,10 +45,10 @@
                             </div>
                             <div class="widget-btn">
                                 <a (click)="onUploadCourse()" class="btn btn-info-light next_btn">Upload</a>
-                            </div>                            
+                            </div>
                         </div>
                     </form>
-                    
+
                 </div>
             </div>
         </div>
@@ -62,18 +61,19 @@
                     <div class="add-course-form">
                         <form #f="ngForm" (ngSubmit)="save(f)">
                             <div class="input-block">
-                             
-                                <input type="text" class="form-control" placeholder="Ressource Title" required ngModel #l="ngModel" [(ngModel)]="ressource.nomRessource" name="aa">
-                                <div class="alert alert-danger" *ngIf="l.invalid">
-                                    the title ressource is a required field !
-                                
+                                <input name="nomRessource" type="text" class="form-control" placeholder="Title ressource" required pattern="[A-Za-z ]*" ngModel #a="ngModel" [(ngModel)]="ressource.nomRessource">
+                                <div class="alert alert-danger" *ngIf="a.invalid && (a.dirty || a.touched)">
+                                    <div *ngIf="a.errors && a.errors['required']">The title ressource is a required field!</div>
+                                    <div *ngIf="a.errors && a.errors['pattern']">Please enter only letters for the title ressource!</div>
                                 </div>
 
+
                             </div>
-                            
-                           
-                            
-                            <button [disabled]="f.invalid" class="btn btn-success-dark" type="submit" (click)="affecterRessourceAcour()">Ajouter</button>
+
+
+
+                            <button [disabled]="f.invalid" class="btn btn-success-dark" type="submit"
+                                (click)="affecterRessourceAcour()">Ajouter</button>
                         </form>
                     </div>
                     <div class="widget-btn">
@@ -82,5 +82,4 @@
                     </div>
                 </div>
             </fieldset>
-    </div>
-    
+        </div>

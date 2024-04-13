@@ -35,7 +35,6 @@ ngOnInit() {
 }
 
 save(f:NgForm){
- // console.log(this.course.niveau)
 }
 selectedFile: File | null = null;
 onFileSelected(event: any): void {
@@ -49,17 +48,13 @@ onFileSelected(event: any): void {
 }
 
 
-
-
 affecterRessourceAcour() {
-   
-
   this.ressource.idRessource = this.generateRandomString(8);
   console.log(this.ressource.nomRessource, "l id de ressource est " + this.ressource.idRessource);
 
   return this.courseService.affecterRessourceAcour(this.id, this.ressource).subscribe(
     () => {
-      alert("Ressource ajouté !!");
+      alert("Ressource ajoutée avec succée !!");
       this.router.navigate(['/delete-course']);
     },
     (error) => {
@@ -68,19 +63,14 @@ affecterRessourceAcour() {
   );
 }
 
-// Dans votre méthode onUploadCourse
 onUploadCourse(): void {
   if (this.selectedFile) {
-    console.log(this.id); // Vérifiez si l'ID du cours est correct
-
-    // Envoyer la requête avec les en-têtes appropriés
+    console.log(this.id);
     this.courseService.uploadPhoto(this.id, this.selectedFile).subscribe({
       next: (event: any) => {
         if (event.type === HttpEventType.UploadProgress) {
-          // Gérer l'événement de progression
         } else if (event instanceof HttpResponse) {
           console.log('File is completely uploaded!', event);
-          // Vérifier la réponse réelle et le statut ici
         }
       },
       error: (error: any) => {
@@ -90,19 +80,14 @@ onUploadCourse(): void {
   }
 }
 
-// Dans votre méthode onUploadRessource
 onUploadRessource(): void {
   if (this.selectedFile) {
-    console.log(this.id); // Vérifiez si l'ID du cours est correct
-
-    // Envoyer la requête avec les en-têtes appropriés
+    console.log(this.id); 
     this.ressourceService.uploadRessource(this.id, this.selectedFile).subscribe({
       next: (event: any) => {
         if (event.type === HttpEventType.UploadProgress) {
-          // Gérer l'événement de progression
         } else if (event instanceof HttpResponse) {
           console.log('File is completely uploaded!', event);
-          // Vérifier la réponse réelle et le statut ici
         }
       },
       error: (error: any) => {

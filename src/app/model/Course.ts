@@ -6,7 +6,6 @@ export class course {
    nomProfesseur!: string;
    descriptionCours!: string;
    dateInscription!: Date;
-   // niveau!:string;
     matiere!: any;
     ressource!:Ressource[];
     photo!:string;
