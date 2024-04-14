@@ -83,6 +83,16 @@ export class CourseService {
 
   }
 
+  likeCourse(id: number): Observable<any> {
+    const url = `${this.apiUrl}/like/${id}`;
+    return this.http.post(url, {});
+  }
+
+  dislikeCourse(id: number): Observable<any> {
+    const url = `${this.apiUrl}/dislike/${id}`;
+    return this.http.post(url, {});
+  }
+
   // Méthode pour générer les en-têtes CORS
   private generateCorsHeaders(): HttpHeaders {
     const headers = new HttpHeaders({

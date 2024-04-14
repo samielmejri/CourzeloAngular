@@ -1,10 +1,10 @@
 <div class="input-block">
-  <label class="add-course-label">email</label> 
+  <label class="add-course-label">Email</label> 
   <input name="email" type="email" class="form-control" placeholder="Your Email" [(ngModel)]="email" required>
 </div>
 
 <div id="card-element">
-<!-- Element where Stripe.js will mount Card Element -->
+  <!-- Element where Stripe.js will mount Card Element -->
 </div>
-
 <button (click)="pay()" class="btn btn-primary btn-block">Pay $ {{amount}}</button>
+

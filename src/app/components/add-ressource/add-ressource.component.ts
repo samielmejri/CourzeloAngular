@@ -20,7 +20,7 @@ export class AddRessourceComponent {
     let result1 = Math.random().toString(36).substring(0, num);
     return result1;
   }
- num!:number
+num!:number
 course!:course
 id!:any
 ressource: Ressource = new Ressource();
@@ -80,7 +80,7 @@ onUploadCourse(): void {
   }
 }
 
-onUploadRessource(): void {
+/*onUploadRessource(): void {
   if (this.selectedFile) {
     console.log(this.id); 
     this.ressourceService.uploadRessource(this.id, this.selectedFile).subscribe({
@@ -95,5 +95,5 @@ onUploadRessource(): void {
       }
     });
   }
-}
+}*/
 }

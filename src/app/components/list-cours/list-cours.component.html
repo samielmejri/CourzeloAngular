@@ -108,9 +108,17 @@
                                     <div class="emt-course-meta">
                                         <div class="row">
                                             <div class="col-6">
+
                                                 <div class="rating">
-                                                    <i class="fa fa-heart"></i> {{ cours.numLikes }}
+                                                    <button class="like-btn" (click)="like(cours)">
+                                                        <i *ngIf="!isLiked[cours.id_cours]" class="fa fa-heart-o"></i> <!-- Heart outline -->
+                                                        <i *ngIf="isLiked[cours.id_cours]" class="fa fa-heart" style="color: red;"></i> <!-- Filled heart -->
+                                                    </button>
+                                                    <button class="dislike-btn" (click)="dislike(cours)">
+                                                        <i class="fa fa-thumbs-o-down"></i> <!-- Thumbs down -->
+                                                    </button>
                                                 </div>
+
                                             </div>
                                             <div class="col-6">
                                                 <div class="price text-right">
