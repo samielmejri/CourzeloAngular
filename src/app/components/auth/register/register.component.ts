@@ -2,8 +2,7 @@ import {Component} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {RegisterRequest} from "../../model/RegisterRequest";
 import {AuthenticationService} from "../../../service/user/auth/authentication.service";
-import { Router } from '@angular/router';
-import { AbstractControl } from '@angular/forms';
+import {ToastrService} from "ngx-toastr";
 
 
 @Component({
@@ -30,7 +29,7 @@ export class RegisterComponent {
   constructor(
     private authService: AuthenticationService,
     private formBuilder: FormBuilder,
-    private router : Router
+    private toastr: ToastrService
   ) {
   }
 
@@ -57,28 +56,20 @@ export class RegisterComponent {
       this.registerRequest.password = this.registerForm.controls['password'].value!;
       this.registerRequest.name = this.registerRequest.name!.charAt(0).toUpperCase() + this.registerRequest.name!.slice(1);
       this.registerRequest.lastname = this.registerRequest.lastname!.charAt(0).toUpperCase() + this.registerRequest.lastname!.slice(1);
-  
+
       console.log(this.registerRequest);
       this.authService.register(this.registerRequest)
         .subscribe(data => {
             console.log(data)
-            this.messageSuccess = data.msg!;
-            // Navigate to login page only after successful registration
-            this.router.navigateByUrl('/login');
+            this.toastr.success("Please check your email to verify your account.", 'Registration Successful');
+
           },
           error => {
-            console.log("register error :", error);
-            if (error.status === 409 && error.error.msg === 'Email already exists') {
-              // Display an alert informing the user that the email is already taken
-              alert('This email is already taken. Please use a different email.');
-            } else {
-              // Display a generic error message
-              this.message = 'An error occurred while registering. Please try again later.';
-            }
+            console.log("register error :", error)
+            this.toastr.error(error.error.msg, 'Error registering user')
           });
-    } else {
-      // Display an alert indicating required fields
-      alert('Please fill in all required fields.');
+    }else {
+      this.toastr.error("Please fill in all fields correctly.", 'Error registering user')
     }
   }
 }

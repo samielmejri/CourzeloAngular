@@ -20,8 +20,8 @@ export class HeaderComponent {
   }
 
   // Method to check if the user is logged in
-  isLoggedIn(): boolean {
-    return this.tokenStorageService.isAuthenticated();
+  isLoggedIn() {
+   return this.tokenStorageService.isAuthenticated()
   }
 
   // Method to perform logout

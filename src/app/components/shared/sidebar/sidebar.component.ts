@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {TokenStorageService} from "../../../service/user/auth/token-storage.service";
 import {UpdateService} from "../../../service/user/profile/update.service";
 import {LoginResponse} from "../../model/user/LoginResponse";
 
@@ -9,15 +8,13 @@ import {LoginResponse} from "../../model/user/LoginResponse";
   styleUrls: ['./sidebar.component.css']
 })
 export class SidebarComponent implements OnInit {
-  auth = this.token.isAuthenticated();
   userPhotoUrl: any;
   isMenuOpen: boolean = false;
   isSuperAdminMenuOpen: boolean = false;
   isAdminMenuOpen: boolean = false;
-  loginResponse : LoginResponse = {}
+  loginResponse: LoginResponse = {}
 
   constructor(
-    private token: TokenStorageService,
     private updateService: UpdateService
   ) {
   }
@@ -43,16 +40,20 @@ export class SidebarComponent implements OnInit {
       reader.readAsDataURL(data);
     });
   }
-  getMyInfo(){
+
+  getMyInfo() {
     this.updateService.getMyInfo().subscribe(
       response => {
         this.loginResponse = response;
-        this.getImage();
+        if(this.loginResponse.photoID != null) {
+          this.getImage();
+        }
         console.log(response);
       }
     )
   }
+
   ngOnInit(): void {
-this.getMyInfo()
+    this.getMyInfo()
   }
 }

@@ -62,8 +62,12 @@ const routes: Routes = [
   children: [
     {
       path: 'users',
-      component: UsersTableComponent
-    }
+      component: UsersTableComponent,
+      canActivate: [RoleGuardService],
+      data: {
+        expectedRole: 'SUPERADMIN'
+      },
+    }  
   ]
 }
 ];

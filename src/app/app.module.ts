@@ -29,7 +29,6 @@ import { VerifyComponent } from './components/auth/verify/verify.component';
 import { DevicesListComponent } from './components/user/devices-list/devices-list.component';
 import { ProfileComponent } from './components/user/profile/profile.component';
 import { UserProfileComponent } from './components/user/user-profile/user-profile.component';
-//import { DeleteAccountRequestComponent } from './components/model/user/delete-account-request/delete-account-request.component';
 import {SidebarComponent} from './components/shared/sidebar/sidebar.component';
 import { UsersTableComponent } from './components/user/users-table/users-table.component';
 import {Interceptor} from "./service/user/auth/Interceptor";
@@ -37,6 +36,13 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {RouterOutlet} from "@angular/router";
 import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from "@angular/common/http";
 import {PanelComponent} from './components/shared/panel/panel.component';
+import {PaginationComponent} from './components/shared/pagination/pagination.component';
+import {ToastrModule} from "ngx-toastr";
+import {UserProfileDialogComponent} from './components/user/user-profile-dialog/user-profile-dialog.component';
+import {QaDialogComponent} from './components/user/qa-dialog/qa-dialog.component';
+import {MatButtonModule} from "@angular/material/button";
+import {MatDialogModule} from "@angular/material/dialog";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 
 @NgModule({
@@ -70,7 +76,10 @@ import {PanelComponent} from './components/shared/panel/panel.component';
     HeaderComponent,
     PanelComponent,
     SidebarComponent,
-    UsersTableComponent
+    UsersTableComponent,
+    VerifyComponent,
+    PaginationComponent,
+    QaDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -78,7 +87,12 @@ import {PanelComponent} from './components/shared/panel/panel.component';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterOutlet
+    RouterOutlet,
+    MatDialogModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot({
+      positionClass: "toast-top-right"
+    })
   ],
   providers: [HttpClient, {
     provide: HTTP_INTERCEPTORS,

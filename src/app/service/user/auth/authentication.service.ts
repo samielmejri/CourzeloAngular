@@ -3,8 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {RegisterRequest} from "src/app/components/model/RegisterRequest";
 import {JsonResponse} from "src/app/components/model/user/JsonResponse";
 import {LoginRequest} from "src/app/components/model/user/LoginRequest";
-import { Observable, throwError } from "rxjs";
-import { catchError } from "rxjs/operators";
+import {Observable} from "rxjs";
 import {RecoverPasswordRequest} from "src/app/components/model/user/RecoverPasswordRequest";
 
 
@@ -19,27 +18,11 @@ export class AuthenticationService {
 
   register(registerRequest: RegisterRequest) {
     return this.http.post<JsonResponse>(`${this.baseUrl}/signup`, registerRequest)
-      .pipe(
-        catchError(error => {
-          if (error.status === 400 && error.error.message === 'Email is already in use!') {
-            alert('Email is already in use! Please use a different email.');
-          }
-          return throwError(error);
-        })
-      );
   }
 
   login(loginRequest: LoginRequest): Observable<any> {
-    return this.http.post<any>(`${this.baseUrl}/signing`, loginRequest)
-        .pipe(
-            catchError(error => {
-                if (error.status === 404 && error.error.message === 'Email not found') {
-                    return throwError('Email not found');
-                }
-                return throwError(error);
-            })
-        );
-}
+    return this.http.post<any>(`${this.baseUrl}/signing`, loginRequest);
+  }
 
   verifyAccount(code: string) {
     return this.http.get<JsonResponse>(`${this.baseUrl}/verify?code=${code}`);
@@ -63,5 +46,23 @@ export class AuthenticationService {
 
   getRole() {
     return this.http.get<string[]>(`${this.baseUrl}/getRole`);
+  }
+  generateTwoFactorAuthQrCode(): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/generateTwoFactorAuthQrCode`, null);
+  }
+
+  enableTwoFactorAuth(verificationCode: string): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/enableTwoFactorAuth?verificationCode=${verificationCode}`, null);
+  }
+
+  disableTwoFactorAuth(): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/disableTwoFactorAuth`, null);
+  }
+  loginTFA(loginRequest: LoginRequest, verificationCode: string): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/signingTFA?verificationCode=${verificationCode}`, loginRequest);
+  }
+
+  verifyTwoFactorAuth( verificationCode: number): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/verifyTwoFactorAuth?verificationCode=${verificationCode}`, null);
   }
 }

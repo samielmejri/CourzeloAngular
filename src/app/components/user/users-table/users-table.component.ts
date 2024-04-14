@@ -3,6 +3,9 @@ import {UserResponse} from "src/app/components/model/user/UserResponse";
 import {UserRoleRequest} from "src/app/components/model/user/UserRoleRequest";
 import {PanelService} from "../../../service/user/admin/panel.service";
 import {UserListDTO} from "src/app/components/model/user/UserListDTO";
+import {ToastrService} from "ngx-toastr";
+import {MatDialog} from "@angular/material/dialog";
+import {UserProfileDialogComponent} from "../user-profile-dialog/user-profile-dialog.component";
 
 @Component({
   selector: 'app-users-table',
@@ -12,14 +15,20 @@ import {UserListDTO} from "src/app/components/model/user/UserListDTO";
 export class UsersTableComponent implements OnInit {
   userResponse: UserResponse[] = []
   selectedRole: string = "";
-  availableRoles: string[] = ['SUPERADMIN']
+  availableRoles: string[] = ['SUPERADMIN', 'ADMIN', 'STUDENT', 'TEACHER']
   totalPages: number = 0;
   currentPage: number = 0;
   pageSize: number = 2;
 
-  constructor(private panelService: PanelService) {
+  constructor(private panelService: PanelService,
+              private toaster: ToastrService,
+              public dialog: MatDialog) {
   }
-
+  openUserProfile(email: string): void {
+    this.dialog.open(UserProfileDialogComponent, {
+      data: { email: email }
+    });
+  }
   ngOnInit(): void {
     this.loadUsers();
   }
@@ -39,6 +48,7 @@ export class UsersTableComponent implements OnInit {
         console.log("total number of pages : " + response.totalPages)
       },
       (error: any) => {
+        this.toaster.error("Error fetching users", "Error")
         console.error('Error fetching users:', error);
       }
     );
@@ -49,8 +59,10 @@ export class UsersTableComponent implements OnInit {
     this.panelService.toggleBan(userRoleRequest).subscribe(
       () => {
         user.ban = !user.ban;
+        this.toaster.success("User "+user.email+" (un)banned successfully", "Success")
       },
       (error: any) => {
+        this.toaster.error("User "+user.email+" could not be (un)banned", "Error")
         console.error('Error toggling ban:', error);
       }
     );
@@ -61,8 +73,10 @@ export class UsersTableComponent implements OnInit {
     this.panelService.toggleEnable(userRoleRequest).subscribe(
       () => {
         user.enabled = !user.enabled;
+        this.toaster.success("User "+user.email+" enabled/disabled successfully", "Success");
       },
       (error: any) => {
+        this.toaster.error("User "+user.email+" could not be enabled/disabled", "Error")
         console.error('Error toggling enable:', error);
       }
     );
@@ -77,8 +91,10 @@ export class UsersTableComponent implements OnInit {
           if (index !== -1) {
             user.roles!.splice(index, 1);
           }
+          this.toaster.success("Role "+this.selectedRole+" removed from user "+user.email, "Success")
         },
         (error: any) => {
+          this.toaster.error("Role "+this.selectedRole+" could not be removed from user "+user.email, "Error")
           console.error('Error removing role:', error);
         }
       );
@@ -89,9 +105,11 @@ export class UsersTableComponent implements OnInit {
             user.roles = [];
           }
           user.roles.push(this.selectedRole);
+          this.toaster.success("Role "+this.selectedRole+" added to user "+user.email, "Success")
         },
         (error: any) => {
           console.error('Error adding role:', error);
+          this.toaster.error("Role "+this.selectedRole+" could not be added to user "+user.email, "Error")
         }
       );
     }

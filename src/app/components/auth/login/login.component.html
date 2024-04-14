@@ -93,58 +93,60 @@
                 <div class="signin-inner">
                     <div class="row">
                         <div class="col-12">
-                            <form [formGroup]="loginForm" (ngSubmit)="login()">
-                                <!-- Login Form -->
-                                <div class="single-input-inner style-bg-border">
-                                    <input type="email" placeholder="Email" formControlName="email"  *ngIf="!verification">
-                                </div>
-                                <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched" class="text-danger">
-                                    Please enter a valid email.
-                                </div>
-                                <div class="single-input-inner style-bg-border">
-                                    <input type="password" placeholder="Password" formControlName="password"  *ngIf="!verification">
-                                </div>
-                                <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" class="text-danger">
-                                    Please enter a password.
-                                </div>
-                                <div class="icheck-primary"  *ngIf="!verification">
-                                    <input formControlName="rememberMe" id="remember" type="checkbox"  *ngIf="!verification">
-                                    <label for="remember"> Remember me</label>
-                                </div>
-                                <div class="col-12 mb-4"  *ngIf="!verification">
-                                    <button type="submit" class="btn btn-base w-100">Log In</button>
-                                </div>
-                                <div class="col-12" *ngIf="!verification">
-                                    <span class="signin-message">Vous n'avez pas de compte ? </span>
-                                    <a routerLink="/signup" href="signup.html"><strong>Inscrivez-vous !</strong></a>
+                            <!-- Show regular login fields if verification and Two Factor Authentication are not required -->
+                            <form *ngIf="!verification && !showTwoFactorAuthInput" [formGroup]="loginForm" (ngSubmit)="login()">
+                                <div [@slideInOut]="loginAnimationState">
+                                    <div class="single-input-inner style-bg-border">
+                                        <input type="email" placeholder="Email" formControlName="email">
+                                    </div>
+                                    <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched" class="text-danger">
+                                        Please enter a valid email.
+                                    </div>
+                                    <div class="single-input-inner style-bg-border">
+                                        <input type="password" placeholder="Password" formControlName="password">
+                                    </div>
+                                    <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" class="text-danger">
+                                        Please enter a password.
+                                    </div>
+                                    <div class="icheck-primary">
+                                        <input formControlName="rememberMe" id="remember" type="checkbox">
+                                        <label for="remember"> Remember me</label>
+                                    </div>
+                                    <div class="col-12 mb-4">
+                                        <button type="submit" class="btn btn-base w-100">Log In</button>
+                                    </div>
+                                    <div class="col-12">
+                                        <span class="signin-message">Vous n'avez pas de compte ? </span>
+                                        <a routerLink="/signup"><strong>Inscrivez-vous !</strong></a>
+                                    </div>
                                 </div>
                             </form>
-                             <!-- Error message display -->
-                             <div *ngIf="message && !verification" class="text-danger">
-                                {{ message }}
-                            </div>
-                            <div *ngIf="emailNotFoundError" class="text-danger">
-                                {{ emailNotFoundError }}
-                            </div>
-                        </div>
-                        <div class="col-12" *ngIf="verification">
-                            <form [formGroup]="verificationForm" (ngSubmit)="submitVerificationCode()">
-                                <!-- Verification Form -->
-                                <p class="login-box-msg verify-email-text">Verify your email</p>
-                                <div *ngIf="message" class="text-danger" id="message-error">{{message}}</div>
-                                <div class="input-group mb-3">
+
+                            <!-- Show Two-Factor Authentication form if required -->
+                            <form *ngIf="showTwoFactorAuthInput" [formGroup]="TFAForm" (ngSubmit)="verifyTwoFactorAuth()">
+                                <div [@slideInOut]="tfaAnimationState" class="single-input-inner">
+                                    <p class="login-box-msg">Enter your Two-Factor Authentication code</p>
+                                    <!-- Input field for 2FA code -->
+                                    <input class="form-control" formControlName="twoFactorAuthCode" placeholder="2FA Code" type="text">
+                                    <button class="btn btn-primary btn-block" type="submit">Verify</button>
+                                </div>
+                            </form>
+
+
+
+                            <!-- Show device verification form if necessary -->
+                            <form *ngIf="verification" [formGroup]="verificationForm" (ngSubmit)="submitVerificationCode()">
+                                <div [@slideInOut]="deviceAnimationState">
+                                <div *ngIf="verification" class="single-input-inner">
+                                    <p class="login-box-msg">Verify your device</p>
+                                    <!-- Display verification message or error message -->
+                                    <div *ngIf="messageSuccess" class="message-container" id="message-sucess">{{messageSuccess}}</div>
+                                    <div *ngIf="message" class="text-danger" id="message-error">{{message}}</div>
+                                    <!-- Verification code input -->
                                     <input class="form-control" formControlName="code" placeholder="Verification Code" type="text">
-                                    <div class="input-group-append">
-                                        <div class="input-group-text">
-                                            <span class="fas fa-lock"></span>
-                                        </div>
-                                    </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-4">
-                                        <button class="btn btn-primary btn-block" type="submit">Verify</button>
-                                    </div>
-                                </div>
+                                <button class="btn btn-primary btn-block" type="submit">Verify</button>
+                            </div>
                             </form>
                         </div>
                     </div>
