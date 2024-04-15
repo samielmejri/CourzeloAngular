@@ -4666,3 +4666,8 @@ ul {
   border-radius: 50%; /* Make it circular */
   object-fit: cover; /* Ensure the image covers the circular area */
 }
+
+.profile-username {
+  font-size: 25px; /* Adjust the font size as needed */
+}
+
