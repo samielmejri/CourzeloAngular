@@ -4659,3 +4659,10 @@ ul {
 .nav-pills .nav-link {
   transition: color 0.3s ease, font-size 0.3s ease; /* Add transition for color and font size */
 }
+
+.profile-pic {
+  width: 150px; /* Adjust the width and height as needed */
+  height: 150px;
+  border-radius: 50%; /* Make it circular */
+  object-fit: cover; /* Ensure the image covers the circular area */
+}
