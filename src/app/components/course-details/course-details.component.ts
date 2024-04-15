@@ -26,8 +26,16 @@ export class CourseDetailsComponent {
       
       this.RessourceService.upload(formData).subscribe(
         (httpEvent: HttpEvent<string[] | Blob>) => {
-          console.log(httpEvent);
-          this.resportProgress(httpEvent);
+          if (httpEvent.type === HttpEventType.UploadProgress) {
+            this.updateStatus(httpEvent.loaded, httpEvent.total!, 'Uploading... ');
+          } else if (httpEvent.type === HttpEventType.Response) {
+            if (httpEvent.body instanceof Array) {
+              this.fileStatus.status = 'done';
+              for (const filename of httpEvent.body) {
+                this.filenames.unshift(filename);
+              }
+            }
+          }
         },
         (error: HttpErrorResponse) => {
           console.log(error);
@@ -35,12 +43,12 @@ export class CourseDetailsComponent {
       );
     }
   }
- 
+   
   onDownloadFile(filename: string): void {
     console.log('Downloading file:', filename);
     this.RessourceService.download(filename).subscribe(
         event => {
-            this.resportProgress(event);
+            this.resportProgress(event, filename);
         },
         (error: HttpErrorResponse) => {
             console.log(error);
@@ -84,7 +92,7 @@ export class CourseDetailsComponent {
     }
   }*/
 
- private resportProgress(httpEvent: HttpEvent<string[] | Blob>): void {
+ private resportProgress(httpEvent: HttpEvent<string[] | Blob>, filename: string): void {
     switch(httpEvent.type) {
       case HttpEventType.UploadProgress:
         this.updateStatus(httpEvent.loaded, httpEvent.total!, 'Uploading... ');
@@ -98,13 +106,13 @@ export class CourseDetailsComponent {
       case HttpEventType.Response:
         if (httpEvent.body instanceof Array) {
           this.fileStatus.status = 'done';
-          for (const filename of httpEvent.body) {
-            this.filenames.unshift(filename);
+          for (const name of httpEvent.body) {
+            this.filenames.unshift(name);
           }
         } else {
-          saveAs(new File([httpEvent.body!], httpEvent.headers.get('File-Name')!, 
-                  {type: `${httpEvent.headers.get('Content-Type')};charset=utf-8`}));
-          // saveAs(new Blob([httpEvent.body!], 
+          const blob = new Blob([httpEvent.body!], { type: `${httpEvent.headers.get('Content-Type')}` });
+          saveAs(blob, filename);
+                    // saveAs(new Blob([httpEvent.body!], 
           //   { type: `${httpEvent.headers.get('Content-Type')};charset=utf-8`}),
           //    httpEvent.headers.get('File-Name'));
         }
