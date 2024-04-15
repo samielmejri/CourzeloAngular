@@ -1,6 +1,9 @@
 import {Injectable} from '@angular/core';
 import {LoginResponse} from "src/app/components/model/user/LoginResponse";
 import {UserResponse} from "src/app/components/model/user/UserResponse";
+import { BehaviorSubject, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
 
 const USER_KEY = 'auth-user';
 const AUTH_KEY = 'authentication';
@@ -10,6 +13,8 @@ const AUTH_KEY = 'authentication';
 })
 export class TokenStorageService {
   private USER_RESPONSE_KEY = 'userResponse';
+  private userFullNameSubject = new BehaviorSubject<string>('');
+
 
   signOut(): void {
     window.localStorage.clear();
@@ -43,4 +48,25 @@ export class TokenStorageService {
     const userResponse = window.sessionStorage.getItem(this.USER_RESPONSE_KEY);
     return userResponse ? JSON.parse(userResponse) : null;
   }
+
+
+  updateUserFullName(fullName: string): void {
+    this.userFullNameSubject.next(fullName);
+  }
+
+  getUserFullName(): Observable<string> {
+    return this.userFullNameSubject.asObservable();
+  }
+
+  // Method to retrieve full name
+  getFullName(): string {
+    const user = this.getUser();
+    if (user && user.name && user.lastname) {
+      return `${user.name} ${user.lastname}`;
+    } else {
+      return '';
+    }
+  }
+
+
 }

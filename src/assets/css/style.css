@@ -4484,6 +4484,7 @@ ul {
   background-color: #007bff; /* Default background color for greeting item (a shade of blue) */
   pointer-events: none; /* Disables pointer events on the greeting item */
   cursor: default; /* Sets the cursor to default for the greeting item */
+
 }
 
 .greeting-item span {
@@ -4517,10 +4518,11 @@ ul {
 /* sidebar.component.css */
 /* Main Sidebar */
 .main-sidebar {
+  background-color: #efd54e;
   position: absolute;
   top: 0;
   left: 0;
-  height: 100%;
+  height: 91%;
   width: 250px; /* Adjust the width as needed */
   z-index: 1030; /* Ensure the sidebar appears above other content */
 }
@@ -4596,8 +4598,15 @@ ul {
 
 
 .profile-content-container {
-  max-width: 800px; /* Adjust the maximum width as needed */
-  margin: 0 auto; /* Center the content horizontally */
+  display: flex;
+  justify-content: flex-start; /* Align items to the left */
+  align-items: center; /* Center vertically */
+}
+
+.profile-info {
+  width: 100px;
+  height: 100px;
+  margin-right: 20px; /* Adjust margin for spacing */
 }
 
 .alert {
@@ -4611,7 +4620,7 @@ ul {
 }
 
 .profile-form {
-  background-color: #FFB301;
+  background-color: #efd54e;
   padding: 20px; /* Adjust padding as needed */
   padding-left: 5px;
   padding-right: 5px;
@@ -4619,10 +4628,34 @@ ul {
 }
 
 .profile-form2 {
-  background-color: #5eb9f1;
   padding: 20px; /* Adjust padding as needed */
   border-radius: 5px; /* Add rounded corners if desired */
 }
 .signin-message {
   color: white; /* Couleur blanche */
+}
+
+.login-box-msg {
+  color : white;
+  font-size: 1.3em;  
+
+}
+
+.login-box-msg:hover{
+ color : orange;
+  font-size: 1.4em;  
+}
+
+.title h1 {
+  color: blue; /* Dark blue color */
+}
+
+.nav-pills .nav-link:hover {
+  color: blue !important;
+  font-size: 1.1em; /* Increase font size on hover */
+
+}
+
+.nav-pills .nav-link {
+  transition: color 0.3s ease, font-size 0.3s ease; /* Add transition for color and font size */
 }

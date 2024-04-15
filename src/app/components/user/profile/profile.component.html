@@ -23,8 +23,8 @@
         {{ messageError }}
       </div>
     </div><!-- /.col -->
-        <div class="row mb-2" style="margin-top: 100px; margin-left: auto; margin-right: auto; width: fit-content;">
-            <div class="b-animate-2 title">
+    <div class="row mb-2" style="margin-top: 100px; margin-left: auto; margin-right: auto; width: fit-content;">
+        <div class="b-animate-2 title">
                 <h1 class="b-animate-2 title">Profile</h1>
             </div>
         </div>
@@ -44,7 +44,15 @@
     <div class="profile-content-container">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-12">
+
+
+            <div class="col-md-3">
+                <!-- Profile Image -->
+                <app-user-profile [userInfoChanged]="userInfoChanged"></app-user-profile>
+              </div>
+        
+
+            <div class="col-md-9">
                 <div class="card">
                     <div class="card-header p-2" class="profile-form">
                         <ul class="nav nav-pills">

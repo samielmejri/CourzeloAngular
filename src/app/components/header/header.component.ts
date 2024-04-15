@@ -1,13 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { TokenStorageService } from 'src/app/service/user/auth/token-storage.service';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent {
+export class HeaderComponent{
   userFullName: string = '';
 
   constructor(
@@ -18,6 +19,7 @@ export class HeaderComponent {
   ngOnInit(): void {
     this.setUserFullName();
   }
+
 
   // Method to check if the user is logged in
   isLoggedIn() {
@@ -30,11 +32,8 @@ export class HeaderComponent {
     this.router.navigate(['/login']);
   }
 
-  // Method to set the user's full name
-  private setUserFullName(): void {
-    const user = this.tokenStorageService.getUser();
-    if (user && user.name && user.lastname) {
-      this.userFullName = `${user.name} ${user.lastname}`;
-    }
+  setUserFullName(): void {
+    // You can also directly get the full name from TokenStorageService here
+    this.userFullName = this.tokenStorageService.getFullName();
   }
 }

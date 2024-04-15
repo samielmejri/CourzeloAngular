@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {RegisterRequest} from "../../model/RegisterRequest";
 import {AuthenticationService} from "../../../service/user/auth/authentication.service";
 import {ToastrService} from "ngx-toastr";
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -29,7 +30,8 @@ export class RegisterComponent {
   constructor(
     private authService: AuthenticationService,
     private formBuilder: FormBuilder,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private router: Router
   ) {
   }
 
@@ -62,7 +64,7 @@ export class RegisterComponent {
         .subscribe(data => {
             console.log(data)
             this.toastr.success("Please check your email to verify your account.", 'Registration Successful');
-
+            this.router.navigateByUrl('/login');
           },
           error => {
             console.log("register error :", error)

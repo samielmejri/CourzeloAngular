@@ -4,6 +4,8 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {RecoverPasswordRequest} from "src/app/components/model/user/RecoverPasswordRequest";
 import {ActivatedRoute} from "@angular/router";
 import {ToastrService} from "ngx-toastr";
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-recover-password',
@@ -28,7 +30,9 @@ export class RecoverPasswordComponent {
     private route: ActivatedRoute,
     private authService: AuthenticationService,
     private formBuilder: FormBuilder,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private router: Router
+
   ) {
   }
 
@@ -56,7 +60,9 @@ export class RecoverPasswordComponent {
       this.authService.recoverPassword(this.token, this.passwordRequest).subscribe(
         response => {
         this.toastr.success("Password has been changed successfully", "Success");
-        },
+        this.router.navigateByUrl('/login');
+  
+      },
         error => {
           this.toastr.error("Password could not be changed", "Error");
           console.log(error)
