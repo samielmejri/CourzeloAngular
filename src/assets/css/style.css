@@ -4421,3 +4421,7 @@ ul {
 }
 
 
+.btn-success-dark {
+  background-color: rgb(10, 10, 206) !important; /* Use !important to override Bootstrap styles */
+  color: white; /* Optional: Set text color to white for better visibility */
+}

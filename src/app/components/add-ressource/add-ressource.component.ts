@@ -66,17 +66,14 @@ affecterRessourceAcour() {
 onUploadCourse(): void {
   if (this.selectedFile) {
     console.log(this.id);
-    this.courseService.uploadPhoto(this.id, this.selectedFile).subscribe({
-      next: (event: any) => {
-        if (event.type === HttpEventType.UploadProgress) {
-        } else if (event instanceof HttpResponse) {
-          console.log('File is completely uploaded!', event);
-        }
+    this.courseService.uploadPhoto(this.id, this.selectedFile).subscribe(
+      (response: any) => {
+        console.log('File is completely uploaded!', response);
       },
-      error: (error: any) => {
+      (error: any) => {
         console.error('Error uploading file:', error);
       }
-    });
+    );
   }
 }
 

@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpEvent, HttpRequest, HttpEventType,HttpErrorResponse  } from '@angular/common/http';
 import { course } from 'src/app/model/Course';
 import { Observable } from 'rxjs';
 import { Ressource } from '../model/Ressource';
+import { tap } from 'rxjs/operators';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -22,6 +24,8 @@ export class CourseService {
   getCourse(): Observable<course[]> {
     return this.http.get<course[]>(`${this.apiUrl}/getCours`);
   }
+
+  
   /*   deleteCourse(id:string){
       return this.http.delete(`${this.apiUrl}/delete/${id}`);
     }*/
@@ -35,10 +39,16 @@ export class CourseService {
   getCourseTrier() {
     return this.http.get(this.apiUrl + "/findAllByOrderByDateDesc");
   }
-  uploadPhoto(id: string, file: File): Observable<any> {
+  uploadPhoto(id: string, file: File): Observable<HttpEvent<any>> {
     const formData = new FormData();
     formData.append('file', file);
-    return this.http.post(`${this.apiUrl}/upload/${id}`, formData);
+
+    const req = new HttpRequest('POST', `${this.apiUrl}/upload/${id}`, formData, {
+      reportProgress: true,
+      responseType: 'json'
+    });
+
+    return this.http.request(req);
   }
 
 
@@ -57,14 +67,39 @@ export class CourseService {
   affecterRessourceAcour(id: string, ressource: Ressource) {
     return this.http.post(`${this.apiUrl}/affecterRessourcesACour/${id}`, ressource);
   }
+
   uploadPhotoRessource(id: string, file: File): Observable<any> {
-    const uploadUrl = `${this.apiUrl}/uploadRessource/${id}`;
-
-    const formData: FormData = new FormData();
-    formData.append('photo', file, file.name);
-
-    return this.http.post(uploadUrl, formData);
+    const formData = new FormData();
+    formData.append('file', file);
+  
+    const req = new HttpRequest('POST', `${this.apiUrl}/uploadRessource/${id}`, formData, {
+      reportProgress: true,
+      responseType: 'json'
+    });
+  
+    return this.http.request(req).pipe(
+      tap(
+        (event: any) => {
+          if (event.type === HttpEventType.UploadProgress && event.total) {
+            // Handle upload progress
+            console.log(`Uploaded: ${Math.round((event.loaded / event.total) * 100)}%`);
+          } else if (event instanceof HttpErrorResponse) {
+            // Handle upload error
+            console.error('Error uploading file:', event);
+          } else if (event.type === HttpEventType.Response) {
+            // Handle successful upload response
+            console.log('File is completely uploaded!', event.body);
+          }
+        },
+        (error: HttpErrorResponse) => {
+          // Handle upload error
+          console.error('Error uploading file:', error);
+        }
+      )
+    );
   }
+  
+
   sendHtmlEmail(email: string, amount: any) {
     return this.http.post(`${this.apiUrl}/sendHtmlEmail/${email}/${amount}`, {});
   }
@@ -91,6 +126,10 @@ export class CourseService {
   dislikeCourse(id: number): Observable<any> {
     const url = `${this.apiUrl}/dislike/${id}`;
     return this.http.post(url, {});
+  }
+
+  createPaymentIntent(amount: number) {
+    return this.http.post<any>(`${this.apiUrl}/create-payment-intent`, { amount });
   }
 
   // Méthode pour générer les en-têtes CORS
