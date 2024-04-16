@@ -20,11 +20,11 @@ const routes: Routes = [
   {path:'home2', component: Home2Component},
   {path:'home3', component: Home3Component},
   {path:'courses', component: CoursesComponent},
-  {path:'courseDetails', component: CourseDetailsComponent},
+  {path:'courseDetails/:idRessource', component: CourseDetailsComponent},
   {path:"add-ressource/:id" ,component:AddRessourceComponent },
   {path:"list-cours", component: ListCoursComponent},
   {path:"modifier-cours/:id",component:ModifierCoursComponent},
-  { path: 'delete-course/:id', component: DeleteCoursComponent },
+  {path: 'delete-course/:id', component: DeleteCoursComponent },
   {path: "payment/:prix", component: PaymentComponent}
 
 ];

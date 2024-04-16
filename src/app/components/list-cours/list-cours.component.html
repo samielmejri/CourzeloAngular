@@ -137,6 +137,16 @@
                                             <a class="icon-link" (click)="delete(cours.id_cours)">                                                <i class="fas fa-trash-alt"></i> 
                                            </a> 
 
+                                           <div *ngIf="isVideoFormVisible && selectedCourseId === cours.id_cours" class="video-form">
+                                            <h4>Ajouter une vidéo pour {{ cours.descriptionCours }}</h4>
+                                            <form (submit)="uploadVideo(cours.id_cours)">
+                                                <input type="file" name="video" required>
+                                                <button type="submit" class="btn btn-primary">Uploader</button>
+                                                <button type="button" class="btn btn-secondary" (click)="hideVideoForm()">Annuler</button>
+                                            </form>
+                                        </div>
+                                
+
                                         </div>
                                       
                                        </div>
@@ -166,7 +176,7 @@
                             <form class="search-form single-input-inner">
                                 <input type="text" [(ngModel)]="search" name="search" placeholder="Search here">
                                 <button class="btn btn-base w-100 mt-3" type="button" (click)="rechercheParDescriptionCoursEtNomProfesseur()"><i class="fa fa-search"></i> SEARCH</button>
-<button class="btn btn-base w-100 mt-3" type="button" (click)="toggleSortOrder()">Trier</button>
+<button class="btn btn-base w-100 mt-3" type="button" (click)="toggleSortOrder()">TRIER</button>
 
                             </form>
                             

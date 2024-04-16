@@ -47,6 +47,12 @@ export class RessourceService {
         responseType: 'blob'
       });
     }*/
+
+    associateVideoToRessource(idRessource: string, videoId: string): Observable<any> {
+      const url = `${this.apiUrl}/associateVideoToRessource/${idRessource}`;
+      return this.http.put(url, { videoId }, { withCredentials: true });
+    }
+
     download(filename: string): Observable<HttpEvent<Blob>> {
       const url = `${this.apiUrl}/download/${filename}`;
       return this.http.get(url, {

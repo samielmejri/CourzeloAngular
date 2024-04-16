@@ -36,10 +36,12 @@ export class PaymentComponent implements OnInit  {
      );
    }
 
-   pdfGenerator(){
+   pdfGenerator() {
     this.courseService.PdfGenerator(this.amount).subscribe(
-      () => {
-        alert("facture générée !!");
+      (data) => {
+        const blob = new Blob([data], { type: 'application/pdf' });
+        const fileURL = URL.createObjectURL(blob);
+        window.open(fileURL, '_blank');
       },
       (error) => {
         console.error("Erreur lors de l'envoi de pdf :", error);
@@ -51,8 +53,11 @@ export class PaymentComponent implements OnInit  {
           alert("Erreur côté serveur : " + error.message);
         }
       }
-    ); 
+    );
+  }
+  
+  
    }
   
-}
+
 

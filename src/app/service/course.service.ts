@@ -91,10 +91,22 @@ export class CourseService {
     return this.http.post(`${this.apiUrl}/sendHtmlEmail/${email}/${amount}`, {});
   }
 
-   PdfGenerator(amount:any){
+   /*PdfGenerator(amount:any){
      return this.http.post(`${this.apiUrl}/PdfGenerator/${amount}`,{});
  
-   }
+   }*/
+
+   PdfGenerator(amount: number): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/pdf',
+    });
+  
+    return this.http.post(`${this.apiUrl}/PdfGenerator/${amount}`, {}, {
+      headers: headers,
+      responseType: 'arraybuffer'
+    });
+  }
+  
 
   rechercheParDescriptionCoursEtNomProfesseur(search: String) {
     return this.http.get(`${this.apiUrl}/findByDescriptionCoursOrNomProfesseur/${search}`);
