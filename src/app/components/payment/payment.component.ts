@@ -19,8 +19,6 @@ export class PaymentComponent implements OnInit  {
   url= "http://localhost:8089/cours"
   ngOnInit() {
    this.amount =this.ac.snapshot.paramMap.get('prix');
-   this.loadCoursesSortedByPrice(); // Charger les cours triés par prix au démarrage du composant
-
   }
  
   pay(amountee: number) {    
@@ -55,15 +53,6 @@ export class PaymentComponent implements OnInit  {
       }
     ); 
    }
-   loadCoursesSortedByPrice() {
-    this.courseService.getAllCoursesSortedByPrice().subscribe(
-      data => {
-        this.courses = data;
-      },
-      error => {
-        console.error("Erreur lors du chargement des cours :", error);
-      }
-    );
-  }
+  
 }
 

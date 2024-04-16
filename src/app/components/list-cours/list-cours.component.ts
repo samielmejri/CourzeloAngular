@@ -19,7 +19,7 @@ export class ListCoursComponent implements OnInit {
   pages: number[] = [1, 2, 3, 4, 5];
   courses: course[] = [];
   isLiked: { [key: string]: boolean } = {};
-
+  sortOrder: string = 'asc';
 
   ngOnInit() {
     this.course = this.CourseService.getCourse().subscribe((data) => {
@@ -112,8 +112,10 @@ export class ListCoursComponent implements OnInit {
       }
     );
   }
-  loadCoursesSortedByPrice() {
-    this.CourseService.getAllCoursesSortedByPrice().subscribe(
+  
+  
+  loadCoursesSortedByPrice() { // Removed sortOrder parameter
+    this.CourseService.getAllCoursesSortedByPrice(this.sortOrder).subscribe( // Pass sortOrder here
       data => {
         this.course = data;
       },
@@ -124,4 +126,8 @@ export class ListCoursComponent implements OnInit {
   }
   
 
+  toggleSortOrder() {
+    this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
+    this.loadCoursesSortedByPrice(); // Call without passing sortOrder
+  }
 }

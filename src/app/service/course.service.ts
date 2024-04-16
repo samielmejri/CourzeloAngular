@@ -115,8 +115,8 @@ export class CourseService {
     return this.http.post<any>(`${this.apiUrl}/create-payment-intent`, { amount });
   }
 
-  getAllCoursesSortedByPrice(){
-  return this.http.get(this.apiUrl + "/sortByPrice")
+  getAllCoursesSortedByPrice(sortOrder: string) {
+    return this.http.get(`${this.apiUrl}/sortByPrice`, { params: { sortOrder } });
   }
  
   
