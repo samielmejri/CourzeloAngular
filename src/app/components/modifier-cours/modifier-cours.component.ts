@@ -10,44 +10,46 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./modifier-cours.component.css']
 })
 export class ModifierCoursComponent {
-  course!:course
-  id!:any
-  courses!:any
-  ressource!:any
-constructor(private ac:ActivatedRoute,private courseService:CourseService,private router: Router) {
-  
-}
+  course: course = new course();
+  id: any;
+  courses: any;
+  ressource: any;
 
-  ngOnInit(){
-    this.course=new course();
-    this.id=this.ac.snapshot.paramMap.get('id');
+  constructor(private ac: ActivatedRoute, private courseService: CourseService, private router: Router) {}
 
+  ngOnInit() {
+    this.id = this.ac.snapshot.paramMap.get('id');
+    this.getCoursById();
   }
-  save(f:NgForm){
+
+  save(f: NgForm) {
+    // Implementer la logique si nécessaire
   }
-  modifier(){
-    console.log(this.id)
-    this.courseService.modifierCourse(this.id,this.course).subscribe(
+
+  modifier() {
+    console.log(this.id);
+    this.courseService.modifierCourse(this.id, this.course).subscribe(
       () => {
         alert("Cours modifié !");
         this.router.navigate(['/delete-course']);
-
       },
       (error) => {
-        console.error("Erreur lors de l'ajout cours  :", error);
+        console.error("Erreur lors de la modification du cours :", error);
       }
     );
   }
-  getcoursById(){
 
-    return this.courseService.getCoursById(this.id).subscribe((data) => {
-      this.courses = data;
-      console.log(this.courses);
-    },
-    (error) => {
-      console.error("Erreur lors de la récupération des données :", error);
-    }
-  );
-     
+  getCoursById() {
+    this.courseService.getCoursById(this.id).subscribe(
+      (data) => {
+        this.courses = data;
+        console.log(this.courses);
+        // Assigner les données récupérées au cours pour l'affichage ou la modification
+        this.course = { ...this.courses };  // Crée une copie des données
+      },
+      (error) => {
+        console.error("Erreur lors de la récupération des données :", error);
+      }
+    );
   }
 }
