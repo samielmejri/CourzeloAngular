@@ -17,7 +17,6 @@ export class CourseService {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json'
     });
-
     return this.http.post<course>(`${this.apiUrl}/addCours/${idMatiere}`, cours, { headers: headers });
   }
 
@@ -25,10 +24,6 @@ export class CourseService {
     return this.http.get<course[]>(`${this.apiUrl}/getCours`);
   }
 
-  
-  /*   deleteCourse(id:string){
-      return this.http.delete(`${this.apiUrl}/delete/${id}`);
-    }*/
   deleteCourse(id: string): Observable<void> {
     const url = `${this.apiUrl}/delete/${id}`;
     return this.http.delete<void>(url);
@@ -36,18 +31,14 @@ export class CourseService {
   modifierCourse(id: string, course: course) {
     return this.http.put(`${this.apiUrl}/updateCours/${id}`, course);
   }
-  getCourseTrier() {
-    return this.http.get(this.apiUrl + "/findAllByOrderByDateDesc");
-  }
+
   uploadPhoto(id: string, file: File): Observable<HttpEvent<any>> {
     const formData = new FormData();
     formData.append('file', file);
-
     const req = new HttpRequest('POST', `${this.apiUrl}/upload/${id}`, formData, {
       reportProgress: true,
       responseType: 'json'
     });
-
     return this.http.request(req);
   }
 
@@ -55,12 +46,9 @@ export class CourseService {
   getCoursById(id: string) {
     return this.http.get(`${this.apiUrl}/get/${id}`);
   }
-  /*  getRessourceByCourId(id:string){
-      return this.http.get(`${this.url}/getRessourcesByCourId/${id}`);
-    }*/
+ 
   getPhoto(photo: string): string {
     const photoUrl = `${this.apiUrl}/download/${photo}`;
-
     return `${this.apiUrl}/download/${photo}`;
   }
 
@@ -71,7 +59,6 @@ export class CourseService {
   uploadPhotoRessource(id: string, file: File): Observable<any> {
     const formData = new FormData();
     formData.append('file', file);
-  
     const req = new HttpRequest('POST', `${this.apiUrl}/uploadRessource/${id}`, formData, {
       reportProgress: true,
       responseType: 'json'
@@ -104,15 +91,11 @@ export class CourseService {
     return this.http.post(`${this.apiUrl}/sendHtmlEmail/${email}/${amount}`, {});
   }
 
-  /* findCoursByDateGreaterThan(){
-     return this.http.get(`${this.apiUrl}/findCoursByDateGreaterThan`);
+   PdfGenerator(amount:any){
+     return this.http.post(`${this.apiUrl}/PdfGenerator/${amount}`,{});
  
-   }*/
+   }
 
-  /* PdfGenerator(amount:any){
-     return this.http.post(`${this.url}/PdfGenerator/${amount}`,{});
- 
-   }*/
   rechercheParDescriptionCoursEtNomProfesseur(search: String) {
     return this.http.get(`${this.apiUrl}/findByDescriptionCoursOrNomProfesseur/${search}`);
 
@@ -131,6 +114,12 @@ export class CourseService {
   createPaymentIntent(amount: number) {
     return this.http.post<any>(`${this.apiUrl}/create-payment-intent`, { amount });
   }
+
+  getAllCoursesSortedByPrice(){
+  return this.http.get(this.apiUrl + "/sortByPrice")
+  }
+ 
+  
 
   // Méthode pour générer les en-têtes CORS
   private generateCorsHeaders(): HttpHeaders {
@@ -163,6 +152,12 @@ export class CourseService {
 
     return this.http.post(`${this.apiUrl}/uploadRessource/${id}`, formData, { headers, withCredentials: true, reportProgress: true, observe: 'events' });
   }
+/*  getRessourceByCourId(id:string){
+      return this.http.get(`${this.url}/getRessourcesByCourId/${id}`);
+    }*/
 
+     /* getCourseTrier() {
+    return this.http.get(this.apiUrl + "/findAllByOrderByDateDesc");
+  }*/
 
 }

@@ -30,18 +30,8 @@ export class ListCoursComponent implements OnInit {
       }
     );
     this.refreshCourses();
+    this.loadCoursesSortedByPrice(); // Charger les cours triés par prix au démarrage du composant
 
-/*this.CourseService.getCourse().subscribe(
-  (data) => {
-    this.courses = data;
-    this.courses.forEach(course => {
-      this.isLiked[course.id_cours] = false; // Initialiser tous les cours comme non aimés
-    });
-  },
-  (error) => {
-    console.error("Erreur lors de la récupération des données :", error);
-  }
-);*/
   }
   getphoto(photo: string) {
     return this.CourseService.getPhoto(photo);
@@ -50,16 +40,7 @@ export class ListCoursComponent implements OnInit {
   afficher() {
     console.log(this.course);
   }
-  /* latestCourse(){
-     this.CourseService.findCoursByDateGreaterThan().subscribe((data) => {
-       this.courseRecente = data;
-       console.log(this.courseRecente)
-     },
-     (error) => {
-       console.error("Erreur lors de la récupération des données :", error);
-     }
-   );
-   }*/
+ 
 
   rechercheParDescriptionCoursEtNomProfesseur() {
     this.course = new course();
@@ -107,9 +88,8 @@ export class ListCoursComponent implements OnInit {
         console.log("Course liked successfully.");
         this.isLiked[course.id_cours] = true;
         course.numLikes++;
-  
-        // Afficher une alerte
-        alert("Vous avez liké le cours!");
+
+      //  alert("Vous avez liké le cours!");
       },
       (error) => {
         console.error("Error liking course:", error);
@@ -125,12 +105,20 @@ export class ListCoursComponent implements OnInit {
         console.log("Course disliked successfully.");
         this.isLiked[course.id_cours] = false;
         course.numLikes--;
-  
-        // Afficher une alerte
-        alert("Vous avez disliké le cours!");
+       // alert("Vous avez disliké le cours!");
       },
       (error) => {
         console.error("Error disliking course:", error);
+      }
+    );
+  }
+  loadCoursesSortedByPrice() {
+    this.CourseService.getAllCoursesSortedByPrice().subscribe(
+      data => {
+        this.course = data;
+      },
+      error => {
+        console.error("Erreur lors du chargement des cours :", error);
       }
     );
   }
