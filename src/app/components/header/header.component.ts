@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { TokenStorageService } from 'src/app/service/user/auth/token-storage.service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';

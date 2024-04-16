@@ -4522,7 +4522,7 @@ ul {
   position: absolute;
   top: 0;
   left: 0;
-  height: 91%;
+  height: 78%;
   width: 250px; /* Adjust the width as needed */
   z-index: 1030; /* Ensure the sidebar appears above other content */
 }
@@ -4652,7 +4652,7 @@ ul {
 
 .nav-pills .nav-link:hover {
   color: blue !important;
-  font-size: 1.1em; /* Increase font size on hover */
+  font-size: 1.1em;
 
 }
 
@@ -4670,4 +4670,31 @@ ul {
 .profile-username {
   font-size: 25px; /* Adjust the font size as needed */
 }
+
+.nav-treeview {
+  display: none;
+}
+
+/* Display the submenu when isMenuOpen is true */
+.nav-item.menu-open .nav-treeview {
+  display: block;
+}
+
+.icon, .right {
+  transition: transform 0.3s ease;
+  font-size: 20px;
+  transform: rotate(0deg);
+}
+
+.rotated {
+  transform: rotate(90deg);
+}
+
+
+.nav-link:hover {
+  color: white; /* Change text color to white on hover */
+}
+
+
+
 

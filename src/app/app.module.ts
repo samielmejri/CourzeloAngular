@@ -79,7 +79,8 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
     UsersTableComponent,
     VerifyComponent,
     PaginationComponent,
-    QaDialogComponent
+    QaDialogComponent,
+    UserProfileDialogComponent
   ],
   imports: [
     BrowserModule,

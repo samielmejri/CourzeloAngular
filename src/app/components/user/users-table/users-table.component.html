@@ -1,1 +1,81 @@
-<p>users-table works!</p>
+<!-- Content Wrapper. Contains page content -->
+<!-- Content Header (Page header) -->
+<section class="content-header">
+  <div class="container-fluid">
+      <div class="col-sm-6">
+          <!-- Notification area -->
+      </div><!-- /.col -->
+      <div class="row mb-2" style="margin-top: 100px; margin-left: auto; margin-right: auto; width: fit-content;">
+          <div class="b-animate-2 title">
+              <h1 class="b-animate-2 title">Users Table</h1>
+          </div>
+      </div>
+  </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content" style="height: 65vh;margin-left: 250px;">
+  <div class="profile-content-container">
+      <!-- Users Table Content -->
+      <div class="container-fluid">
+          <div class="row">
+              <div class="col-12 table-container">
+                  <div class="card">
+                      <div class="card-header">
+                          <h3 class="card-title">List Of User's Accounts</h3>
+                      </div>
+                      <!-- /.card-header -->
+                      <div class="card-body table-responsive p-0">
+                          <table class="table table-hover">
+                              <thead>
+                                  <tr>
+                                      <th>Email</th>
+                                      <th>Name</th>
+                                      <th>Lastname</th>
+                                      <th>Roles</th>
+                                      <th>Ban</th>
+                                      <th>Enabled</th>
+                                      <th>Actions</th> <!-- New column for actions -->
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                  <tr *ngFor="let user of userResponse">
+                                      <td><a class="email-link" (click)="openUserProfile(user.email!)">{{ user.email }}</a></td>
+                                      <td>{{ user.name }}</td>
+                                      <td>{{ user.lastname }}</td>
+                                      <td>
+                                          <ul>
+                                              <li *ngFor="let role of user.roles">{{ role}}</li>
+                                          </ul>
+                                      </td>
+                                      <td>
+                                          <button (click)="toggleBan(user)" [ngClass]="{'btn-danger': user.ban, 'btn-success': !user.ban}" class="btn btn-sm">
+                                              {{ user.ban ? 'Unban' : 'Ban' }}
+                                          </button>
+                                      </td>
+                                      <td>
+                                          <button (click)="toggleEnable(user)" [ngClass]="{'btn-danger': !user.enabled, 'btn-success': user.enabled}" class="btn btn-sm">
+                                              {{ user.enabled ? 'Disable' : 'Enable' }}
+                                          </button>
+                                      </td>
+                                      <td> <!-- New column for role change -->
+                                          <form (ngSubmit)="changeUserRole(user)">
+                                              <div class="form-group">
+                                                  <select [(ngModel)]="selectedRole" class="form-control" name="role">
+                                                      <option *ngFor="let role of availableRoles" [value]="role">{{ role }}</option>
+                                                  </select>
+                                              </div>
+                                              <button class="btn btn-primary" type="submit">Add/Remove Role</button>
+                                          </form>
+                                      </td>
+                                  </tr>
+                              </tbody>
+                          </table>
+                      </div>
+                      <!-- /.card-body -->
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</section>

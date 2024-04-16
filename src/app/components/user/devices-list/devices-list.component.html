@@ -1,1 +1,54 @@
-<p>devices-list works!</p>
+<!-- Content Wrapper. Contains page content -->
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="col-sm-6">
+            <!-- Notification area -->
+        </div><!-- /.col -->
+        <div class="row mb-2" style="margin-top: 100px; margin-left: auto; margin-right: auto; width: fit-content;">
+            <div class="b-animate-2 title">
+                <h1 class="b-animate-2 title">Device List</h1>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content" style="height: 65vh;margin-left: 250px;">
+    <div class="profile-content-container">
+        <!-- Device List Content -->
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12 table-container">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Devices Table</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body table-responsive p-0">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Device</th>
+                                        <th>Last Login</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let device of deviceDTOS">
+                                        <td>{{ device.deviceDetails }}</td>
+                                        <td>{{ device.lastLoggedIn }}</td>
+                                        <td>
+                                            <button (click)="deleteDevice(device.id!)" class="btn btn-danger btn-sm">Delete</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
