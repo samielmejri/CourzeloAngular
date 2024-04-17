@@ -1,35 +1,25 @@
-<!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4" style="margin-top: 100px;">
-
-
-  <!-- Sidebar -->
   <div class="sidebar">
-    <!-- Sidebar user panel (optional) -->
     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
       <div class="image">
-        <img [src]="userPhotoUrl || 'assets/default-image.jpg'" alt="User Image" class="img-circle elevation-2">
+        <img [src]="userPhotoUrl" alt="User Image" class="img-circle elevation-2">
       </div>
       <div class="info">
-        <a class="d-block" routerLink="/settings/profile" style="color: white">{{loginResponse.name+" "+loginResponse.lastname }}</a>
+        <a class="d-block" routerLink="/settings/profile" style="color: white">{{ loginResponse.name + " " + loginResponse.lastname }}</a>
       </div>
     </div>
 
-
-    <!-- Sidebar Menu -->
     <nav class="mt-2">
       <ul class="nav nav-pills nav-sidebar flex-column" data-accordion="false" data-widget="treeview" role="menu">
+        <!-- Menu items -->
+        <!-- Profile -->
         <li class="nav-item">
-          <a (click)="toggleMenu()" [ngClass]="{'active': isMenuOpen, '': !isMenuOpen}" class="nav-link" style="color: white !important;">
-            <i [ngClass]="{'icon': true, 'rotated': isMenuOpen}">
-              <span *ngIf="!isMenuOpen">&#x25B6;</span> <!-- Horizontal arrow when closed -->
-              <span *ngIf="isMenuOpen">&#x25BC;</span> <!-- Vertical arrow when open -->
-                </i>
+          <a (click)="toggleMenu()" [ngClass]="{ 'active': isMenuOpen }" class="nav-link" style="color: white !important;">
+            <i [ngClass]="{ 'icon': true, 'rotated': isMenuOpen }">&#x25B6;</i>
             <i class="nav-icon fas fa-tachometer-alt"></i>
-                      <p style="color: white !important;">
-              Settings
-            </p>
+            <p style="color: white !important;">Settings</p>
           </a>
-          <ul class="nav nav-treeview" [ngStyle]="{'display': isMenuOpen ? 'block' : 'none'}">
+          <ul class="nav nav-treeview" [ngStyle]="{ 'display': isMenuOpen ? 'block' : 'none' }">
             <li class="nav-item">
               <a class="nav-link" routerLink="/settings/profile" routerLinkActive="active">
                 <p style="color: white !important;">My profile</p>
@@ -43,41 +33,30 @@
           </ul>
         </li>
 
-
-
-
-        <li *ngIf="loginResponse.roles && loginResponse.roles.includes('ROLE_SUPERADMIN')" class="nav-item" [ngClass]="{'menu-open': isSuperAdminMenuOpen, 'menu-close': !isSuperAdminMenuOpen}">
-          <a (click)="toggleSuperAdminMenu()"[ngClass]="{'active': isSuperAdminMenuOpen, '': !isSuperAdminMenuOpen}" class="nav-link">
-            <i [ngClass]="{'icon': true, 'rotated': isSuperAdminMenuOpen}">
-              <span *ngIf="!isSuperAdminMenuOpen">&#x25B6;</span> <!-- Horizontal arrow when closed -->
-              <span *ngIf="isSuperAdminMenuOpen">&#x25BC;</span> <!-- Vertical arrow when open -->
-                </i>
-
+        <!-- SuperAdmin -->
+        <li *ngIf="loginResponse.roles && loginResponse.roles.includes('ROLE_SUPERADMIN')" class="nav-item" [ngClass]="{ 'menu-open': isSuperAdminMenuOpen }">
+          <a (click)="toggleSuperAdminMenu()" [ngClass]="{ 'active': isSuperAdminMenuOpen }" class="nav-link">
+            <i [ngClass]="{ 'icon': true, 'rotated': isSuperAdminMenuOpen }">&#x25B6;</i>
             <i class="nav-icon fas fa-tachometer-alt"></i>
-            <p style="color: white;">SuperAdmin <i></i></p> <!-- Add white color -->
+            <p style="color: white;">SuperAdmin</p>
           </a>
-          <ul class="nav nav-treeview">
+          <ul class="nav nav-treeview" [ngStyle]="{ 'display': isSuperAdminMenuOpen ? 'block' : 'none' }">
             <li class="nav-item">
               <a class="nav-link" routerLink="/superAdmin/users" routerLinkActive="active">
-                <p style="color: white;">Users</p> <!-- Add white color -->
+                <p style="color: white;">Users</p>
               </a>
             </li>
           </ul>
         </li>
-        
 
-        <li *ngIf="loginResponse.roles && loginResponse.roles.includes('ROLE_ADMIN')" class="nav-item" [ngClass]="{'menu-open': isAdminMenuOpen, 'menu-close': !isAdminMenuOpen}">
-          <a (click)="toggleAdminMenu()" [ngClass]="{'active': isAdminMenuOpen, '': !isAdminMenuOpen}" class="nav-link">
+        <!-- Admin -->
+        <li *ngIf="loginResponse.roles && loginResponse.roles.includes('ROLE_ADMIN')" class="nav-item" [ngClass]="{ 'menu-open': isAdminMenuOpen }">
+          <a (click)="toggleAdminMenu()" [ngClass]="{ 'active': isAdminMenuOpen }" class="nav-link">
             <i class="nav-icon fas fa-tachometer-alt"></i>
-            <p>
-              Admin
-            </p>
+            <p>Admin</p>
           </a>
         </li>
-
       </ul>
     </nav>
-    <!-- /.sidebar-menu -->
   </div>
-  <!-- /.sidebar -->
 </aside>

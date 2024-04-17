@@ -1,7 +1,6 @@
-import {Component, OnInit} from '@angular/core';
-import {UpdateService} from "../../../service/user/profile/update.service";
-import {LoginResponse} from "../../model/user/LoginResponse";
-import {UserResponse} from "../../model/user/UserResponse";
+import { Component, OnInit } from '@angular/core';
+import { UpdateService } from "../../../service/user/profile/update.service";
+import { LoginResponse } from "../../model/user/LoginResponse";
 
 @Component({
   selector: 'app-sidebar',
@@ -9,24 +8,16 @@ import {UserResponse} from "../../model/user/UserResponse";
   styleUrls: ['./sidebar.component.css']
 })
 export class SidebarComponent implements OnInit {
-  userPhotoUrl: any;
+  userPhotoUrl: string = 'assets/default-image.jpg'; // Default image URL
   isMenuOpen: boolean = false;
   isSuperAdminMenuOpen: boolean = false;
   isAdminMenuOpen: boolean = false;
-  loginResponse: LoginResponse = {}
+  loginResponse: LoginResponse = {};
 
-  constructor(
-    private updateService: UpdateService
-  ) {
-  }
+  constructor(private updateService: UpdateService) {}
 
   toggleSuperAdminMenu() {
     this.isSuperAdminMenuOpen = !this.isSuperAdminMenuOpen;
-    const icon = document.querySelector('.icon');
-    if (icon) {
-      icon.classList.toggle('rotated', this.isSuperAdminMenuOpen);
-    }
-
   }
 
   toggleAdminMenu() {
@@ -35,35 +26,38 @@ export class SidebarComponent implements OnInit {
 
   toggleMenu() {
     this.isMenuOpen = !this.isMenuOpen;
-    const icon = document.querySelector('.icon');
-    if (icon) {
-      icon.classList.toggle('rotated', this.isMenuOpen);
-    }
   }
-    
-  getImage() {
-    this.updateService.getPhoto(this.loginResponse.photoID!).subscribe((data: Blob) => {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        this.userPhotoUrl = reader.result;
-      };
-      reader.readAsDataURL(data);
-    });
+
+  ngOnInit(): void {
+    this.getMyInfo();
   }
 
   getMyInfo() {
     this.updateService.getMyInfo().subscribe(
-      response => {
+      (response: LoginResponse) => {
         this.loginResponse = response;
-        if(this.loginResponse.photoID != null) {
+        if (this.loginResponse.photoID) {
           this.getImage();
         }
-        console.log(response);
+      },
+      (error: any) => {
+        console.error('Error fetching user info:', error);
       }
-    )
+    );
   }
 
-  ngOnInit(): void {
-    this.getMyInfo()
+  getImage() {
+    this.updateService.getPhoto(this.loginResponse.photoID!).subscribe(
+      (data: Blob) => {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          this.userPhotoUrl = reader.result as string;
+        };
+        reader.readAsDataURL(data);
+      },
+      (error: any) => {
+        console.error('Error fetching user photo:', error);
+      }
+    );
   }
 }

@@ -1,103 +1,97 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {TokenStorageService} from "../../../service/user/auth/token-storage.service";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {UpdateService} from "../../../service/user/profile/update.service";
-import {NameRequest} from "src/app/components/model/user/NameRequest";
-import {PasswordRequest} from "src/app/components/model/user/PasswordRequest";
-import {LoginResponse} from "src/app/components/model/user/LoginResponse";
-import {EmailRequest} from "src/app/components/model/user/EmailRequest";
-import {Router} from "@angular/router";
-import {DeleteAccountRequest} from "src/app/components/model/user/DeleteAccountRequest";
-import {ToastrService} from "ngx-toastr";
-import {AuthenticationService} from "../../../service/user/auth/authentication.service";
-import {QRCodeResponse} from "../../model/user/QRCodeResponse";
-import {animate, state, style, transition, trigger} from "@angular/animations";
-import {MatDialog} from "@angular/material/dialog";
-import {QaDialogComponent} from "../qa-dialog/qa-dialog.component";
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { ToastrService } from "ngx-toastr";
+import { AuthenticationService } from "../../../service/user/auth/authentication.service";
+import { UpdateService } from "../../../service/user/profile/update.service";
+import { TokenStorageService } from "../../../service/user/auth/token-storage.service";
+import { QRCodeResponse } from "../../model/user/QRCodeResponse";
+import { MatDialog } from "@angular/material/dialog";
+import { QaDialogComponent } from "../qa-dialog/qa-dialog.component";
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css'],
-  animations: [
-    trigger('fadeInOut', [
-      state('void', style({
-        opacity: 0
-      })),
-      transition('void => *', animate(500)),
-    ]),
-  ]
 })
-export class ProfileComponent implements OnInit{
-  loading = false;
-  toggleLoading(): void {
-    this.loading = true;
-  }
-  nameRequest: NameRequest = {};
-  emailRequest: EmailRequest = {};
-  qrCodeImage: string = '';
-  deleteAccountRequest: DeleteAccountRequest = {};
-  passwordRequest: PasswordRequest = {};
-  messageError = '';
-  messageSuccess = '';
-  user: LoginResponse = {};
-  uploadProgress: number = 0;
-  selectedFile: File | undefined;
-  showVerification: boolean = false;
-  showEmailForm: boolean = true;
-  verificationCode: string = '';
-  emailForm = this.formBuilder.group({
-    email: ['', [Validators.email]],
-  });
-  photoForm = this.formBuilder.group({
-    photo: ['', [Validators.required]],
-  });
-  verificationForm = this.formBuilder.group({
-    code: ['', [Validators.maxLength(4), Validators.minLength(4)]],
-  });
-  nameForm = this.formBuilder.group({
-    name: ['', [Validators.maxLength(20), Validators.minLength(3)]],
-    lastName: ['', [Validators.maxLength(20), Validators.minLength(3)]],
-  });
-  tfaForm = this.formBuilder.group({
-    verificationCode: ['', [Validators.required]],
-  });
-  passwordForm = this.formBuilder.group({
-      password: ['', [Validators.required]],
-      newPassword: ['', [Validators.required, Validators.maxLength(50), Validators.minLength(8)]],
-      confirmPassword: ['', [Validators.required, Validators.maxLength(50), Validators.minLength(8)]],
-    },
-    {
-      validator: this.ConfirmedValidator('newPassword', 'confirmPassword'),
-    });
-  deleteForm = this.formBuilder.group({
-    password: ['', [Validators.required]],
-  });
+export class ProfileComponent implements OnInit {
   @Output() userInfoChanged = new EventEmitter<void>();
+
+  loading = false;
+  user: any = {};
+  qrCodeImage: string = '';
+  selectedFile: File | undefined;
+
+  nameForm: FormGroup;
+  emailForm: FormGroup;
+  photoForm: FormGroup;
+  verificationForm: FormGroup;
+  tfaForm: FormGroup;
+  passwordForm: FormGroup;
+  deleteForm: FormGroup;
+
+  messageSuccess: string = '';
+  messageError: string = '';
+  showEmailForm: boolean = true;
+  showVerification: boolean = false;
+
+
   constructor(
     private token: TokenStorageService,
-    private router: Router,
     private updateService: UpdateService,
     private formBuilder: FormBuilder,
     private toaster: ToastrService,
     private authService: AuthenticationService,
-    public dialog:MatDialog
+    public dialog: MatDialog
   ) {
+    this.nameForm = this.formBuilder.group({
+      name: ['', [Validators.maxLength(20), Validators.minLength(3)]],
+      lastName: ['', [Validators.maxLength(20), Validators.minLength(3)]],
+    });
+
+    this.emailForm = this.formBuilder.group({
+      email: ['', [Validators.email]],
+    });
+
+    this.photoForm = this.formBuilder.group({
+      photo: ['', [Validators.required]],
+    });
+
+    this.verificationForm = this.formBuilder.group({
+      code: ['', [Validators.maxLength(4), Validators.minLength(4)]],
+    });
+
+    this.tfaForm = this.formBuilder.group({
+      verificationCode: ['', [Validators.required]],
+    });
+
+    this.passwordForm = this.formBuilder.group({
+      password: ['', [Validators.required]],
+      newPassword: ['', [Validators.required, Validators.maxLength(50), Validators.minLength(8)]],
+      confirmPassword: ['', [Validators.required, Validators.maxLength(50), Validators.minLength(8)]],
+    });
+
+    this.deleteForm = this.formBuilder.group({
+      password: ['', [Validators.required]],
+    });
   }
-  openDialog(): void {
-    this.dialog.open(QaDialogComponent);
-  }
+
   ngOnInit(): void {
-        this.getMyInfo();
-    }
+    this.getMyInfo();
+  }
+
+  toggleLoading() {
+    this.loading = !this.loading;
+  }
+
   getMyInfo() {
     this.updateService.getMyInfo().subscribe(
       response => {
         this.user = response;
         console.log(response);
       }
-    )
+    );
   }
+
   checkUserProfileImage() {
     if (!this.user.photoID) {
       const lastNotification = localStorage.getItem('lastImageNotification');
@@ -109,6 +103,7 @@ export class ProfileComponent implements OnInit{
       }
     }
   }
+
   checkUserProfileTwoFactorAuth() {
     if (!this.user.twoFactorAuthEnabled) {
       const lastNotification = localStorage.getItem('lastTwoFactorAuthNotification');
@@ -121,87 +116,72 @@ export class ProfileComponent implements OnInit{
     }
   }
 
-  ConfirmedValidator(controlName: string, matchingControlName: string) {
-    return (formGroup: FormGroup) => {
-      const control = formGroup.controls[controlName];
-      const matchingControl = formGroup.controls[matchingControlName];
-      if (matchingControl.errors) {
-        return;
-      }
-      if (control.value !== matchingControl.value) {
-        matchingControl.setErrors({confirmedValidator: true});
-      } else {
-        matchingControl.setErrors(null);
-      }
-    };
-  }
-
   resetSuccessAlert() {
-    this.messageSuccess = "";
+    this.toaster.clear();
   }
 
   resetErrorAlert() {
-    this.messageError = "";
+    this.toaster.clear();
   }
 
   enableTwoFactorAuth() {
-    this.verificationCode = this.tfaForm.controls['verificationCode'].value!;
-    this.authService.enableTwoFactorAuth(this.verificationCode)
-      .subscribe(
-        data => {
-          console.log(data);
-          this.toaster.success('Two factor authentication enabled successfully', 'Success')
-          this.getMyInfo()
-        },
-        error => {
-          console.log(error);
-          this.toaster.error('Error enabling two factor authentication', 'Error')
-        }
-      );
+    const verificationCode = this.tfaForm.get('verificationCode')!.value;
+    this.authService.enableTwoFactorAuth(verificationCode).subscribe(
+      data => {
+        console.log(data);
+        this.toaster.success('Two factor authentication enabled successfully', 'Success');
+        this.getMyInfo();
+      },
+      error => {
+        console.log(error);
+        this.toaster.error('Error enabling two factor authentication', 'Error');
+      }
+    );
   }
 
   generateTwoFactorAuthQrCode() {
-    this.authService.generateTwoFactorAuthQrCode()
-      .subscribe(
-        (data: QRCodeResponse) => {
-          this.qrCodeImage = 'data:image/png;base64,' + data.qrCodeImage;
-          this.toaster.success('QR code generated successfully', 'Success')
-        },
-        error => {
-          console.log(error);
-          this.toaster.error('Error generating QR code', 'Error');
-        }
-      );
+    this.authService.generateTwoFactorAuthQrCode().subscribe(
+      (data: QRCodeResponse) => {
+        this.qrCodeImage = 'data:image/png;base64,' + data.qrCodeImage;
+        this.toaster.success('QR code generated successfully', 'Success');
+      },
+      error => {
+        console.log(error);
+        this.toaster.error('Error generating QR code', 'Error');
+      }
+    );
   }
+
   disableTwoFactorAuth() {
-    this.authService.disableTwoFactorAuth()
-      .subscribe(
-        data => {
-          console.log(data);
-          this.toaster.success('Two factor authentication disabled successfully', 'Success')
-          this.getMyInfo()
-        },
-        error => {
-          console.log(error);
-          this.toaster.error('Error disabling two factor authentication', 'Error')
-        }
-      );
+    this.authService.disableTwoFactorAuth().subscribe(
+      data => {
+        console.log(data);
+        this.toaster.success('Two factor authentication disabled successfully', 'Success');
+        this.getMyInfo();
+      },
+      error => {
+        console.log(error);
+        this.toaster.error('Error disabling two factor authentication', 'Error');
+      }
+    );
   }
+
   changeName() {
     if (this.nameForm.valid) {
-      this.nameRequest = Object.assign(this.nameRequest, this.nameForm.value);
-      console.log(this.nameRequest);
-      this.updateService.changeName(this.nameRequest)
-        .subscribe(data => {
-            console.log(data)
-            this.getMyInfo()
-            this.toaster.success("Name updated successfully", "Success");
-            this.userInfoChanged.emit();
-          },
-          error => {
-            console.log("update name error :", error)
-            this.toaster.error(error.error.msg, "Error")
-          });
+      const nameRequest = this.nameForm.value;
+      console.log(nameRequest);
+      this.updateService.changeName(nameRequest).subscribe(
+        data => {
+          console.log(data);
+          this.getMyInfo();
+          this.toaster.success("Name updated successfully", "Success");
+          this.userInfoChanged.emit();
+        },
+        error => {
+          console.log("update name error :", error);
+          this.toaster.error(error.error.msg, "Error");
+        }
+      );
     }
   }
 
@@ -210,17 +190,21 @@ export class ProfileComponent implements OnInit{
       const formData: FormData = new FormData();
       formData.append('file', this.selectedFile, this.selectedFile.name);
       console.log(formData);
-      this.updateService.changePhoto(this.selectedFile)
-        .subscribe(progress => {
-          this.uploadProgress = progress;
+      this.updateService.changePhoto(this.selectedFile).subscribe(
+        progress => {
+          console.log(progress);
           if (progress === 100) {
             this.toaster.success("Photo updated successfully", "Success");
-            this.selectedFile = null!;
+            this.selectedFile = undefined;
             this.userInfoChanged.emit();
           }
-        });
+        },
+        error => {
+          console.log(error);
+          this.toaster.error("Error updating photo", "Error");
+        }
+      );
     }
-
   }
 
   onFileSelected(event: any) {
@@ -237,35 +221,36 @@ export class ProfileComponent implements OnInit{
   }
 
   deleteAccount(): void {
-    this.deleteAccountRequest.password = this.deleteForm.controls['password'].value!;
-    this.updateService.deleteAccount(this.deleteAccountRequest).subscribe(data => {
-        console.log(data)
+    const password = this.deleteForm.get('password')!.value;
+    this.updateService.deleteAccount({ password }).subscribe(
+      data => {
+        console.log(data);
         console.log('Account deleted successfully!');
-        this.toaster.success("Account deleted successfully", "Success")
-        this.router.navigate(['/logout']);
+        this.toaster.success("Account deleted successfully", "Success");
+        // Redirect or perform logout action
       },
       error => {
-        console.log("delete account error :", error)
-        this.toaster.error(error.error.msg, "Error")
-        console.log(error)
-      });
+        console.log("delete account error :", error);
+        this.toaster.error(error.error.msg, "Error");
+        console.log(error);
+      }
+    );
   }
-
 
   changePassword() {
     if (this.passwordForm.valid) {
-      this.passwordRequest.password = this.passwordForm.controls['password'].value!;
-      this.passwordRequest.newPassword = this.passwordForm.controls['newPassword'].value!;
-      console.log(this.passwordRequest);
-      this.updateService.changePassword(this.passwordRequest)
-        .subscribe(data => {
-            console.log(data)
+      const passwordRequest = this.passwordForm.value;
+      console.log(passwordRequest);
+      this.updateService.changePassword(passwordRequest).subscribe(
+        data => {
+          console.log(data);
           this.toaster.success("Password updated successfully", "Success");
-          },
-          error => {
-            console.log("update password error :", error)
-            this.toaster.error(error.error.msg, "Error")
-          });
+        },
+        error => {
+          console.log("update password error :", error);
+          this.toaster.error(error.error.msg, "Error");
+        }
+      );
     }
   }
 
@@ -273,14 +258,12 @@ export class ProfileComponent implements OnInit{
     if (this.emailForm.valid) {
       this.updateService.sendVerificationCode().subscribe(
         (response: any) => {
-          this.showVerification = true;
-          this.showEmailForm = false;
           console.log('Verification code sent successfully:', response);
-          this.toaster.success('Verification code sent successfully', 'Success')
+          this.toaster.success('Verification code sent successfully', 'Success');
         },
         (error: any) => {
           console.error('Error sending verification code:', error);
-          this.toaster.error('Error sending verification code', 'Error')
+          this.toaster.error('Error sending verification code', 'Error');
         }
       );
     }
@@ -288,23 +271,25 @@ export class ProfileComponent implements OnInit{
 
   changeEmail() {
     if (this.verificationForm.valid) {
-      this.emailRequest.email = this.emailForm.controls['email'].value!;
-      this.emailRequest.code = +this.verificationForm.controls['code'].value!;
-      this.updateService.changeEmail(this.emailRequest).subscribe(
+      const emailRequest = {
+        email: this.emailForm.get('email')!.value,
+        code: +this.verificationForm.get('code')!.value
+      };
+      this.updateService.changeEmail(emailRequest).subscribe(
         (response: any) => {
-          this.showVerification = false;
-          this.showEmailForm = true;
           console.log('Email Changed successfully Logging out ....:', response);
           this.toaster.success('Email Changed successfully Logging out ....', 'Success');
-          this.router.navigate(['/logout']);
+          // Redirect or perform logout action
         },
         (error: any) => {
-          this.toaster.error('Error changing email', 'Error')
+          this.toaster.error('Error changing email', 'Error');
           console.error('Error sending verification code:', error);
         }
       );
     }
   }
 
-
+  openDialog(): void {
+    this.dialog.open(QaDialogComponent);
+  }
 }
