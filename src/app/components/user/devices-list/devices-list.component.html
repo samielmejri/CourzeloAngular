@@ -45,6 +45,10 @@
                                 </tbody>
                             </table>
                         </div>
+                        <app-pagination
+                        (pageChanged)="onPageChange($event)"
+                        [totalPages]="totalPages">
+                      </app-pagination>
                         <!-- /.card-body -->
                     </div>
                 </div>
