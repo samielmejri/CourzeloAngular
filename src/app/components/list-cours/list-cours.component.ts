@@ -40,9 +40,22 @@ export class ListCoursComponent implements OnInit {
   afficher() {
     console.log(this.course);
   }
- 
+
 
   rechercheParDescriptionCoursEtNomProfesseur() {
+    if (!this.search || this.search.trim() === '') {
+     // Si la recherche est vide, récupérez tous les cours ou réinitialisez la variable this.course à la liste complète des cours
+        // Exemple :
+        // this.getAllCourses();  // Si vous avez une méthode pour récupérer tous les cours
+        this.course = this.CourseService.getCourse().subscribe((data) => {
+          this.course = data;
+      },
+      (error) => {
+          console.error("Erreur lors de la récupération des données :", error);
+      });
+      return; // Arrêtez l'exécution de la méthode
+  } 
+
     this.course = new course();
     this.course = this.CourseService.rechercheParDescriptionCoursEtNomProfesseur(this.search).subscribe((data) => {
       this.course = data;
@@ -82,38 +95,38 @@ export class ListCoursComponent implements OnInit {
 
   like(course: any) {
     console.log("Like button clicked for course ID:", course.id_cours);
-  
+
     this.CourseService.likeCourse(course.id_cours).subscribe(
       () => {
         console.log("Course liked successfully.");
         this.isLiked[course.id_cours] = true;
         course.numLikes++;
 
-      //  alert("Vous avez liké le cours!");
+        //  alert("Vous avez liké le cours!");
       },
       (error) => {
         console.error("Error liking course:", error);
       }
     );
   }
-  
+
   dislike(course: any) {
     console.log("Dislike button clicked for course ID:", course.id_cours);
-  
+
     this.CourseService.dislikeCourse(course.id_cours).subscribe(
       () => {
         console.log("Course disliked successfully.");
         this.isLiked[course.id_cours] = false;
         course.numLikes--;
-       // alert("Vous avez disliké le cours!");
+        // alert("Vous avez disliké le cours!");
       },
       (error) => {
         console.error("Error disliking course:", error);
       }
     );
   }
-  
-  
+
+
   loadCoursesSortedByPrice() { // Removed sortOrder parameter
     this.CourseService.getAllCoursesSortedByPrice(this.sortOrder).subscribe( // Pass sortOrder here
       data => {
@@ -124,7 +137,7 @@ export class ListCoursComponent implements OnInit {
       }
     );
   }
-  
+
 
   toggleSortOrder() {
     this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
