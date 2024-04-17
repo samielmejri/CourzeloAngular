@@ -9,34 +9,34 @@ import { HttpClient } from '@angular/common/http';
   templateUrl: './payment.component.html',
   styleUrls: ['./payment.component.css']
 })
-export class PaymentComponent implements OnInit  {
+export class PaymentComponent implements OnInit {
   clientSecret: string | null = null;
-  constructor(private http: HttpClient , private ac :ActivatedRoute , private courseService:CourseService) {   }
+  constructor(private http: HttpClient, private ac: ActivatedRoute, private courseService: CourseService) { }
   amount: any
-  email!:string
-  courses!:any
+  email!: string
+  courses!: any
 
-  url= "http://localhost:8089/cours"
+  url = "http://localhost:8089/cours"
   ngOnInit() {
-   this.amount =this.ac.snapshot.paramMap.get('prix');
+    this.amount = this.ac.snapshot.paramMap.get('prix');
   }
- 
-  pay(amountee: number) {    
-    this.http.post<any>(`${this.url}/stripe/${this.amount}` ,{}).subscribe(data => {
-       this.clientSecret = data;
-     });
-     this.courseService.sendHtmlEmail(this.email,this.amount).subscribe(
-       () => {
-         console.log(this.email)
-         alert("email envoyé !!");
-       },
-       (error) => {        
-         console.error("Erreur lors de l'envoie de mail :", error);
-       }
-     );
-   }
 
-   pdfGenerator() {
+  pay(amountee: number) {
+    this.http.post<any>(`${this.url}/stripe/${this.amount}`, {}).subscribe(data => {
+      this.clientSecret = data;
+    });
+    this.courseService.sendHtmlEmail(this.email, this.amount).subscribe(
+      () => {
+        console.log(this.email)
+        alert("email envoyé !!");
+      },
+      (error) => {
+        console.error("Erreur lors de l'envoie de mail :", error);
+      }
+    );
+  }
+
+  pdfGenerator() {
     this.courseService.PdfGenerator(this.amount).subscribe(
       (data) => {
         const blob = new Blob([data], { type: 'application/pdf' });
@@ -55,9 +55,9 @@ export class PaymentComponent implements OnInit  {
       }
     );
   }
-  
-  
-   }
-  
+
+
+}
+
 
 

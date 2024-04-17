@@ -93,4 +93,14 @@ onUploadCourse(): void {
     });
   }
 }*/
+
+
+navigateToCourseDetails(): void {
+  if (this.ressource.idRessource) {
+      this.router.navigate(['/course-details', this.ressource.idRessource]);
+  }
+}
+
+
+
 }

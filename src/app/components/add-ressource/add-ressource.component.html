@@ -13,7 +13,6 @@
         </div>
     </div>
 </div>
-
 <div class="col-xl-9 col-lg-8 col-md-12">
     <div class="card settings-inner-blk p-0">
         <div class="widget-set sell-course-head comman-space">
@@ -27,7 +26,6 @@
                             </div>
                             <div class="add-course-form">
                                 <form action="#">
-
                                     <div class="input-block">
                                         <label class="add-course-label">Cours Image</label>
                                         <div class="relative-form">
@@ -40,7 +38,6 @@
                                             </label>
                                         </div>
                                     </div>
-
                                 </form>
                             </div>
                             <div class="widget-btn">
@@ -66,12 +63,7 @@
                                     <div *ngIf="a.errors && a.errors['required']">The title ressource is a required field!</div>
                                     <div *ngIf="a.errors && a.errors['pattern']">Please enter only letters for the title ressource!</div>
                                 </div>
-
-
                             </div>
-
-
-
                             <button [disabled]="f.invalid" class="btn btn-success-dark" type="submit"
                                 (click)="affecterRessourceAcour()">Ajouter</button>
                         </form>
@@ -81,5 +73,9 @@
                         <a class="btn btn-info-light next_btn">Modifier Ressource</a>
                     </div>
                 </div>
+                <div class="widget-btn">
+                    <a (click)="navigateToCourseDetails()" class="btn btn-info-light next_btn">Aller à Course Details</a>
+                </div>
+                
             </fieldset>
         </div>
