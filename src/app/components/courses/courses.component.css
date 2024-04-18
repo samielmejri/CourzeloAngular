@@ -1,0 +1,12 @@
+/* Ajouter un espace après le dernier champ */
+.input-block:last-child {
+    margin-bottom: 20px;
+}
+
+/* Style pour le groupe de boutons */
+.button-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}

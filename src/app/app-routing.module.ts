@@ -17,6 +17,11 @@ import {ForgotPasswordComponent} from "./components/auth/forgot-password/forgot-
 import {LogoutComponent} from "./components/auth/logout/logout.component";
 import {LoginComponent} from "./components/auth/login/login.component";
 import {PanelComponent} from "./components/shared/panel/panel.component";
+import { AddRessourceComponent } from './components/add-ressource/add-ressource.component';
+import { ListCoursComponent } from './components/list-cours/list-cours.component';
+import { ModifierCoursComponent } from './components/modifier-cours/modifier-cours.component';
+import { DeleteCoursComponent } from './components/delete-cours/delete-cours.component';
+import { PaymentComponent } from './components/payment/payment.component';
 
 
 
@@ -25,13 +30,21 @@ const routes: Routes = [
   {path:'home2', component: Home2Component},
   {path:'home3', component: Home3Component},
   {path:'courses', component: CoursesComponent},
-  {path:'courseDetails', component: CourseDetailsComponent},
+  {path:'course-details/:idRessource', component: CourseDetailsComponent},
   {path:'login', component: LoginComponent},
   {path:'signup', component: RegisterComponent},
   {path:'logout', component: LogoutComponent},
   {path:'forgot-password', component: ForgotPasswordComponent},
   {path:'recover-password', component: RecoverPasswordComponent},
   { path: 'profile', component: ProfileComponent }, // Profile page route
+  {path:"add-ressource/:id" ,component:AddRessourceComponent },
+  {path:"list-cours", component: ListCoursComponent},
+  {path:"modifier-cours/:id",component:ModifierCoursComponent},
+  {path: 'delete-course/:id', component: DeleteCoursComponent },
+  {path: "payment/:prix", component: PaymentComponent},
+
+
+
 
   {
     path: 'settings',

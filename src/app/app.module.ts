@@ -43,10 +43,20 @@ import {QaDialogComponent} from './components/user/qa-dialog/qa-dialog.component
 import {MatButtonModule} from "@angular/material/button";
 import {MatDialogModule} from "@angular/material/dialog";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import { AddRessourceComponent } from './components/add-ressource/add-ressource.component';
+import { ListCoursComponent } from './components/list-cours/list-cours.component';
+import { ModifierCoursComponent } from './components/modifier-cours/modifier-cours.component';
+import { DeleteCoursComponent } from './components/delete-cours/delete-cours.component';
+import { PaymentComponent } from './components/payment/payment.component';
 
 
 @NgModule({
   declarations: [
+    PaymentComponent,
+    DeleteCoursComponent,
+    ModifierCoursComponent,
+    ListCoursComponent,
+    AddRessourceComponent,
     AppComponent,
     HomeComponent,
     FooterComponent,
@@ -90,6 +100,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
     ReactiveFormsModule,
     RouterOutlet,
     MatDialogModule,
+    RouterModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot({
       positionClass: "toast-top-right"

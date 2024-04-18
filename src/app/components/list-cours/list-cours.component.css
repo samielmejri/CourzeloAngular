@@ -1,0 +1,17 @@
+/* CSS pour aligner les icônes d'action à droite */
+.course-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* CSS pour espacer les icônes d'action */
+.action-icons {
+    display: flex;
+    align-items: center;
+}
+
+/* CSS pour ajouter de l'espace entre les icônes */
+.action-icons .icon-link {
+    margin-left: 10px; /* Modifier selon votre préférence */
+}

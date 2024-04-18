@@ -1,0 +1,271 @@
+<!-- navbar start -->
+<div class="navbar-area">
+    <nav class="navbar navbar-area-1 navbar-area navbar-expand-lg">
+        <div class="container nav-container">
+            <div class="responsive-mobile-menu">
+                <button class="menu toggle-btn d-block d-lg-none" data-target="#edumint_main_menu" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="icon-left"></span>
+                    <span class="icon-right"></span>
+                </button>
+            </div>
+            <div class="logo">
+                <a href="index.html"><img src="assets/img/logo.png" alt="img"></a>
+            </div>
+            <div class="nav-right-part nav-right-part-mobile">
+                <a routerLink="/login" class="signin-btn" href="signin.html">Sign In</a>
+                <a routerLink="/signup" class="btn btn-base" href="signup.html">Sign Up</a>
+                <a class="search-bar" href="#"><i class="fa fa-search"></i></a>
+            </div>
+            <div class="collapse navbar-collapse" id="edumint_main_menu">
+                <ul class="navbar-nav menu-open">
+                    <li class="menu-item-has-children current-menu-item">
+                        <a href="#">Home</a>
+                        <ul class="sub-menu">
+                            <li><a routerLink="" href="index.html">Home 1</a></li>
+                            <li><a routerLink="/home2" href="index-2.html">Home 2</a></li>
+                            <li><a routerLink="/home3" href="index-3.html">Home 3</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-item-has-children">
+                        <a href="#">Course</a>
+                        <ul class="sub-menu">
+                            <li><a routerLink="/courses" href="course.html">Course</a></li>
+                            <li><a routerLink="/courseDetails" href="course-details.html">Course Details</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-item-has-children">
+                        <a href="#">Pages</a>
+                        <ul class="sub-menu">
+                            <li><a href="about.html">About Us</a></li>
+                            <li><a href="event.html">Event</a></li>
+                            <li><a href="event-details.html">Event Details</a></li>
+                            <li><a href="team.html">Instructor</a></li>
+                            <li><a href="team-details.html">Instructor Details</a></li>
+                            <li><a href="pricing.html">Pricing</a></li>
+                            <li><a href="gallery.html">Gallery</a></li>
+                            <li><a routerLink="/login" href="signin.html">Sign In</a></li>
+                            <li><a routerLink="/signup" href="signup.html">Sign Up</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-item-has-children">
+                        <a href="#">Blog</a>
+                        <ul class="sub-menu">
+                            <li><a href="blog.html">Blog</a></li>
+                            <li><a href="blog-grid.html">Blog Grid</a></li>
+                            <li><a href="blog-details.html">Blog Details</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="nav-right-part nav-right-part-desktop">
+                <a routerLink="/login" class="signin-btn" href="signin.html">Sign In</a>
+                <a routerLink="/signup" class="btn btn-base" href="signup.html">Sign Up</a>
+                <a class="search-bar" href="#"><i class="fa fa-search"></i></a>
+            </div>
+        </div>
+    </nav>
+</div>
+<!-- navbar end -->
+
+<!-- breadcrumb start -->
+<div class="breadcrumb-area bg-overlay" style="background-image:url('assets/img/bg/3.png')">
+    <div class="container">
+        <div class="breadcrumb-inner">
+            <div class="section-title mb-0 text-center">
+                <h2 class="page-title">Courses</h2>
+                <ul class="page-list">
+                    <li><a routerLink="" href="index.html">Home</a></li>
+                    <li>Courses</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- breadcrumb end -->
+
+<!-- blog area start -->
+<div class="blog-area pd-top-120 pd-bottom-120">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 order-lg-12">
+                <div class="row">
+                    <div class="col-md-6" *ngFor="let cours of course">
+                        <div class="single-course-inner">
+
+                            <div class="thumb">
+                                <img [src]="getphoto(cours.photo)" alt="img">
+                            </div>
+                            <div class="details">
+                                <div class="details-inner">
+                                    <div class="emt-user">
+                                        <span class="u-thumb"><img src="assets/img/author/1.png" alt="img"></span>
+                                        <span class="align-self-center">{{ cours.nomProfesseur }}</span>
+                                    </div>
+                                    <h6><a routerLink="/courseDetails" href="course-details.html">{{
+                                            cours.descriptionCours }}</a></h6>
+                                </div>
+                                <div class="emt-course-meta">
+                                    <div class="row">
+                                        <div class="col-6">
+
+                                            <div class="rating">
+                                                <button class="like-btn" (click)="like(cours)">
+                                                    <i *ngIf="!isLiked[cours.id_cours]" class="fa fa-heart-o"></i>
+                                                    <!-- Heart outline -->
+                                                    <i *ngIf="isLiked[cours.id_cours]" class="fa fa-heart"
+                                                        style="color: red;"></i> <!-- Filled heart -->
+                                                </button>
+                                                <button class="dislike-btn" (click)="dislike(cours)">
+                                                    <i class="fa fa-thumbs-o-down"></i> <!-- Thumbs down -->
+                                                </button>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="price text-right">
+                                                Price: <span>{{ cours.prix }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Ajouter les boutons pour les actions -->
+                                <div class="course-actions">
+                                    <button class="btn btn-primary"
+                                        [routerLink]="['/add-ressource', cours.id_cours]">Ajouter Ressource</button>
+                                    <div class="action-icons">
+                                        <a class="icon-link" [routerLink]="['/modifier-cours', cours.id_cours]">
+                                            <i class="fas fa-pen"></i> <!-- Stylo -->
+                                        </a>
+                                        <a class="icon-link" (click)="delete(cours.id_cours)"> <i
+                                                class="fas fa-trash-alt"></i>
+                                        </a>
+
+                                        <div *ngIf="isVideoFormVisible && selectedCourseId === cours.id_cours"
+                                            class="video-form">
+                                            <h4>Ajouter une vidéo pour {{ cours.descriptionCours }}</h4>
+                                            <form (submit)="uploadVideo(cours.id_cours)">
+                                                <input type="file" name="video" required>
+                                                <button type="submit" class="btn btn-primary">Uploader</button>
+                                                <button type="button" class="btn btn-secondary"
+                                                    (click)="hideVideoForm()">Annuler</button>
+                                            </form>
+                                        </div>
+
+
+                                    </div>
+
+                                </div>
+                                <div class="all-btn all-category d-flex align-items-center">
+                                    <a [routerLink]="'/payment/'+ cours.prix" class="btn btn-primary">BUY NOW</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <nav class="td-page-navigation">
+                    <ul class="pagination">
+                        <li class="pagination-arrow"><a href="#"><i class="fa fa-angle-double-left"></i></a></li>
+                        <li><a class="active" href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">...</a></li>
+                        <li><a href="#">10</a></li>
+                        <li class="pagination-arrow"><a href="#"><i class="fa fa-angle-double-right"></i></a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="col-lg-4 order-lg-1 col-12">
+                <div class="td-sidebar mt-5 mt-lg-0">
+                    <div class="widget widget_search_course">
+                        <h4 class="widget-title">Search</h4>
+                        <form class="search-form single-input-inner">
+                            <input type="text" [(ngModel)]="search" name="search" placeholder="Search here">
+                            <button class="btn btn-base w-100 mt-3" type="button"
+                                (click)="rechercheParDescriptionCoursEtNomProfesseur()"><i class="fa fa-search"></i>
+                                SEARCH</button>
+                            <button class="btn btn-base w-100 mt-3" type="button"
+                                (click)="toggleSortOrder()">TRIER</button>
+
+                        </form>
+
+
+                    </div>
+                    <div class="widget widget_catagory">
+                        <h4 class="widget-title">Catagory</h4>
+                        <ul class="catagory-items">
+                            <li><a href="#">Tempor lorem interdum <i class="fa fa-caret-right"></i></a></li>
+                            <li><a href="#">Auctor mattis lacus <i class="fa fa-caret-right"></i></a></li>
+                            <li><a href="#">Dolor proin <i class="fa fa-caret-right"></i></a></li>
+                            <li><a href="#">Pharetra amet <i class="fa fa-caret-right"></i></a></li>
+                        </ul>
+                    </div>
+                    <div class="widget widget_checkbox_list">
+                        <h4 class="widget-title">Price</h4>
+                        <label class="single-checkbox">
+                            <input type="checkbox" checked="checked">
+                            <span class="checkmark"></span>
+                            Free Courses
+                        </label>
+                        <label class="single-checkbox">
+                            <input type="checkbox">
+                            <span class="checkmark"></span>
+                            Paid Courses
+                        </label>
+                        <label class="single-checkbox">
+                            <input type="checkbox">
+                            <span class="checkmark"></span>
+                            Only Subscription
+                        </label>
+                    </div>
+                    <div class="widget widget_checkbox_list">
+                        <h4 class="widget-title">Level</h4>
+                        <label class="single-checkbox">
+                            <input type="checkbox" checked="checked">
+                            <span class="checkmark"></span>
+                            Beginner
+                        </label>
+                        <label class="single-checkbox">
+                            <input type="checkbox">
+                            <span class="checkmark"></span>
+                            Intermediate
+                        </label>
+                        <label class="single-checkbox">
+                            <input type="checkbox">
+                            <span class="checkmark"></span>
+                            Advanced
+                        </label>
+                    </div>
+                    <div class="widget widget_tags mb-0">
+                        <h4 class="widget-title">Tags</h4>
+                        <div class="tagcloud">
+                            <a href="#">Art</a>
+                            <a href="#">Creative</a>
+                            <a href="#">Article</a>
+                            <a href="#">Designer</a>
+                            <a href="#">Portfolio</a>
+                            <a href="#">Project</a>
+                            <a href="#">Personal</a>
+                            <a href="#">Landing</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- blog area end -->
+
+<!-- back to top area start -->
+<div class="back-to-top">
+    <span class="back-top"><i class="fa fa-angle-up"></i></span>
+</div>
+<!-- back to top area end -->
+
+
+<!-- all plugins here -->
+<script data-cfasync="false" src="../../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+<script src="assets/js/vendor.js"></script>
+<!-- main js  -->
+<script src="assets/js/main.js"></script>

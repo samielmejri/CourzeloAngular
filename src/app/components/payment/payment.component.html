@@ -1,0 +1,48 @@
+<app-header></app-header>
+<!-- breadcrumb start -->
+<div class="breadcrumb-area bg-overlay" style="background-image:url('assets/img/bg/3.png')">
+  <div class="container">
+    <div class="breadcrumb-inner">
+      <div class="section-title mb-0 text-center">
+        <h2 class="page-title">Courses</h2>
+        <ul class="page-list">
+          <li><a routerLink="" href="index.html">Home</a></li>
+          <li>Courses</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<!--main element-->
+
+<!-- breadcrumb end -->
+<div class="container">
+  <!-- First Part: Basic Information -->
+  <section id="basic-info-section" class="course-section">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card">
+          <!-- Payment Form -->
+          <div class="card-body">
+            <h4 class="card-title text-center">Payment</h4>
+            <form #paymentForm="ngForm">
+              <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" [(ngModel)]="email" class="form-control" required>
+              </div>
+              <div class="form-group">
+                <label for="amount">Amount:</label>
+                <input type="number" id="amount" name="amount" [(ngModel)]="amount" class="form-control" required readonly>
+              </div>
+              <div class="text-center">
+                <button class="btn btn-success" type="button" (click)="pay(amount)">Pay $ {{amount}}</button>
+                <button class="btn btn-primary" type="button" (click)="pdfGenerator()">Facture</button>
+              </div>
+            </form>
+          </div>
+          <!-- /Payment Form -->
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
