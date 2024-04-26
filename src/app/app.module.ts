@@ -48,6 +48,23 @@ import { ListCoursComponent } from './components/list-cours/list-cours.component
 import { ModifierCoursComponent } from './components/modifier-cours/modifier-cours.component';
 import { DeleteCoursComponent } from './components/delete-cours/delete-cours.component';
 import { PaymentComponent } from './components/payment/payment.component';
+import { CommonModule } from '@angular/common';
+import { QuizListComponent } from './components/quiz-list/quiz-list.component';
+import { CreateQuizComponent } from './components/create-quiz/create-quiz.component'; // Import ReactiveFormsModule
+import { CreateQuestionComponent } from './components/create-question/create-question.component';
+import { QuestionListComponent } from './components/question-list/question-list.component';
+import { QuizafficheComponent } from './components/quizaffiche/quizaffiche.component';
+import { QuestionafficheComponent } from './components/questionaffiche/questionaffiche.component';
+import { StartQuizzComponent } from './components/start-quizz/start-quizz.component';
+import { QuizzComponent } from './components/quizz/quizz.component';
+import { SubmitQuizzComponent } from './components/submit-quizz/submit-quizz.component';
+import { QuizStatisticsComponent } from './components/quiz-statistics/quiz-statistics.component';
+import { CalendarComponent } from './components/calendar/calendar.component';
+import dayGridPlugin from '@fullcalendar/daygrid'; // Import DayGrid plugin
+import { FullCalendarModule } from '@fullcalendar/angular';
+import { QuizScheduleComponent } from './components/schedule-quiz/schedule-quiz.component';
+import { HomepageComponent } from './components/homepage/homepage.component';
+
 
 
 @NgModule({
@@ -90,7 +107,21 @@ import { PaymentComponent } from './components/payment/payment.component';
     VerifyComponent,
     PaginationComponent,
     QaDialogComponent,
-    UserProfileDialogComponent
+    UserProfileDialogComponent,
+    QuizListComponent,
+    CreateQuizComponent,
+    CreateQuestionComponent,
+    QuestionListComponent,
+    QuizafficheComponent,
+    QuestionafficheComponent,
+    StartQuizzComponent,
+    QuizzComponent,
+    SubmitQuizzComponent,
+    QuizStatisticsComponent,
+    CalendarComponent,
+    QuizScheduleComponent,
+    HomepageComponent
+
   ],
   imports: [
     BrowserModule,
@@ -101,6 +132,8 @@ import { PaymentComponent } from './components/payment/payment.component';
     RouterOutlet,
     MatDialogModule,
     RouterModule,
+    CommonModule,
+    FullCalendarModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot({
       positionClass: "toast-top-right"

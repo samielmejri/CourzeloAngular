@@ -22,6 +22,23 @@ import { ListCoursComponent } from './components/list-cours/list-cours.component
 import { ModifierCoursComponent } from './components/modifier-cours/modifier-cours.component';
 import { DeleteCoursComponent } from './components/delete-cours/delete-cours.component';
 import { PaymentComponent } from './components/payment/payment.component';
+import { QuizListComponent } from './components/quiz-list/quiz-list.component';
+import { CreateQuizComponent } from './components/create-quiz/create-quiz.component';
+import { CreateQuestionComponent } from './components/create-question/create-question.component'; // Import here
+import { QuestionListComponent } from './components/question-list/question-list.component'; // Import here
+import { QuizafficheComponent } from './components/quizaffiche/quizaffiche.component';
+import { QuestionafficheComponent } from './components/questionaffiche/questionaffiche.component';
+import { StartQuizzComponent } from './components/start-quizz/start-quizz.component';
+import { QuizzComponent } from './components/quizz/quizz.component';
+import { SubmitQuizzComponent } from './components/submit-quizz/submit-quizz.component';
+import { QuizStatisticsComponent } from './components/quiz-statistics/quiz-statistics.component';
+import { CalendarComponent } from './components/calendar/calendar.component';
+/*import { HelpTComponent } from './components/help-t/help-t.component';*/
+import { QuizScheduleComponent } from './components/schedule-quiz/schedule-quiz.component';
+import { HomepageComponent } from './components/homepage/homepage.component';
+
+
+
 
 
 
@@ -42,6 +59,20 @@ const routes: Routes = [
   {path:"modifier-cours/:id",component:ModifierCoursComponent},
   {path: 'delete-course/:id', component: DeleteCoursComponent },
   {path: "payment/:prix", component: PaymentComponent},
+
+  { path: 'quizl', component: QuizListComponent },
+  { path: 'newQuiz', component: CreateQuizComponent },
+  { path: 'newQuestion', component: CreateQuestionComponent },
+  { path: 'questionlist', component: QuestionListComponent },
+  { path: 'quizaffiche', component: QuizafficheComponent },
+  { path: 'questionaffiche', component: QuestionafficheComponent },
+  { path: 'startquiz', component: StartQuizzComponent },
+  { path: 'quizz/:title', component: QuizzComponent },
+  { path: 'submit-quizz/:userId/:quizId', component: SubmitQuizzComponent },
+  { path: 'quizstat', component: QuizStatisticsComponent },
+  { path: 'calend', component: CalendarComponent },
+  { path: 'quizsched', component: QuizScheduleComponent }, // Set the home page as the default route
+  { path: 'home', component: HomepageComponent }, // Set the home page as the default route
 
 
 
