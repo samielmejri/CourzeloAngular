@@ -32,8 +32,10 @@ export class HeaderComponent{
     this.router.navigate(['/login']);
   }
 
-  setUserFullName(): void {
-    // You can also directly get the full name from TokenStorageService here
-    this.userFullName = this.tokenStorageService.getFullName();
+  private setUserFullName(): void {
+    const user = this.tokenStorageService.getUser();
+    if (user && user.name && user.lastname) {
+      this.userFullName = `${user.name} ${user.lastname}`;
+    }
   }
 }
