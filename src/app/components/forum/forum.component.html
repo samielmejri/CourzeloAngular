@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Wizard</title>
+</head>
+
+<body>
+    <app-header></app-header>
+ <!-- breadcrumb start -->
+ <div class="breadcrumb-area bg-overlay" style="background-image:url('assets/img/bg/3.png')">
+    <div class="container">
+        <div class="breadcrumb-inner">
+            <div class="section-title mb-0 text-center">
+                <h2 class="page-title">Forum</h2>
+                <ul class="page-list">
+                    <li><a routerLink="" href="index.html">Home</a></li>
+                    <li>Forum</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- breadcrumb end -->
+
+<!-- blog area start -->
+<div class="forum-area pd-top-120 pd-bottom-120">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+
+                <div class="forumName" *ngIf="forumName !== ''">
+                   Posts under {{forumName}} :
+                </div>
+                <!-- Forum Threads -->
+              <app-forum-thread [posts]="paginatedPosts" [followCount]="followersCountMap" [votesCount]="votesCountMap"></app-forum-thread>
+              
+
+               
+
+                <!-- Pagination -->
+                <nav class="td-page-navigation">
+                    <ul class="pagination">
+                      <li class="pagination-arrow">
+                        <a (click)="changePage('prev')" [class.disabled]="currentPage === 1">
+                          <i class="fa fa-angle-double-left"></i>
+                        </a>
+                      </li>
+                      <li *ngFor="let page of totalPagesArray" [class.active]="page === currentPage">
+                        <a (click)="changePage(page)">{{ page }}</a>
+                      </li>
+                      <li class="pagination-arrow">
+                        <a (click)="changePage('next')" [class.disabled]="currentPage === totalPages">
+                          <i class="fa fa-angle-double-right"></i>
+                        </a>
+                      </li>
+                    </ul>
+                  </nav>
+                  
+            </div>
+
+            <!-- Forum Sidebar -->
+            <div class="col-lg-4 col-12">
+                <div class="td-sidebar">
+                    
+                    <!-- Forum Search -->
+                    <div class="widget widget_search">
+                        <form class="search-form">
+                            <div class="form-group">
+                                <input type="text" placeholder="Search">
+                            </div>
+                            <button class="submit-btn" type="submit"><i class="fa fa-search"></i></button>
+                        </form>
+                    </div>
+
+                    <app-side-bar></app-side-bar>
+                    <app-leaderboard [leaderboardPosts]="leaderboardPosts"></app-leaderboard>
+
+
+                    <h4 class="widget-title">
+                        <a href="/article">
+                        View Articles
+                    </a></h4>
+                    <div *ngFor="let article of articles" class="widget widget_catagory">
+                        <ul class="catagory-items">
+                            <li><a href="/forum/{{ article.idArticle }}">{{ article.titre }} <i class="fa fa-caret-right"></i></a></li>
+                        </ul>
+                    </div>
+                    
+
+                    <h4 class="widget-title">Recent Threads</h4>
+                    <div *ngFor="let sortedpost of sortedPosts" class="widget widget-recent-thread">
+                        <ul >
+                            <li >
+                                <a [routerLink]="'/post/' + sortedpost.idPost">
+                                <h5 class="title">{{sortedpost.titre}}</h5>
+                                <div class="post-info"><i class="fa fa-calendar"></i><span>{{sortedpost.updatedAt}}</span></div>
+                            </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Forum Tags -->
+                    <div class="widget widget_tags mb-0">
+                        <h4 class="widget-title">Tags</h4>
+                        <div class="tagcloud">
+                            <a href="#">Programming</a>
+                            <a href="#">Web Development</a>
+                            <a href="#">Discussion</a>
+                            <a href="#">Career</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- blog area end -->
+

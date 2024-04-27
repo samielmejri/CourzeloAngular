@@ -1,0 +1,15 @@
+a.disabled {
+    pointer-events: none;  /* Disable click events */
+    opacity: 0.5;          /* Apply a visual cue for disabled state */
+    cursor: not-allowed;   /* Change cursor to indicate not allowed */
+    /* Add any additional styling as needed */
+  }
+  
+.forumName {
+  font-size: 24px;
+  font-weight: bold;
+  color: #000359;
+  margin-bottom: 30px;
+  margin-top: -30px;
+
+}

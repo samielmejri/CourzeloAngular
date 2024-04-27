@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Wizard</title>
+</head>
+
+<body>
+    <app-header></app-header>
+ <!-- breadcrumb start -->
+ <div class="breadcrumb-area bg-overlay" style="background-image:url('assets/img/bg/3.png')">
+    <div class="container">
+        <div class="breadcrumb-inner">
+            <div class="section-title mb-0 text-center">
+                <h2 class="page-title">Articles</h2>
+                <ul class="page-list">
+                    <li><a routerLink="" href="index.html">Home</a></li>
+                    <li>Articles</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- breadcrumb end -->
+
+
+<div class="top-communities-container">
+    <p class="top-communities">Top Articles In Courzelo</p>
+    <a href="/newArticle" class="plusButton">
+      <svg class="plusIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30">
+        <g mask="url(#mask0_21_345)">
+          <path d="M13.75 23.75V16.25H6.25V13.75H13.75V6.25H16.25V13.75H23.75V16.25H16.25V23.75H13.75Z"></path>
+        </g>
+      </svg>
+    </a>
+  </div>
+  
+
+  <table class="community-table">
+    <tbody>
+      <ng-container *ngFor="let article of articles; let i = index">
+        <tr *ngIf="i % 4 === 0"></tr>
+        <td>
+          <div class="article-content">
+            <a href="/forum/{{ article.idArticle }}" style="font-weight: bold;">{{ article.titre }}</a>
+  
+            <!-- Follow/Unfollow Button -->
+            <button mat-icon-button [color]="isArticleFollowed(article.idArticle) ? 'warn' : 'primary'" aria-label="Follow/Unfollow" (click)="toggleFollow(article.idArticle)">
+              <!-- Change the icon based on whether the article is followed or not -->
+              <mat-icon>{{ isArticleFollowed(article.idArticle) ? 'favorite' : 'favorite_border' }}</mat-icon>
+            </button>
+  
+            <!-- Update Button -->
+            <button  [routerLink]="'/updateArticle/' + article.idArticle" mat-icon-button color="primary" aria-label="Update" >
+              <mat-icon>edit</mat-icon>
+            </button>
+  
+            <!-- Delete Button -->
+            <button mat-icon-button color="warn" aria-label="Delete" (click)="openDeleteConfirmationDialog(article.idArticle)">
+              <mat-icon>delete</mat-icon>
+            </button>
+        </div>
+
+            <p style="margin-left: 10px;">{{ article.category }}</p>
+        </td>
+      </ng-container>
+    </tbody>
+  </table>
+  
+  
+
+    

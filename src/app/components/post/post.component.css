@@ -1,0 +1,140 @@
+.post {
+    margin-bottom: 20px;
+  }
+  
+  .vote-section {
+    margin-right: 20px;
+  }
+  
+  .post-header {
+    margin-bottom: 10px;
+  }
+  
+  .post-title {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .post-body {
+    margin-bottom: 10px;
+  }
+  
+  .post-comment {
+    margin-top: 20px;
+  }
+  
+  .replies-section {
+    margin-top: 40px;
+  }
+  
+  .reply {
+    margin-bottom: 20px;
+  }
+  
+  .user-info {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+  }
+  
+  .user-info img {
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+  h5 {
+    display: flex;
+    justify-content: space-between;
+  }
+  .post-buttons {
+    margin-left: 300px;
+    display: flex;
+    align-items: center;
+  }
+ 
+  
+  .post-buttons button {
+    margin-left: 10px;
+    background-color: #2196f3; /* Blue color for buttons */
+    color: #fff; /* White text color */
+    border: none;
+    padding: 4px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .post-buttons button[aria-label="Delete"] {
+    background-color: #ff9800; /* Yellow color for delete button */
+  }
+  
+  .post-buttons button:hover {
+    background-color: #1565c0; /* Darker blue color on hover */
+  }
+  
+  .post-buttons button[aria-label="Delete"]:hover {
+    background-color: #e65100; /* Darker yellow color on hover for delete button */
+  }
+  
+
+  .cta {
+    border: none;
+    background: none;
+    cursor: pointer;
+  }
+  
+  .cta span {
+    padding-bottom: 7px;
+    letter-spacing: 4px;
+    font-size: 14px;
+    padding-right: 15px;
+    text-transform: uppercase;
+  }
+  
+  .cta svg {
+    transform: translateX(-8px);
+    transition: all 0.3s ease;
+  }
+  
+  .cta:hover svg {
+    transform: translateX(0);
+  }
+  
+  .cta:active svg {
+    transform: scale(0.9);
+  }
+  
+  .hover-underline-animation {
+    position: relative;
+    color: black;
+    padding-bottom: 20px;
+  }
+  
+  .hover-underline-animation:after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: #000000;
+    transform-origin: bottom right;
+    transition: transform 0.25s ease-out;
+  }
+  
+  .cta:hover .hover-underline-animation:after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+  }
+  
+  .media.nesting {
+    display: block;
+    max-width: 500px;
+  }
+  .context {
+    max-width: 500px;
+    word-wrap: break-word;
+    /* Add any additional styling as needed */
+  }
+  

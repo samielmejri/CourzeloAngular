@@ -60,10 +60,29 @@ import { QuizzComponent } from './components/quizz/quizz.component';
 import { SubmitQuizzComponent } from './components/submit-quizz/submit-quizz.component';
 import { QuizStatisticsComponent } from './components/quiz-statistics/quiz-statistics.component';
 import { CalendarComponent } from './components/calendar/calendar.component';
-import dayGridPlugin from '@fullcalendar/daygrid'; // Import DayGrid plugin
+import dayGridPlugin from '@fullcalendar/daygrid';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { QuizScheduleComponent } from './components/schedule-quiz/schedule-quiz.component';
 import { HomepageComponent } from './components/homepage/homepage.component';
+
+
+import { MatIconModule } from '@angular/material/icon';
+import { ForumComponent } from './components/forum/forum.component';
+import { ForumThreadComponent } from './components/forum-thread/forum-thread.component';
+import { VoteButtonComponent } from './components/vote-button/vote-button.component';
+import { ViewPostComponent } from './components/view-post/view-post.component';
+import { PostComponent } from './components/post/post.component';
+import { SideBarComponentAziz } from './components/side-bar/side-bar.component';
+import { CreatePostComponent } from './components/create-post/create-post.component';
+import { EditorModule} from '@tinymce/tinymce-angular';
+import { ForumHeaderComponent } from './components/forum-header/forum-header.component';
+import { PostSidebarComponent } from './components/post-sidebar/post-sidebar.component';
+import { CreateArticleComponent } from './components/create-article/create-article.component';
+import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
+import { UpdatePostComponent } from './components/update-post/update-post.component';
+import { ArticleComponent } from './components/article/article.component';
+import { LeaderboardComponent } from './components/leaderboard/leaderboard.component';
+import { UpdateArticleComponent } from './components/update-article/update-article.component';
 
 
 
@@ -120,7 +139,22 @@ import { HomepageComponent } from './components/homepage/homepage.component';
     QuizStatisticsComponent,
     CalendarComponent,
     QuizScheduleComponent,
-    HomepageComponent
+    HomepageComponent,
+    ForumComponent,
+    ForumThreadComponent,
+    VoteButtonComponent,
+    ViewPostComponent,
+    PostComponent,
+    SideBarComponentAziz,
+    CreatePostComponent,
+    ForumHeaderComponent,
+    PostSidebarComponent,
+    CreateArticleComponent,
+    ConfirmationDialogComponent,
+    UpdatePostComponent,
+    ArticleComponent,
+    LeaderboardComponent,
+    UpdateArticleComponent,
 
   ],
   imports: [
@@ -135,6 +169,11 @@ import { HomepageComponent } from './components/homepage/homepage.component';
     CommonModule,
     FullCalendarModule,
     BrowserAnimationsModule,
+    EditorModule,
+    MatIconModule,
+    MatButtonModule,
+    MatDialogModule,
+    FormsModule,
     ToastrModule.forRoot({
       positionClass: "toast-top-right"
     })

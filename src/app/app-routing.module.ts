@@ -36,6 +36,13 @@ import { CalendarComponent } from './components/calendar/calendar.component';
 /*import { HelpTComponent } from './components/help-t/help-t.component';*/
 import { QuizScheduleComponent } from './components/schedule-quiz/schedule-quiz.component';
 import { HomepageComponent } from './components/homepage/homepage.component';
+import { ForumComponent } from './components/forum/forum.component';
+import { ViewPostComponent } from './components/view-post/view-post.component';
+import { CreatePostComponent } from './components/create-post/create-post.component';
+import { CreateArticleComponent } from './components/create-article/create-article.component';
+import { UpdatePostComponent } from './components/update-post/update-post.component';
+import { ArticleComponent } from './components/article/article.component';
+import { UpdateArticleComponent } from './components/update-article/update-article.component';
 
 
 
@@ -73,6 +80,17 @@ const routes: Routes = [
   { path: 'calend', component: CalendarComponent },
   { path: 'quizsched', component: QuizScheduleComponent }, // Set the home page as the default route
   { path: 'home', component: HomepageComponent }, // Set the home page as the default route
+
+
+
+  {path:'forum', component: ForumComponent},
+  {path:'forum/:id', component: ForumComponent},
+  {path:'article', component: ArticleComponent},
+  { path: 'post/:id', component: ViewPostComponent },
+  { path: 'newPost', component: CreatePostComponent },
+  { path: 'newArticle', component: CreateArticleComponent },
+  { path: 'updatePost/:postId', component: UpdatePostComponent },
+  { path: 'updateArticle/:articleId', component: UpdateArticleComponent },
 
 
 
