@@ -21,13 +21,16 @@
                             <li><a routerLink="/home3" href="index-3.html">Home 3</a></li>
                         </ul>
                     </li>
+                    <ng-container *ngIf="isLoggedIn();"> 
                     <li class="menu-item-has-children">
                         <a href="#">Course</a>
                         <ul class="sub-menu">
-                            <li><a routerLink="/courses" href="course.html">Course</a></li>
-                            <li><a routerLink="/courseDetails" href="course-details.html">Course Details</a></li>
+                            <li><a routerLink="/courses" href="course.html">Add Course</a></li>
+                            <li><a routerLink="/list-cours" href="course-details.html">Courses List</a></li>
                         </ul>
                     </li>
+                </ng-container>
+
                     <li class="menu-item-has-children">
                         <a href="#">Pages</a>
                         <ul class="sub-menu">
@@ -38,10 +41,11 @@
                             <li><a href="team-details.html">Instructor Details</a></li>
                             <li><a href="pricing.html">Pricing</a></li>
                             <li><a href="gallery.html">Gallery</a></li>
+                             <ng-container *ngIf="isLoggedIn();"> 
                             <li><a href="http://localhost:4200/home">Create Quizz</a></li>
                             <li><a href="http://localhost:4200/startquiz">Start your Quizz</a></li>
                             <li><a href="http://localhost:4200/forum">Forum</a></li>
-                            
+                          </ng-container>
                         </ul>
                     </li>
                     <li class="menu-item-has-children">
