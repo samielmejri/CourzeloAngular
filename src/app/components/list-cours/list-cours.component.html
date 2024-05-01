@@ -14,18 +14,16 @@
     <div class="container">
         <div class="breadcrumb-inner">
             <div class="section-title mb-0 text-center">
-                <h2 class="page-title">Courses List</h2>
+                <h2 class="page-title">Courses</h2>
                 <ul class="page-list">
                     <li><a routerLink="" href="index.html">Home</a></li>
-                    <li>Courses List</li>
+                    <li>Courses</li>
                 </ul>
             </div>
         </div>
     </div>
 </div>
 <!-- breadcrumb end -->
-
-
 <!-- blog area start -->
 <div class="blog-area pd-top-120 pd-bottom-120">
     <div class="container">
@@ -55,14 +53,17 @@
                                                 <button class="like-btn" (click)="like(cours)">
                                                     <i *ngIf="!isLiked[cours.id_cours]" class="fa fa-heart-o"></i>
                                                     <!-- Heart outline -->
-                                                    <i *ngIf="isLiked[cours.id_cours]" class="fa fa-heart"
-                                                        style="color: red;"></i> <!-- Filled heart -->
+                                                    <i *ngIf="isLiked[cours.id_cours]" class="fa fa-heart" style="color: red;"></i>
+                                                    <!-- Filled heart (color red when liked) -->
                                                 </button>
                                                 <button class="dislike-btn" (click)="dislike(cours)">
-                                                    <i class="fa fa-thumbs-o-down"></i> <!-- Thumbs down -->
+                                                    <i *ngIf="!isDisliked[cours.id_cours]" class="fa fa-thumbs-o-down"></i>
+                                                    <!-- Thumbs down outline -->
+                                                    <i *ngIf="isDisliked[cours.id_cours]" class="fa fa-thumbs-down" style="color: blue;"></i>
+                                                    <!-- Thumbs down (color blue when disliked) -->
                                                 </button>
                                             </div>
-
+                                            
                                         </div>
                                         <div class="col-6">
                                             <div class="price text-right">

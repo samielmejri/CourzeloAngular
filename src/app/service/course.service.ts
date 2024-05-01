@@ -91,10 +91,7 @@ export class CourseService {
     return this.http.post(`${this.apiUrl}/sendHtmlEmail/${email}/${amount}`, {});
   }
 
-   /*PdfGenerator(amount:any){
-     return this.http.post(`${this.apiUrl}/PdfGenerator/${amount}`,{});
- 
-   }*/
+
 
    PdfGenerator(amount: number): Observable<any> {
     const headers = new HttpHeaders({
@@ -113,13 +110,13 @@ export class CourseService {
 
   }
 
-  likeCourse(id: number): Observable<any> {
-    const url = `${this.apiUrl}/like/${id}`;
+  likeCourse(userId: string, courseId: number): Observable<any> {
+    const url = `${this.apiUrl}/like/${courseId}/${userId}`;
     return this.http.post(url, {});
   }
 
-  dislikeCourse(id: number): Observable<any> {
-    const url = `${this.apiUrl}/dislike/${id}`;
+  dislikeCourse(userId: string, courseId: number): Observable<any> {
+    const url = `${this.apiUrl}/dislike/${courseId}/${userId}`;
     return this.http.post(url, {});
   }
 

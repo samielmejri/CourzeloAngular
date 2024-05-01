@@ -10,4 +10,5 @@ export class course {
     ressource!:Ressource[];
     photo!:string;
     prix!:any
+  numLikes: any;
   }

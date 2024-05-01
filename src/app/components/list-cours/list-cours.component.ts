@@ -4,6 +4,8 @@ import { FormControl } from '@angular/forms';
 import { course } from 'src/app/components/model/Course';
 import { CourseService } from 'src/app/service/course.service';
 import { HttpClient } from '@angular/common/http';
+import { TokenStorageService } from 'src/app/service/user/auth/token-storage.service'; // Import TokenStorageService
+
 
 @Component({
   selector: 'app-list-cours',
@@ -19,7 +21,9 @@ throw new Error('Method not implemented.');
 }
 isVideoFormVisible: any;
 selectedCourseId: any;
-  constructor(private CourseService: CourseService) { }
+  constructor(private CourseService: CourseService,
+    private tokenStorageService: TokenStorageService
+  ) { }
   course!: any
   listeCourse!: course[];
   search: string = '';
@@ -27,10 +31,13 @@ selectedCourseId: any;
   pages: number[] = [1, 2, 3, 4, 5];
   courses: course[] = [];
   isLiked: { [key: string]: boolean } = {};
+  isDisliked: { [key: string]: boolean } = {};
   sortOrder: string = 'asc';
+  userId: string = '';
 
   ngOnInit() {
-    this.course = this.CourseService.getCourse().subscribe((data) => {
+    this.userId = String(this.tokenStorageService.getUser().id);
+        this.course = this.CourseService.getCourse().subscribe((data) => {
       this.course = data;
     },
       (error) => {
@@ -104,35 +111,74 @@ selectedCourseId: any;
   like(course: any) {
     console.log("Like button clicked for course ID:", course.id_cours);
 
-    this.CourseService.likeCourse(course.id_cours).subscribe(
-      () => {
-        console.log("Course liked successfully.");
-        this.isLiked[course.id_cours] = true;
-        course.numLikes++;
+    // Check if the course is already liked
+    if (!this.isLiked[course.id_cours]) {
+        // If not liked, like the course
+        this.CourseService.likeCourse(this.userId, course.id_cours).subscribe(
+            () => {
+                console.log("Course liked successfully.");
+                this.isLiked[course.id_cours] = true;
+                localStorage.setItem(`liked_course_${course.id_cours}`, 'true'); // Save liked course in local storage
+                course.numLikes++;
 
-        //  alert("Vous avez liké le cours!");
-      },
-      (error) => {
-        console.error("Error liking course:", error);
-      }
-    );
-  }
+                // Remove blue color from dislike button
+                this.isDisliked[course.id_cours] = false;
+            },
+            (error) => {
+                console.error("Error liking course:", error);
+            }
+        );
+    } else {
+        // If already liked, undo the like
+        this.CourseService.dislikeCourse(this.userId, course.id_cours).subscribe(
+            () => {
+                console.log("Course unliked successfully.");
+                this.isLiked[course.id_cours] = false;
+                localStorage.removeItem(`liked_course_${course.id_cours}`); // Remove liked course from local storage
+                course.numLikes--;
+            },
+            (error) => {
+                console.error("Error unliking course:", error);
+            }
+        );
+    }
+}
 
-  dislike(course: any) {
+dislike(course: any) {
     console.log("Dislike button clicked for course ID:", course.id_cours);
 
-    this.CourseService.dislikeCourse(course.id_cours).subscribe(
-      () => {
-        console.log("Course disliked successfully.");
-        this.isLiked[course.id_cours] = false;
-        course.numLikes--;
-        // alert("Vous avez disliké le cours!");
-      },
-      (error) => {
-        console.error("Error disliking course:", error);
-      }
-    );
-  }
+    // Check if the course is already disliked
+    if (!this.isDisliked[course.id_cours]) {
+        // If not disliked, dislike the course
+        this.CourseService.dislikeCourse(this.userId, course.id_cours).subscribe(
+            () => {
+                console.log("Course disliked successfully.");
+                this.isDisliked[course.id_cours] = true;
+                localStorage.setItem(`disliked_course_${course.id_cours}`, 'true'); // Save disliked course in local storage
+                course.numLikes--;
+
+                // Remove red color from like button
+                this.isLiked[course.id_cours] = false;
+            },
+            (error) => {
+                console.error("Error disliking course:", error);
+            }
+        );
+    } else {
+        // If already disliked, undo the dislike
+        this.CourseService.likeCourse(this.userId, course.id_cours).subscribe(
+            () => {
+                console.log("Course undisliked successfully.");
+                this.isDisliked[course.id_cours] = false;
+                localStorage.removeItem(`disliked_course_${course.id_cours}`); // Remove disliked course from local storage
+                course.numLikes++;
+            },
+            (error) => {
+                console.error("Error undisliking course:", error);
+            }
+        );
+    }
+}
 
 
   loadCoursesSortedByPrice() { // Removed sortOrder parameter
