@@ -181,6 +181,7 @@ dislike(course: any) {
 }
 
 
+
   loadCoursesSortedByPrice() { // Removed sortOrder parameter
     this.CourseService.getAllCoursesSortedByPrice(this.sortOrder).subscribe( // Pass sortOrder here
       data => {

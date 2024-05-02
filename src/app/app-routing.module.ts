@@ -43,6 +43,7 @@ import { CreateArticleComponent } from './components/create-article/create-artic
 import { UpdatePostComponent } from './components/update-post/update-post.component';
 import { ArticleComponent } from './components/article/article.component';
 import { UpdateArticleComponent } from './components/update-article/update-article.component';
+import { ActivityComponent } from './components/activity/activity.component';
 
 
 
@@ -50,6 +51,9 @@ import { UpdateArticleComponent } from './components/update-article/update-artic
 
 
 const routes: Routes = [
+  { path: 'activity', component: ActivityComponent },
+
+
   {path:'', component: HomeComponent},
   {path:'home2', component: Home2Component},
   {path:'home3', component: Home3Component},

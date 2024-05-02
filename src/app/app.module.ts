@@ -83,6 +83,7 @@ import { UpdatePostComponent } from './components/update-post/update-post.compon
 import { ArticleComponent } from './components/article/article.component';
 import { LeaderboardComponent } from './components/leaderboard/leaderboard.component';
 import { UpdateArticleComponent } from './components/update-article/update-article.component';
+import { ActivityComponent } from './components/activity/activity.component';
 
 
 
@@ -155,6 +156,7 @@ import { UpdateArticleComponent } from './components/update-article/update-artic
     ArticleComponent,
     LeaderboardComponent,
     UpdateArticleComponent,
+    ActivityComponent
 
   ],
   imports: [

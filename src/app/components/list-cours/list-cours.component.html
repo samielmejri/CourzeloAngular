@@ -57,12 +57,10 @@
                                                     <!-- Filled heart (color red when liked) -->
                                                 </button>
                                                 <button class="dislike-btn" (click)="dislike(cours)">
-                                                    <i *ngIf="!isDisliked[cours.id_cours]" class="fa fa-thumbs-o-down"></i>
-                                                    <!-- Thumbs down outline -->
-                                                    <i *ngIf="isDisliked[cours.id_cours]" class="fa fa-thumbs-down" style="color: blue;"></i>
-                                                    <!-- Thumbs down (color blue when disliked) -->
+                                                    <i *ngIf="!isDisliked[cours.id_cours]" class="fa fa-thumbs-o-down"></i> <!-- Thumbs down outline -->
+                                                    <i *ngIf="isDisliked[cours.id_cours]" class="fa fa-thumbs-down" style="color: blue;"></i> <!-- Thumbs down (color blue when disliked) -->
                                                 </button>
-                                            </div>
+                                                                                            </div>
                                             
                                         </div>
                                         <div class="col-6">

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Wizard</title>
+</head>
+
+<body>
+    <app-header></app-header>
+ <!-- breadcrumb start -->
+ <div class="breadcrumb-area bg-overlay" style="background-image:url('assets/img/bg/3.png')">
+    <div class="container">
+        <div class="breadcrumb-inner">
+            <div class="section-title mb-0 text-center">
+                <h2 class="page-title">Activity</h2>
+                <ul class="page-list">
+                    <li><a routerLink="" href="index.html">Home</a></li>
+                    <li>Activity</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- breadcrumb end -->
+
+    <!-- blog area start -->
+    <div class="blog-area pd-top-120 pd-bottom-120">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 order-lg-12">
+                    <div class="row">
+                        <div class="col-md-6"  *ngFor="let activity of activity">
+                            <div class="single-course-inner">
+                                <div class="thumb">
+                                    <img src="assets/img/course/1.png" alt="img">
+                                </div>
+                                <div class="details">
+                                    <div class="details-inner">
+                                        <div class="emt-user">
+                                            
+                                            <span class="align-self-center">{{activity.mobile}}</span>
+                                                 <br />
+                                            <span class="align-self-center">{{activity.activityAddress}}</span>
+                                          
+                                        </div>
+                                        <h6><a routerLink="/courseDetails" href="course-details.html">{{activity.activityName}}</a></h6>
+                                    </div>
+                                    <div class="emt-course-meta">
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="col-6">
+                                                    <div class="rating2">
+                                                        <span class="star" (click)="setRating(activity._id, 1, activity)" [ngClass]="{'filled': activity.rating >= 1}">&#9733;</span>
+                                                        <span class="star" (click)="setRating(activity._id, 2, activity)" [ngClass]="{'filled': activity.rating >= 2}">&#9733;</span>
+                                                        <span class="star" (click)="setRating(activity._id, 3, activity)" [ngClass]="{'filled': activity.rating >= 3}">&#9733;</span>
+                                                        <span class="star" (click)="setRating(activity._id, 4, activity)" [ngClass]="{'filled': activity.rating >= 4}">&#9733;</span>
+                                                        <span class="star" (click)="setRating(activity._id, 5, activity)" [ngClass]="{'filled': activity.rating >= 5}">&#9733;</span>
+                                                    </div>
+                                                </div>
+                                                
+                                           <!--
+                                            <div class="col-6">
+                                                <div class="price text-right">
+                                                    Price: <span>$54.00</span>
+                                                </div>
+                                            </div>-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                      
+                     
+                    </div>
+                    
+                    <nav class="td-page-navigation">
+                        <ul class="pagination">
+                            <li class="pagination-arrow"><a (click)="setCurrentPage(currentPage - 1)" [class.disabled-link]="currentPage === 1"><i class="fa fa-angle-double-left"></i></a></li>
+                              <li *ngFor="let page of totalPagesArray()">
+            <a (click)="setCurrentPage(page)" [class.active]="currentPage === page">{{ page }}</a>
+        </li>
+                            
+                            
+                            <li class="pagination-arrow"><a (click)="setCurrentPage(currentPage + 1)" [class.disabled-link]="currentPage === totalPages">
+                <i class="fa fa-angle-double-right"></i>
+            </a>
+        </li>
+                        </ul>
+                    </nav> 
+
+
+
+                <!-- Pagination
+<div class="vs-pagination mt-60">
+    <ul>
+        <li>
+            <a (click)="setCurrentPage(currentPage - 1)" [class.disabled-link]="currentPage === 1">
+                <i class="fas fa-chevron-left"></i>
+            </a>
+        </li>
+        <li *ngFor="let page of totalPagesArray()">
+            <a (click)="setCurrentPage(page)" [class.active]="currentPage === page">{{ page }}</a>
+        </li>
+        <li>
+            <a (click)="setCurrentPage(currentPage + 1)" [class.disabled-link]="currentPage === totalPages">
+                <i class="fa fa-angle-double-right"></i>
+            </a>
+        </li>
+    </ul>
+  </div> -->
+  <div id="map" style="height: 400px; width: 100%;"></div>
+                </div>
+                
+                <div class="col-lg-4 order-lg-1 col-12">
+                    <div class="td-sidebar mt-5 mt-lg-0">
+                      <div class="widget widget_search_course">    
+                        <h4 class="widget-title">Search</h4>                               
+                        <form class="search-form single-input-inner" (ngSubmit)="searchActivities()">
+                          <input type="text" placeholder="Search here" [(ngModel)]="searchName" name="search">
+                          <button class="btn btn-base w-100 mt-3" type="submit"><i class="fa fa-search"></i> SEARCH</button>
+                        </form>
+                      </div> 
+                    </div>
+                  </div>
+                 
+            </div>
+        </div>
+    </div>
+    <!-- blog area end -->
+
+    <!-- back to top area start -->
+    <div class="back-to-top">
+        <span class="back-top"><i class="fa fa-angle-up"></i></span>
+    </div>
+    <!-- back to top area end -->
+
+
+    <!-- all plugins here -->
+    <script data-cfasync="false" src="../../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="assets/js/vendor.js"></script>
+    <!-- main js  -->
+    <script src="assets/js/main.js"></script>
+
