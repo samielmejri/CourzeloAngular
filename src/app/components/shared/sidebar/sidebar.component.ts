@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UpdateService } from "../../../service/user/profile/update.service";
 import { LoginResponse } from "../../model/user/LoginResponse";
+import {UserResponse} from "src/app/components/model/user/UserResponse";
+
 
 @Component({
   selector: 'app-sidebar',
@@ -8,13 +10,14 @@ import { LoginResponse } from "../../model/user/LoginResponse";
   styleUrls: ['./sidebar.component.css']
 })
 export class SidebarComponent implements OnInit {
-  userPhotoUrl: string = 'assets/default-image.jpg'; // Default image URL
+  userPhotoUrl: any;
   isMenuOpen: boolean = false;
   isSuperAdminMenuOpen: boolean = false;
   isAdminMenuOpen: boolean = false;
-  loginResponse: LoginResponse = {};
+  loginResponse: UserResponse = {}
 
-  constructor(private updateService: UpdateService) {}
+  constructor(
+    private updateService: UpdateService) {}
 
   toggleSuperAdminMenu() {
     this.isSuperAdminMenuOpen = !this.isSuperAdminMenuOpen;
@@ -34,30 +37,23 @@ export class SidebarComponent implements OnInit {
 
   getMyInfo() {
     this.updateService.getMyInfo().subscribe(
-      (response: LoginResponse) => {
+      response => {
         this.loginResponse = response;
-        if (this.loginResponse.photoID) {
+        if(this.loginResponse.profile?.photo != null) {
           this.getImage();
         }
-      },
-      (error: any) => {
-        console.error('Error fetching user info:', error);
+        console.log(response);
       }
-    );
+    )
   }
 
   getImage() {
-    this.updateService.getPhoto(this.loginResponse.photoID!).subscribe(
-      (data: Blob) => {
-        const reader = new FileReader();
-        reader.onloadend = () => {
-          this.userPhotoUrl = reader.result as string;
-        };
-        reader.readAsDataURL(data);
-      },
-      (error: any) => {
-        console.error('Error fetching user photo:', error);
-      }
-    );
+    this.updateService.getPhoto(this.loginResponse.profile?.photo!).subscribe((data: Blob) => {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        this.userPhotoUrl = reader.result;
+      };
+      reader.readAsDataURL(data);
+    });
   }
 }

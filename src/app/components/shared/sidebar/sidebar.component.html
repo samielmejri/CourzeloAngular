@@ -2,10 +2,10 @@
   <div class="sidebar">
     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
       <div class="image">
-        <img [src]="userPhotoUrl" alt="User Image" class="img-circle elevation-2">
+        <img [src]="userPhotoUrl|| 'assets/default-image.jpg'" alt="User Image" class="img-circle elevation-2">
       </div>
       <div class="info">
-        <a class="d-block" routerLink="/settings/profile" style="color: white">{{ loginResponse.name + " " + loginResponse.lastname }}</a>
+        <a class="d-block" routerLink="/settings/profile" style="color: black !important;">{{loginResponse.profile?.name + " " + loginResponse.profile?.lastName }}</a>
       </div>
     </div>
 
@@ -40,6 +40,18 @@
             <i class="nav-icon fas fa-tachometer-alt"></i>
             <p style="color: white;">SuperAdmin</p>
           </a>
+
+
+          <ul class="nav nav-treeview" [ngStyle]="{ 'display': isSuperAdminMenuOpen ? 'block' : 'none' }">
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/superAdmin/institutions" routerLinkActive="active">
+                <p style="color: white;">Institutions</p>
+              </a>
+            </li>
+          </ul>
+
+
+
           <ul class="nav nav-treeview" [ngStyle]="{ 'display': isSuperAdminMenuOpen ? 'block' : 'none' }">
             <li class="nav-item">
               <a class="nav-link" routerLink="/superAdmin/users" routerLinkActive="active">
@@ -48,6 +60,16 @@
             </li>
           </ul>
         </li>
+
+
+        <ul class="nav nav-treeview" [ngStyle]="{ 'display': isSuperAdminMenuOpen ? 'block' : 'none' }">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/superAdmin/search" routerLinkActive="active">
+              <p style="color: white;">Search</p>        
+                </a>
+          </li>
+        </ul>
+
 
         <!-- Admin -->
         <li *ngIf="loginResponse.roles && loginResponse.roles.includes('ROLE_ADMIN')" class="nav-item" [ngClass]="{ 'menu-open': isAdminMenuOpen }">
