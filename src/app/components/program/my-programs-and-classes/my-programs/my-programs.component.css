@@ -1,0 +1,15 @@
+.card:hover {
+  cursor: pointer;
+  transform: scale(1.05);
+  transition: transform 0.3s ease-in-out;
+}
+
+.card:active {
+  transform: scale(0.95);
+}
+.badge-container {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 1.2em;
+}

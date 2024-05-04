@@ -48,15 +48,18 @@
               <div class="col-md-9">
                   <div class="card">
                       <div class="card-header p-2 profile-form">
-                          <ul class="nav nav-pills">
-                              <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#name">Name</a></li>
-                              <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#photo">Profile photo</a></li>
-                              <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#email">Email</a></li>
-                              <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#password">Password</a></li>
-                              <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#delete">Delete account</a></li>
-                              <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tfa" (click)="checkUserProfileTwoFactorAuth();toggleLoading()">Two Factor Authentication</a></li>
+                        <ul class="nav nav-pills">
+                            <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#name" (click)="toggleLoading()">Profile</a></li>
+                            <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#photo" (click)="checkUserProfileImage(); toggleLoading()">Profile photo</a></li>
+                            <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#skills" (click)="toggleLoading()">Skills</a></li>
+                            <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#contact" (click)="toggleLoading()">Contact</a></li>
+                            <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#email" (click)="toggleLoading()">Email</a></li>
+                            <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#password" (click)="toggleLoading()">Password</a></li>
+                            <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#delete" (click)="toggleLoading()">Delete account</a></li>
+                            <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tfa" (click)="checkUserProfileTwoFactorAuth();toggleLoading()">Two Factor Authentication</a></li>
+                            <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#settings" (click)="toggleLoading()">Settings</a></li>
                           </ul>
-                      </div><!-- /.card-header -->
+                                    </div><!-- /.card-header -->
                       <div class="card-body profile-form2">
                           <div class="tab-content">
                               <div class="tab-pane active" id="name">
@@ -69,17 +72,47 @@
                                       </div>
 
                                       <div class="form-group row">
-                                          <label class="col-sm-2 col-form-label" for="inputName">Name</label>
+                                          <label class="col-sm-2 col-form-label" for="inputName"><i class="fa fa-user"></i> Name</label>
                                           <div class="col-sm-10">
                                               <input class="form-control" formControlName="name" placeholder="Name" type="text">
                                           </div>
                                       </div>
                                       <div class="form-group row">
-                                          <label class="col-sm-2 col-form-label">Lastname</label>
+                                          <label class="col-sm-2 col-form-label"><i class="fa fa-user"></i> Lastname</label>
                                           <div class="col-sm-10">
                                               <input class="form-control" formControlName="lastName" placeholder="Lastname" type="text">
                                           </div>
-                                      </div>
+                                        </div>
+
+
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label"><i class="fa fa-briefcase"></i> Title</label>
+                                            <div class="col-sm-10">
+                                                <input class="form-control" formControlName="title" placeholder="Title" type="text">
+                                            </div>
+                                          </div>
+
+
+                                          <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label"><i class="fa fa-info-circle"></i> Bio</label>
+                                            <div class="col-sm-10">
+                                                <input class="form-control" formControlName="bio" placeholder="Bio" type="text">
+                                            </div>
+                                          </div>
+
+                                          <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label"><i class="fa fa-calendar"></i> Date of Birth</label>
+                                            <div class="col-sm-10">
+                                              <input class="form-control" placeholder="Date" bsDatepicker
+                                                     [maxDate]="maxDate"
+                                                     [bsConfig]="{ isAnimated: true, dateInputFormat: 'YYYY-MM-DD' }" formControlName="birthDate">
+                                            </div>
+                                          </div>
+
+
+
+                                    
+
                                       <div class="form-group row">
                                           <div class="offset-sm-2 col-sm-10">
                                               <button class="btn btn-primary" type="submit">Submit</button>
@@ -108,6 +141,91 @@
                                       </div>
                                   </form>
                               </div>
+
+                              <div class="tab-pane" id="skills">
+                                <form (ngSubmit)="updateSkills()" class="form-horizontal">
+                                  <div class="form-group row">
+                                    <div class="col-sm-8 offset-sm-2">
+                                      <div class="input-group mb-3">
+                                        <input type="text" [matAutocomplete]="auto" [formControl]="skillControl" class="form-control" placeholder="Enter skill">
+                                        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="addSkill()">
+                                          <mat-option *ngFor="let skill of filteredSkills | async" [value]="skill">
+                                            {{skill}}
+                                          </mat-option>
+                                        </mat-autocomplete>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="form-group row" *ngFor="let skill of selectedSkills; index as i">
+                                    <div class="col-sm-8 offset-sm-2">
+                                      <div class="alert alert-primary d-flex justify-content-between align-items-center" role="alert">
+                                        {{skill}}
+                                        <button type="button" class="btn btn-danger btn-sm" (click)="removeSkill(i)">Remove</button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="form-group row">
+                                    <div class="col-sm-8 offset-sm-2">
+                                      <button class="btn btn-primary btn-block" type="submit"><i class="fa fa-paper-plane"></i> Update</button>
+                                    </div>
+                                  </div>
+                                </form>
+                              </div>
+                              <div class="tab-pane" id="contact">
+                                <form (ngSubmit)="updateContact()" [formGroup]="contactForm" class="form-horizontal">
+                                  <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label" for="inputName"><i class="fa fa-phone"></i> Phone</label>
+                                    <div class="col-sm-10">
+                                      <input class="form-control" formControlName="phone" placeholder="Phone" type="text">
+                                    </div>
+                                    <!-- ... -->
+                                  </div>
+                                  <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label" for="inputName"><i class="fab fa-facebook"></i> Facebook</label>
+                                    <div class="col-sm-10">
+                                      <input class="form-control" formControlName="facebook" placeholder="Facebook" type="text">
+                                    </div>
+                                    <!-- ... -->
+                                  </div>
+                                  <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label" for="inputName"><i class="fab fa-linkedin"></i> Linkedin</label>
+                                    <div class="col-sm-10">
+                                      <input class="form-control" formControlName="linkedin" placeholder="Linkedin" type="text">
+                                    </div>
+                                    <!-- ... -->
+                                  </div>
+                                  <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label" for="inputName"><i class="fab fa-github"></i> Github</label>
+                                    <div class="col-sm-10">
+                                      <input class="form-control" formControlName="github" placeholder="Github" type="text">
+                                    </div>
+                                    <!-- ... -->
+                                  </div>
+                                  <div *ngIf="countries" class="form-group row">
+                                    <label class="col-sm-2 col-form-label" for="inputName"><i class="fa fa-globe"></i> Country</label>
+                                    <div class="col-sm-10">
+                                      <select class="form-control" formControlName="country" [(ngModel)]="selectedCountry" (change)="onCountryChange(selectedCountry)">
+                                        <option *ngFor="let country of countries" [value]="country">{{country}}</option>
+                                      </select>
+                                    </div>
+                                  </div>
+                                  <div *ngIf="showStatesForm" class="form-group row">
+                                    <label class="col-sm-2 col-form-label" for="inputName"><i class="fa fa-map-marker"></i> State</label>
+                                    <div class="col-sm-10">
+                                      <select class="form-control" formControlName="state">
+                                        <option *ngFor="let state of states" [value]="state.name">{{state.name}}</option>
+                                      </select>
+                                    </div>
+                                  </div>
+                                  <div class="form-group row">
+                                    <div class="offset-sm-2 col-sm-10">
+                                      <button class="btn btn-primary" type="submit"><i class="fa fa-paper-plane"></i> Update</button>
+                                    </div>
+                                  </div>
+                                </form>
+                              </div>
+                
+
 
                               <!-- /.tab-pane -->
                               <div class="tab-pane" id="email">
@@ -208,8 +326,8 @@
                                   </form>
                               </div>
                               <div class="tab-pane" id="tfa">
-                                  <div *ngIf="!user.twoFactorAuthEnabled" class="card-body">
-                                      <button class="btn btn-primary" (click)="generateTwoFactorAuthQrCode()">Generate QR Code</button>
+                                <div *ngIf="!user.security?.twoFactorAuthEnabled" class="card-body">
+                                    <button class="btn btn-primary" (click)="generateTwoFactorAuthQrCode()">Generate QR Code</button>
                                       <!-- Display the QR code here -->
                                       <div *ngIf="qrCodeImage">
                                           <img [src]="qrCodeImage" alt="QR Code">
@@ -223,11 +341,35 @@
                                       </form>
                                   </div>
                                   <!-- Display a message when TFA is already enabled -->
-                                  <div *ngIf="user.twoFactorAuthEnabled">
-                                      <p>Two-Factor Authentication is already enabled.</p>
+                                  <div *ngIf="user.security?.twoFactorAuthEnabled" class="card-body">
+                                    <p>Two-Factor Authentication is already enabled.</p>
                                       <button class="btn btn-danger" (click)="disableTwoFactorAuth()">Disable Two-Factor Authentication</button>
                                   </div>
                               </div>
+
+
+                              <div class="tab-pane" id="settings">
+                                <div class="form-group">
+                                  <div class="custom-control custom-switch">
+                                    <label for="verificationCode"><i class="fa fa-cogs"></i> Privacy Settings :</label>
+                                    <div class="form-group">
+                                      <mat-slide-toggle color="primary" (click)="toggleShowPhone()" [(ngModel)]="showPhone"><i class="fa fa-phone"></i> Show Phone</mat-slide-toggle>
+                                    </div>
+                
+                                    <div class="form-group">
+                                      <mat-slide-toggle color="primary" (click)="toggleShowAddress()" [(ngModel)]="showAddress"><i class="fa fa-home"></i> Show Address</mat-slide-toggle>
+                                    </div>
+                
+                                    <div class="form-group">
+                                      <mat-slide-toggle color="primary" (click)="toggleShowBirthDate()" [(ngModel)]="showBirthDate"><i class="fa fa-birthday-cake"></i> Show Birth Date</mat-slide-toggle>
+                                    </div>
+                
+                                  </div>
+                                </div>
+                              </div>
+
+
+
                               <!-- /.tab-pane -->
                           </div>
                           <!-- /.tab-content -->
@@ -238,7 +380,14 @@
               <!-- /.col -->
           </div>
           <!-- /.row -->
-      </div><!-- /.container-fluid -->
-  </div>
-</section>
-
+        </div><!-- /.container-fluid -->
+        <button data-widget="pushmenu" mat-fab color="primary" class="fabb" (click)="openDialog()">
+          <mat-icon>live_help</mat-icon>
+        </button>
+      
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-Gh8P+js7r2U9a6j3RgXtT9Ff7c7XAt3uqi6pZW7NKS8eFd2avB6Z/K1VfGTumQ2gTdXeGK+U8jfcJ0qcBd0iCg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome -->
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">

@@ -1,0 +1,16 @@
+.facebook-logo {
+    width: 24px;
+    height: 24px;
+    background-color: #3b5998;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .facebook-logo::before {
+    content: "\f39e"; /* Unicode character for the Facebook logo */
+    font-family: "Font Awesome 5 Brands";
+    color: #fff;
+  }
+  

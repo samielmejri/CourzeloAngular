@@ -86,6 +86,46 @@ import { UpdateArticleComponent } from './components/update-article/update-artic
 import { ActivityComponent } from './components/activity/activity.component';
 
 
+import {InstitutionTableComponent} from './components/program/institution/institution-table/institution-table.component';
+import {InstitutionAddFormComponent} from './components/program/institution/institution-add-form/institution-add-form.component';
+import {InstitutionUpdateFormComponent} from './components/program/institution/institution-update-form/institution-update-form.component';
+import {InstitutionPanelComponent} from './components/program/institution/institution-panel/institution-panel.component';
+import {InstitutionUsersTableComponent} from './components/program/institution/institution-users-table/institution-users-table.component';
+import {InstitutionAddUserComponent} from './components/program/institution/institution-add-user/institution-add-user.component';
+import {ProgramTableComponent} from './components/program/program-table/program-table.component';
+import {ProgramAddFormComponent} from './components/program/program-add-form/program-add-form.component';
+import {ProgramUpdateFormComponent} from './components/program/program-update-form/program-update-form.component';
+import {ProgramClassesTableComponent} from './components/program/program-classes-table/program-classes-table.component';
+import {ProgramAddClassComponent} from './components/program/program-add-class/program-add-class.component';
+import {ProgramClassUsersTableComponent} from './components/program/program-class-users-table/program-class-users-table.component';
+import {ClassAddUserComponent} from './components/program/class/class-add-user/class-add-user.component';
+import {ClassUpdateComponent} from './components/program/class/class-update/class-update.component';
+import {AddFieldOfStudyComponent} from "./components/schedule/add/add-field-of-study/add-field-of-study.component";
+import {EditDepartementComponent} from "./components/schedule/edit/edit-departement/edit-departement.component";
+import {EditFieldOfStudyComponent} from "./components/schedule/edit/edit-field-of-study/edit-field-of-study.component";
+import {GestionDepartementComponent} from "./components/schedule/gestion/gestion-departement/gestion-departement.component";
+import {GestionFieldOfStudyComponent} from "./components/schedule/gestion/gestion-field-of-study/gestion-field-of-study.component";
+import {NonDisponibilityComponent} from "./components/schedule/gestion/non-disponibility/non-disponibility.component";
+import {TimeTableComponent} from "./components/schedule/gestion/time-table/time-table.component";
+import {AddDepartementComponent} from "./components/schedule/add/add-departement/add-departement.component";
+import {AddNonDisponibilityComponent} from './components/schedule/add/add-non-disponibility/add-non-disponibility.component';
+import {EditNonDisponibilityComponent} from "./components/schedule/edit/edit-non-disponibility/edit-non-disponibility.component";
+import {ActionsComponent} from './components/schedule/actions/actions.component';
+import {MyClassesComponent} from './components/program/my-programs-and-classes/my-classes/my-classes.component';
+import {MyProgramsComponent} from './components/program/my-programs-and-classes/my-programs/my-programs.component';
+import {MyProgramsAndClassesComponent} from './components/program/my-programs-and-classes/my-programs-and-classes.component';
+import {JoinProgramDialogComponent} from './components/program/my-programs-and-classes/my-programs/join-program-dialog/join-program-dialog.component';
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatInputModule} from "@angular/material/input";
+import { UsersSearchComponent } from './components/user/users-search/users-search.component';
+import { UserProfileByEmailComponent } from './components/user/user-profile-by-email/user-profile-by-email.component';
+import {MatSlideToggleModule} from "@angular/material/slide-toggle";
+import {MatAutocompleteModule} from "@angular/material/autocomplete";
+import { ElementModuleComponent } from './components/schedule/gestion/element-module/element-module.component';
+import {BsDatepickerModule} from "ngx-bootstrap/datepicker";
+import {InfiniteScrollModule} from "ngx-infinite-scroll";
+import { DialogModule } from 'primeng/dialog';
+
 
 @NgModule({
   declarations: [
@@ -156,7 +196,43 @@ import { ActivityComponent } from './components/activity/activity.component';
     ArticleComponent,
     LeaderboardComponent,
     UpdateArticleComponent,
-    ActivityComponent
+    ActivityComponent,
+    AddDepartementComponent,
+    AddFieldOfStudyComponent,
+    EditDepartementComponent,
+    EditNonDisponibilityComponent,
+    EditFieldOfStudyComponent,
+    GestionDepartementComponent,
+    GestionFieldOfStudyComponent,
+    NonDisponibilityComponent,
+    TimeTableComponent,
+    AddNonDisponibilityComponent,
+    EditNonDisponibilityComponent,
+    EditNonDisponibilityComponent,
+    InstitutionTableComponent,
+    InstitutionAddFormComponent,
+    InstitutionUpdateFormComponent,
+    InstitutionPanelComponent,
+    InstitutionUsersTableComponent,
+    InstitutionAddUserComponent,
+    InstitutionUsersTableComponent,
+    InstitutionAddUserComponent,
+    ProgramTableComponent,
+    ProgramAddFormComponent,
+    ProgramUpdateFormComponent,
+    ProgramClassesTableComponent,
+    ProgramAddClassComponent,
+    ProgramClassUsersTableComponent,
+    ClassAddUserComponent,
+    ClassUpdateComponent,
+    ActionsComponent,
+    MyClassesComponent,
+    MyProgramsComponent,
+    MyProgramsAndClassesComponent,
+    JoinProgramDialogComponent,
+    UsersSearchComponent,
+    UserProfileByEmailComponent,
+    ElementModuleComponent
 
   ],
   imports: [
@@ -176,9 +252,16 @@ import { ActivityComponent } from './components/activity/activity.component';
     MatButtonModule,
     MatDialogModule,
     FormsModule,
+    DialogModule,
+    InfiniteScrollModule,
+    MatSlideToggleModule,
+    MatAutocompleteModule,
+    BsDatepickerModule.forRoot(),
     ToastrModule.forRoot({
       positionClass: "toast-top-right"
-    })
+    }),
+    MatFormFieldModule,
+    MatInputModule
   ],
   providers: [HttpClient, {
     provide: HTTP_INTERCEPTORS,

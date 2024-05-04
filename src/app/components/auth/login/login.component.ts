@@ -38,8 +38,8 @@ export class LoginComponent {
   }
   toggleDeviceAnimation() {
     this.deviceAnimationState = this.deviceAnimationState === 'out' ? 'in' : 'out';
-    console.log(this.deviceAnimationState)
   }
+
   verification: boolean = false;
   code: number = 0;
   loginResponse: LoginResponse = {};
@@ -74,45 +74,40 @@ export class LoginComponent {
 
   login() {
     if (this.loginForm.valid) {
-              // Extract email, password, and rememberMe values from the form
       this.loginRequest.email = this.loginForm.controls['email'].value!.toLowerCase();
       this.loginRequest.password = this.loginForm.controls['password'].value!;
       this.loginRequest.rememberMe = this.loginForm.controls['rememberMe'].value != null;
-      
-              // Call the login service method
       this.authService.login(this.loginRequest).subscribe(
         response => {
+          console.log("start login")
           console.log(response)
-                // Check if Two Factor Authentication is required
-          if(response.msg === 'Two Factor Authentication Required') {
-                // Toggle login animation and Two Factor Authentication animation
+          if(response && response.msg && response.msg === 'Two Factor Authentication Required') {
+            console.log("tfa")
             this.toggleLoginAnimation();
             this.toggleTFAAnimation();
             this.showTwoFactorAuthInput = true;
             this.toastr.info('Please enter the verification code from your mobile app', 'Two Factor Authentication Required');
           }else {
-            // Check if the device is new
-            if (response.deviceIsNew !== undefined) {
+            if (response && response.deviceIsNew !== undefined) {
               console.log("device not confirmed")
               if (response.deviceIsNew) {
                 console.log(this.loginRequest.rememberMe)
-              // Toggle login animation and device animation
-              this.verification=true
                 this.toggleLoginAnimation();
                 this.toggleDeviceAnimation();
                 this.toastr.info('Please enter the verification code sent to your email', 'Verification Required');
               }
             } else {
+              console.log("logging in")
               console.log(this.loginRequest.rememberMe)
-            // Login successful, navigate to profile page
-              this.toastr.success('Welcome ' + response.name + ' ' + response.lastname, 'Login Successful');
-              this.loginResponse = response;
+              this.toastr.success('Login Successful');
               this.router.navigate(['settings/profile']);
             }
           }
         },
         error => {
-          this.toastr.error(error.error.msg, 'Login Failed');
+          if(error && error.error && error.error.msg) {
+            this.toastr.error(error.error.msg, 'Login Failed');
+          }
         });
     }
   }
@@ -120,8 +115,7 @@ export class LoginComponent {
     this.authService.loginTFA(this.loginRequest,this.TFAForm.controls['twoFactorAuthCode'].value!).subscribe(
       (response: any) => {
         console.log(this.loginRequest.rememberMe)
-        this.toastr.success('Welcome ' + response.name + ' ' + response.lastname, 'Login Successful');
-        this.loginResponse = response;
+        this.toastr.success('Login Successful');
         this.router.navigate(['settings/profile']);
       },
       error => {
@@ -130,15 +124,13 @@ export class LoginComponent {
   }
 
 
-    submitVerificationCode() {
+  submitVerificationCode() {
     if (this.verificationForm.valid) {
       this.code = +this.verificationForm.controls['code'].value!;
       this.authService.confirmDevice(this.loginRequest, this.code).subscribe(
         response => {
-          this.loginResponse = response;
-          this.token.saveUser(response);
-          this.toastr.success('Welcome ' + response.name + ' ' + response.lastname, 'Login Successful');
-          this.router.navigate(['']);
+          this.toastr.success('Login Successful');
+          this.router.navigate(['settings/profile']);
         },
         error => {
           this.toastr.error(error.error.msg, 'Verification Failed');

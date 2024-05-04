@@ -46,6 +46,23 @@ import { UpdateArticleComponent } from './components/update-article/update-artic
 import { ActivityComponent } from './components/activity/activity.component';
 
 
+import {GestionDepartementComponent} from "./components/schedule/gestion/gestion-departement/gestion-departement.component";
+import {AddDepartementComponent} from "./components/schedule/add/add-departement/add-departement.component";
+import {EditDepartementComponent} from "./components/schedule/edit/edit-departement/edit-departement.component";
+import {TimeTableComponent} from "./components/schedule/gestion/time-table/time-table.component";
+import {AddFieldOfStudyComponent} from "./components/schedule/add/add-field-of-study/add-field-of-study.component";
+import {EditFieldOfStudyComponent} from "./components/schedule/edit/edit-field-of-study/edit-field-of-study.component";
+import {GestionFieldOfStudyComponent} from "./components/schedule/gestion/gestion-field-of-study/gestion-field-of-study.component";
+import {NonDisponibilityComponent} from "./components/schedule/gestion/non-disponibility/non-disponibility.component";
+import {AddNonDisponibilityComponent} from "./components/add-non-disponibility/add-non-disponibility.component";
+import {EditNonDisponibilityComponent} from "./components/schedule/edit/edit-non-disponibility/edit-non-disponibility.component";
+import {InstitutionPanelComponent} from "./components/program/institution/institution-panel/institution-panel.component";
+import {ProgramTableComponent} from "./components/program/program-table/program-table.component";
+import {InstitutionTableComponent} from "./components/program/institution/institution-table/institution-table.component";
+import {ActionsComponent} from "./components/schedule/actions/actions.component";
+import {MyProgramsAndClassesComponent} from "./components/program/my-programs-and-classes/my-programs-and-classes.component";
+import {UsersSearchComponent} from "./components/user/users-search/users-search.component";
+
 
 
 
@@ -133,11 +150,97 @@ const routes: Routes = [
       data: {
         expectedRole: 'SUPERADMIN'
       },
+    },
+    {
+      path: 'search',
+      component: UsersSearchComponent,
+      canActivate: [RoleGuardService],
+      data: {
+        expectedRole: 'SUPERADMIN'
+      },
+    },
+    {
+      path: 'institutions',
+      component: InstitutionTableComponent,
+      canActivate: [RoleGuardService],
+      data: {
+        expectedRole: 'SUPERADMIN'
+      },
     }  
   ]
+},
+{
+  path: 'organisation',
+  component: PanelComponent,
+  children: [
+    {
+      path: 'institution',
+      component: InstitutionPanelComponent,
+      canActivate: [RoleGuardService],
+      data: {
+        expectedRole: ['ADMIN','STUDENT','TEACHER']
+      },
+    },
+    {
+      path: 'ProgramsAndClasses',
+      component: MyProgramsAndClassesComponent,
+      canActivate: [RoleGuardService],
+      data: {
+        expectedRole: ['ADMIN','STUDENT','TEACHER']
+      },
+    },
+    {
+      path: 'calendar',
+      component: CalendarComponent,
+      canActivate: [RoleGuardService],
+      data: {
+        expectedRole: 'ADMIN'
+      },
+    },
+    {
+      path: 'programs',
+      component: ProgramTableComponent,
+      canActivate: [RoleGuardService],
+      data: {
+        expectedRole: 'ADMIN'
+      },
+    },
+    {
+      path: 'departments',
+      component: GestionDepartementComponent,
+      canActivate: [RoleGuardService],
+      data: {
+        expectedRole: ['ADMIN']
+      }
+    },
+    {
+      path: 'timetable',
+      component: TimeTableComponent,
+      canActivate: [RoleGuardService],
+      data: {
+        expectedRole: ['ADMIN','TEACHER','STUDENT']
+      },
+    },
+    {
+      path: 'fieldOfStudies',
+      component: GestionFieldOfStudyComponent,
+      canActivate: [RoleGuardService],
+      data: {
+        expectedRole: ['ADMIN']
+      }
+    },
+    {
+      path: 'NonDisponibilities',
+      component: NonDisponibilityComponent,
+      canActivate: [RoleGuardService],
+      data: {
+        expectedRole: ['TEACHER','ADMIN']
+      }
+    }
+  ]
 }
-];
 
+];
 @NgModule({
 imports: [RouterModule.forRoot(routes)],
 declarations: [],
