@@ -1,0 +1,27 @@
+.footer-area {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #f9f9f9; /* Set your desired background color */
+    padding: 20px 0; /* Adjust the padding as needed */
+    z-index: 999; /* Ensure the footer is above other content */
+}
+
+.footer-bottom {
+    border-top: 1px solid #ddd; /* Add a border to separate from content above */
+}
+
+.social-media li {
+    display: inline-block; /* Ensure social media icons are displayed horizontally */
+    margin-right: 10px; /* Adjust the margin between icons */
+}
+
+/* Adjust styles for social media icons if needed */
+.social-media li a {
+    color: #333; /* Set the color of the icons */
+    font-size: 20px; /* Set the font size of the icons */
+}
+
+.social-media li a:hover {
+    color: #007bff; /* Change the color on hover if desired */
+}

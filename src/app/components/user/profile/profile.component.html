@@ -31,7 +31,7 @@
       </div><!-- /.col -->
       <div class="row mb-2" style="margin-top: 100px; margin-left: auto; margin-right: auto; width: fit-content;">
           <div class="b-animate-2 title">
-              <h1 class="b-animate-2 title">Profile</h1>
+              <h1 class="b-animate-2 title"><i class="far fa-user-circle"></i> Profile</h1>
           </div>
       </div>
       <div class="row mb-2" style="margin-left: auto; margin-right: auto; width: fit-content;">
@@ -125,7 +125,7 @@
 
                                       <div class="form-group row">
                                           <div class="offset-sm-2 col-sm-10">
-                                              <button class="btn btn-primary" type="submit">Submit</button>
+                                              <button class="btn btn-primary" type="submit"><i class="fa fa-paper-plane"></i> Submit</button>
                                           </div>
                                       </div>
                                   </form>
@@ -137,7 +137,7 @@
                                           class="text-danger">Please upload a photo
                                       </div>
                                       <div class="form-group row">
-                                          <label for="exampleInputFile">File input</label>
+                                          <label for="exampleInputFile"><i class="fa fa-file"></i> File input</label>
                                           <div class="input-group">
                                               <div class="custom-file">
                                                   <input (change)="onFileSelected($event)" class="custom-file-input" formControlName="photo"
@@ -145,7 +145,7 @@
                                                   <label class="custom-file-label" for="exampleInputFile">{{ selectedFile?.name || 'Choose file' }}</label>
                                               </div>
                                               <div class="input-group-append">
-                                                  <button class="btn btn-primary" type="submit">Upload</button>
+                                                  <button class="btn btn-primary" type="submit"><i class="fa fa-upload"></i> Upload</button>
                                               </div>
                                           </div>
                                       </div>
@@ -242,21 +242,21 @@
                                   <form (ngSubmit)="sendVerificationCode()" *ngIf="showEmailForm" [formGroup]="emailForm"
                                       class="form-horizontal">
                                       <div class="form-group row">
-                                          <label class="col-sm-2 col-form-label" for="inputName">Email</label>
+                                          <label class="col-sm-2 col-form-label" for="inputName"><i class="fa fa-envelope"></i> Email</label>
                                           <div class="col-sm-10">
                                               <input class="form-control" formControlName="email" placeholder="Email" type="email">
                                           </div>
                                       </div>
                                       <div class="form-group row">
                                           <div class="offset-sm-2 col-sm-10">
-                                              <button class="btn btn-primary" type="submit">Submit</button>
+                                              <button class="btn btn-primary" type="submit"><i class="fa fa-paper-plane"></i> Submit</button>
                                           </div>
                                       </div>
                                   </form>
                                   <div *ngIf="showVerification">
                                       <form (ngSubmit)="changeEmail()" [formGroup]="verificationForm" class="form-horizontal">
                                           <div class="form-group row">
-                                              <label class="col-sm-2 col-form-label">Verification Code</label>
+                                              <label class="col-sm-2 col-form-label"><i class="fa fa-key"></i> Verification Code</label>
                                               <div class="col-sm-10">
                                                   <input class="form-control" formControlName="code" name="verificationCode"
                                                       placeholder="Verification Code"
@@ -265,7 +265,7 @@
                                           </div>
                                           <div class="form-group row">
                                               <div class="offset-sm-2 col-sm-10">
-                                                  <button class="btn btn-primary" type="submit">Verify Code</button>
+                                                  <button class="btn btn-primary" type="submit"><i class="fa fa-check-circle"></i> Verify Code</button>
                                               </div>
                                           </div>
                                       </form>
@@ -291,7 +291,7 @@
                                           class="text-danger">Passwords did not match
                                       </div>
                                       <div class="form-group row">
-                                          <label class="col-sm-2 col-form-label" for="inputName">Password</label>
+                                          <label class="col-sm-2 col-form-label" for="inputName"><i class="fa fa-lock"></i> Password</label>
                                           <div class="col-sm-10">
                                               <input class="form-control" formControlName="password" id="inputName" placeholder="Password"
                                                   type="password">
@@ -299,14 +299,14 @@
                                       </div>
 
                                       <div class="form-group row">
-                                          <label class="col-sm-2 col-form-label">New password</label>
+                                          <label class="col-sm-2 col-form-label"><i class="fa fa-lock"></i> New password</label>
                                           <div class="col-sm-10">
                                               <input class="form-control" formControlName="newPassword" placeholder="New password"
                                                   type="password">
                                           </div>
                                       </div>
                                       <div class="form-group row">
-                                          <label class="col-sm-2 col-form-label">Confirm password</label>
+                                          <label class="col-sm-2 col-form-label"><i class="fa fa-lock"></i> Confirm password</label>
                                           <div class="col-sm-10">
                                               <input class="form-control" formControlName="confirmPassword" placeholder="Confirm password"
                                                   type="password">
@@ -314,7 +314,7 @@
                                       </div>
                                       <div class="form-group row">
                                           <div class="offset-sm-2 col-sm-10">
-                                              <button class="btn btn-primary" type="submit">Submit</button>
+                                              <button class="btn btn-primary" type="submit"><i class="fa fa-paper-plane"></i> Submit</button>
                                           </div>
                                       </div>
                                   </form>
@@ -326,34 +326,34 @@
                                           class="text-danger">Please type your password
                                       </div>
                                       <div class="form-group row">
-                                          <label class="col-sm-2 col-form-label" for="inputName">Password</label>
+                                          <label class="col-sm-2 col-form-label" for="inputName"><i class="fa fa-lock"></i> Password</label>
                                           <div class="col-sm-10">
                                               <input class="form-control" formControlName="password" id="psps" placeholder="Password"
                                                   type="password">
                                           </div>
                                       </div>
-                                      <button class="btn btn-primary">Delete My Account</button>
+                                      <button class="btn btn-primary"><i class="fa fa-trash"></i> Delete My Account</button>
                                   </form>
                               </div>
                               <div class="tab-pane" id="tfa">
                                 <div *ngIf="!user.security?.twoFactorAuthEnabled" class="card-body">
-                                    <button class="btn btn-primary" (click)="generateTwoFactorAuthQrCode()">Generate QR Code</button>
+                                    <button class="btn btn-primary" (click)="generateTwoFactorAuthQrCode()"><i class="fa fa-qrcode"></i> Generate QR Code</button>
                                       <!-- Display the QR code here -->
                                       <div *ngIf="qrCodeImage">
                                           <img [src]="qrCodeImage" alt="QR Code">
                                       </div>
                                       <form *ngIf="qrCodeImage" [formGroup]="tfaForm" (ngSubmit)="enableTwoFactorAuth()">
                                           <div class="form-group">
-                                              <label for="verificationCode">Verification Code</label>
+                                              <label for="verificationCode"><i class="fa fa-key"></i> Verification Code</label>
                                               <input type="text" id="verificationCode" formControlName="verificationCode" class="form-control">
                                           </div>
-                                          <button type="submit" class="btn btn-primary">Enable Two-Factor Authentication</button>
+                                          <button type="submit" class="btn btn-primary"><i class="fa fa-check-circle"></i> Enable Two-Factor Authentication</button>
                                       </form>
                                   </div>
                                   <!-- Display a message when TFA is already enabled -->
                                   <div *ngIf="user.security?.twoFactorAuthEnabled" class="card-body">
                                     <p>Two-Factor Authentication is already enabled.</p>
-                                      <button class="btn btn-danger" (click)="disableTwoFactorAuth()">Disable Two-Factor Authentication</button>
+                                      <button class="btn btn-danger" (click)="disableTwoFactorAuth()"><i class="fa fa-times-circle"></i> Disable Two-Factor Authentication</button>
                                   </div>
                               </div>
 
