@@ -1,0 +1,12 @@
+.text-center a i {
+    color: blue;
+  }
+
+  .btn.btn-primary {
+    color: white;
+  }
+
+  .fas.fa-eye,
+.fas.fa-eye-slash {
+    color: white !important;
+}
