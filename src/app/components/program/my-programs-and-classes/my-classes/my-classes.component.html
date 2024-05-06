@@ -1,18 +1,33 @@
-<div class="row mb-2">
-  <div class="col-sm-6">
-    <h1 class="m-0 display-4">Classe</h1>
-  </div><!-- /.col -->
-</div><!-- /.row -->
-<div *ngIf="myClass" class="row">
-  <div class="col-sm-6">
-    <div class="card mt-4">
-      <div class="card-body">
-        <h2 class="card-title text-primary display-5">{{myClass.name}}</h2>
-        <p class="card-text"><strong>Capacity:</strong> {{myClass.capacity}}</p>
-        <p class="card-text"><strong>Program:</strong> {{myProgram.name}}</p>
-        <p class="card-text"><strong>Description:</strong> {{myProgram.description}}</p>
-        <p class="card-text"><strong>Type:</strong> {{myProgram.programType}}</p>
+<section class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+      </div><!-- /.col -->
+    </div><!-- /.row -->
+    <div class="row mb-2" style="margin-top: 100px; margin-left: auto; margin-right: auto; width: fit-content;">
+      <div class="b-animate-2 title">
+        <h1 class="b-animate-2 title"><i class="fas fa-university"></i> Class Details</h1>
       </div>
     </div>
-  </div>
-</div>
+  </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content" style="height: 20vh;margin-left: 250px;">
+  <div class="container-fluid">
+    <!-- Class Details Content -->
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="card mt-4">
+          <div class="card-body">
+            <h2 class="card-title text-primary display-5">{{myClass.name}}</h2>
+            <p class="card-text"><strong>Capacity:</strong> {{myClass.capacity}}</p>
+            <p class="card-text"><strong>Program:</strong> {{myProgram.name}}</p>
+            <p class="card-text"><strong>Description:</strong> {{myProgram.description}}</p>
+            <p class="card-text"><strong>Type:</strong> {{myProgram.programType}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div><!-- /.container-fluid -->
+</section>

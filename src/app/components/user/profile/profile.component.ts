@@ -194,10 +194,15 @@ private _filter(value: string): string[] {
   return this.skills.filter(skill => skill.toLowerCase().includes(filterValue));
 }
 addSkill() {
-  if(!this.selectedSkills.includes(this.skillControl.value.toString())) {
-    this.selectedSkills.push(this.skillControl.value.toString());
-  } else {
-    this.toaster.error('Skill already added', 'Error');
+  //max 5 skills
+  if(this.selectedSkills.length < 5) {
+    if (!this.selectedSkills.includes(this.skillControl.value.toString())) {
+      this.selectedSkills.push(this.skillControl.value.toString());
+    } else {
+      this.toaster.error('Skill already added', 'Error');
+    }
+  }else{
+    this.toaster.error('Max 5 skills allowed', 'Error');
   }
   // Reset the skillControl value
   this.skillControl.setValue('');

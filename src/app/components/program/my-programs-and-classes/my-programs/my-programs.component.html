@@ -1,38 +1,41 @@
-<div class="row mb-2">
-  <div class="col-sm-6">
-    <h1 class="m-0">Programs</h1>
-  </div><!-- /.col -->
-</div><!-- /.row -->
-<div class="row">
-  <!-- Suggested Program -->
-  <!-- Existing Programs -->
-  <div class="col-sm-4" *ngFor="let program of programs">
-    <div class="card mt-4">
-      <div class="card-body">
-        <h2 class="card-title text-primary">{{program.name}}</h2>
-        <p class="card-text"><strong>Description:</strong> {{program.description}}</p>
-        <p class="card-text"><strong>Type:</strong> {{program.programType}}</p>
-        <button class="btn btn-danger" (click)="leaveProgram(program.id!)">Leave</button>
+<div class="container" style="height:600px; margin-left: 250px">
+  <div class="row mb-2">
+    <div class="b-animate-2 title">
+      <h1 style="margin-top: 110px; margin-left: 250px;" class="b-animate-2 title"><i class="fas fa-graduation-cap"></i>Programs</h1>
+    </div><!-- /.col -->
+  </div><!-- /.row -->
+  <div class="row justify-content-center">
+    <!-- Suggested Program -->
+    <!-- Existing Programs -->
+    <div class="col-sm-8" *ngFor="let program of programs">
+      <div class="card mt-4">
+        <div class="card-body">
+          <h2 class="card-title text-primary">{{program.name}}</h2>
+          <p class="card-text"><strong>Description:</strong> {{program.description}}</p>
+          <p class="card-text"><strong>Type:</strong> {{program.programType}}</p>
+          <button class="btn btn-danger" (click)="leaveProgram(program.id!)">Leave</button>
+        </div>
       </div>
     </div>
-  </div>
-  <div *ngIf="toggleSuggestedProgram" class="col-sm-4">
-    <div class="card mt-4">
-      <div class="card-body">
-        <h2 class="card-title text-primary">{{suggestedProgram.name}}</h2>
-        <p class="card-text"><strong>Description:</strong> {{suggestedProgram.description}}</p>
-        <p class="card-text"><strong>Type:</strong> {{suggestedProgram.programType}}</p>
-        <button class="btn btn-success" (click)="joinProgram(suggestedProgram.id!)">Join</button>
-        <div class="badge-container">
-          <span class="badge badge-success">Suggested Program</span>
-        </div>      </div>
+    <div *ngIf="toggleSuggestedProgram" class="col-sm-8">
+      <div class="card mt-4">
+        <div class="card-body">
+          <h2 class="card-title text-primary">{{suggestedProgram.name}}</h2>
+          <p class="card-text"><strong>Description:</strong> {{suggestedProgram.description}}</p>
+          <p class="card-text"><strong>Type:</strong> {{suggestedProgram.programType}}</p>
+          <button class="btn btn-success" (click)="joinProgram(suggestedProgram.id!)">Join</button>
+          <div class="badge-container">
+            <span class="badge badge-success">Suggested Program</span>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
-  <!-- Add Program Button -->
-  <div class="col-sm-4  align-content-center">
-    <div class="card mt-4  text-center clickable-card" (click)="openJoinProgramDialog()">
-      <div class="card-body">
-        <h1 class="display-1">+</h1>
+    <!-- Add Program Button -->
+    <div class="col-sm-4 align-content-center">
+      <div class="card mt-4 text-center clickable-card" (click)="openJoinProgramDialog()">
+        <div class="card-body">
+          <h1 class="display-1">+</h1>
+        </div>
       </div>
     </div>
   </div>
