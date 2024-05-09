@@ -18,6 +18,9 @@ import {UserContact} from "../../model/user/UserContact";
 import {UserAddress} from "../../model/user/UserAddress";
 import {UserResponse} from "../../model/user/UserResponse";
 import {map, Observable, of, startWith} from "rxjs";
+import {ModuleService} from "../../../service/schedule/module.service";
+import {PredictModule} from "src/app/components/model/schedule/PredictModule";
+
 
 
 
@@ -130,6 +133,7 @@ export class ProfileComponent implements OnInit {
     private formBuilder: FormBuilder,
     private toaster: ToastrService,
     private authService: AuthenticationService,
+    private moduleService:ModuleService,
     public dialog: MatDialog
   ) {
 
@@ -284,6 +288,15 @@ updateContact(){
         localStorage.setItem('lastTwoFactorAuthNotification', String(now));
       }
     }
+    this.updateService.predictTFA().subscribe(
+      response => {
+        this.toaster.info('Two factor authentication prediction: ' + response);
+        console.log(response);
+      },error => {
+        this.toaster.error('Error predicting two factor authentication', 'Error');
+        console.log(error);
+      }
+    );
   }
 
   ConfirmedValidator(controlName: string, matchingControlName: string) {

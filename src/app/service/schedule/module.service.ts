@@ -18,4 +18,7 @@ export class ModuleService {
   public getModule(id: string): Observable<Modul> {
     return this.http.get<Modul>(`${this.baseUrl}/${id}`);
   }
+  predictPopularity(programID:string): Observable<any> {
+    return this.http.post(`http://localhost:8089/api/v1/program/predictPopularity?programID=${programID}`, {});
+  }
 }
