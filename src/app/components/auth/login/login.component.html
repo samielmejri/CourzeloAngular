@@ -140,29 +140,42 @@
 
 
 
-                            <!-- Show device verification form if necessary -->
-                            <form *ngIf="verification" [formGroup]="verificationForm" (ngSubmit)="submitVerificationCode()">
-                                <div [@slideInOut]="deviceAnimationState">
-                                <div *ngIf="verification" class="single-input-inner">
-                                    <p class="login-box-msg">Verify your device</p>
-                                    <!-- Display verification message or error message -->
+                            <div [@slideInOut]="deviceAnimationState">
+                                <div>
+                                  <p class="login-box-msg">Verify your device</p>
+                                  <!-- Show input field for verification code -->
+                                  <form (ngSubmit)="submitVerificationCode()" [formGroup]="verificationForm">
                                     <div *ngIf="messageSuccess" class="message-container" id="message-sucess">{{messageSuccess}}</div>
                                     <div *ngIf="message" class="text-danger" id="message-error">{{message}}</div>
-                                    <!-- Verification code input -->
-                                    <input class="form-control" formControlName="code" placeholder="Verification Code" type="text">
+                                    <div *ngIf="verificationForm.controls.code.touched && verificationForm.controls.code?.invalid"
+                                         class="text-danger">
+                                      Verification Code must be 4 digit
+                                    </div>
+                                    <div class="input-group mb-3">
+                                      <input class="form-control" formControlName="code" placeholder="Verification Code" type="text">
+                                      <div class="input-group-append">
+                                        <div class="input-group-text">
+                                          <span class="fas fa-lock"></span>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="row">
+                                      <!-- /.col -->
+                                      <div class="col-4">
+                                        <button class="btn btn-primary btn-block" type="submit">Verify</button>
+                                      </div>
+                                      <!-- /.col -->
+                                    </div>
+                                  </form>
                                 </div>
-                                <button class="btn btn-primary btn-block" type="submit">Verify</button>
+                                <!-- /.login-card-body -->
+                              </div>
+                                </div>
                             </div>
-                            </form>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- signin-page-end -->
-
+                <!-- signin-page-end -->
 
 
 
