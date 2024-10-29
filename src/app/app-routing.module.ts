@@ -1,55 +1,82 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './components/home/home.component';
-import { SigninComponent } from './components/signin/signin.component';
-import { SignupComponent } from './components/signup/signup.component';
-import { Home2Component } from './components/home2/home2.component';
-import { Home3Component } from './components/home3/home3.component';
-import { CoursesComponent } from './components/courses/courses.component';
-import { CourseDetailsComponent } from './components/course-details/course-details.component';
-import { ForumComponent } from './components/forum/forum.component';
-import { ViewPostComponent } from './components/view-post/view-post.component';
-import { CreatePostComponent } from './components/create-post/create-post.component';
-import { CreateArticleComponent } from './components/create-article/create-article.component';
-import { UpdatePostComponent } from './components/update-post/update-post.component';
-import { ArticleComponent } from './components/article/article.component';
-import { UpdateArticleComponent } from './components/update-article/update-article.component';
-import { QuizListComponent } from './components/quiz-list/quiz-list.component';
-import { CreateQuizComponent } from './components/create-quiz/create-quiz.component';
-import { CreateQuestionComponent } from './components/create-question/create-question.component'; // Import here
-import { QuestionListComponent } from './components/question-list/question-list.component'; // Import here
-import { QuizafficheComponent } from './components/quizaffiche/quizaffiche.component';
-import { QuestionafficheComponent } from './components/questionaffiche/questionaffiche.component';
-import { SideBarComponent } from './components/side-bar/side-bar.component';
+import {HomeComponent} from "./front/home/home.component";
+import {DashboardComponent} from "./back/dashboard/dashboard.component";
+import {RegisterComponent} from "./back/register/register.component";
+import {GestionDepartementComponent} from "./back/schedule/gestion/gestion-departement/gestion-departement.component";
+import {AddDepartementComponent} from "./back/schedule/add/add-departement/add-departement.component";
+import {EditDepartementComponent} from "./back/schedule/edit/edit-departement/edit-departement.component";
+import {TimeTableComponent} from "./back/schedule/gestion/time-table/time-table.component";
+import {AddFieldOfStudyComponent} from "./back/schedule/add/add-field-of-study/add-field-of-study.component";
+import {EditFieldOfStudyComponent} from "./back/schedule/edit/edit-field-of-study/edit-field-of-study.component";
+import {
+  GestionFieldOfStudyComponent
+} from "./back/schedule/gestion/gestion-field-of-study/gestion-field-of-study.component";
+import {NonDisponibilityComponent} from "./back/schedule/gestion/non-disponibility/non-disponibility.component";
+import {AddNonDisponibilityComponent} from "./add-non-disponibility/add-non-disponibility.component";
+import {
+  EditNonDisponibilityComponent
+} from "./back/schedule/edit/edit-non-disponibility/edit-non-disponibility.component";
 
 const routes: Routes = [
-  {path:'', component: HomeComponent},
-  {path:'signin', component: SigninComponent},
-  {path:'signup', component: SignupComponent},
-  {path:'home2', component: Home2Component},
-  {path:'home3', component: Home3Component},
-  {path:'courses', component: CoursesComponent},
-  {path:'courseDetails', component: CourseDetailsComponent},
-  {path:'forum', component: ForumComponent},
-  {path:'forum/:id', component: ForumComponent},
-  {path:'article', component: ArticleComponent},
-  { path: 'post/:id', component: ViewPostComponent },
-  { path: 'newPost', component: CreatePostComponent },
-  { path: 'newArticle', component: CreateArticleComponent },
-  { path: 'updatePost/:postId', component: UpdatePostComponent },
-  { path: 'updateArticle/:articleId', component: UpdateArticleComponent },
-  { path: 'quizl', component: QuizListComponent },
-  { path: 'newQuiz', component: CreateQuizComponent },
-  { path: 'newQuestion', component: CreateQuestionComponent },
-  { path: 'questionlist', component: QuestionListComponent },
-  { path: 'quizaffiche', component: QuizafficheComponent },
-  { path: 'questionaffiche', component: QuestionafficheComponent },
-  { path: 'sidebar', component: SideBarComponent },
+  {
+    path: '',
+    redirectTo: '/home',
+    pathMatch: 'full'
+  },
+  {
+    path: 'departments',
+    component: GestionDepartementComponent,
+    children: [
+      { path: 'add', component: AddDepartementComponent },
+      { path: 'edit', component: EditDepartementComponent }
+    ]
+  },
+  {path:'departments',
+  component:GestionDepartementComponent
+  },
+  {path:'timetable',
+    component:TimeTableComponent
+  },
+
+
+  {
+    path: 'fieldOfStudies',
+    component: GestionFieldOfStudyComponent,
+    children: [
+      { path: 'add', component: AddFieldOfStudyComponent },
+      { path: 'edit', component: EditFieldOfStudyComponent }
+    ]
+  },
+  {
+    path: 'NonDisponibilities',
+    component: NonDisponibilityComponent,
+    children: [
+      { path: 'add', component: AddNonDisponibilityComponent },
+      { path: 'edit', component: EditNonDisponibilityComponent }
+    ]
+  },
+
+  {
+    path: 'home',
+    component: HomeComponent
+  },
+  {
+    path: 'dashboard',
+    component: DashboardComponent
+  },
+  {
+    path: 'signup',
+    component: RegisterComponent
+  },
 
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
+  declarations: [
+
+  ],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
